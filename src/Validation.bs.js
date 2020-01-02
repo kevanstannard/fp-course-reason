@@ -32,8 +32,35 @@ function mapValidation(f, a) {
   }
 }
 
+function bindValidation(f, a) {
+  if (a.tag) {
+    return Curry._1(f, a[0]);
+  } else {
+    return /* Error */Block.__(0, [a[0]]);
+  }
+}
+
+function valueOr(a, b) {
+  if (a.tag) {
+    return a[0];
+  } else {
+    return b;
+  }
+}
+
+function errorOr(a, b) {
+  if (a.tag) {
+    return b;
+  } else {
+    return a[0];
+  }
+}
+
 exports.toString = toString;
 exports.isError = isError;
 exports.isValue = isValue;
 exports.mapValidation = mapValidation;
+exports.bindValidation = bindValidation;
+exports.valueOr = valueOr;
+exports.errorOr = errorOr;
 /* No side effect */

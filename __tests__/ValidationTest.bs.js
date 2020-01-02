@@ -3,6 +3,8 @@
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Block = require("bs-platform/lib/js/block.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Util$Data61Reason = require("../src/Util.bs.js");
 var Validation$Data61Reason = require("../src/Validation.bs.js");
 
 Jest.describe("ExactlyOne", (function (param) {
@@ -26,20 +28,78 @@ Jest.describe("ExactlyOne", (function (param) {
                               return Jest.Expect.toBe(true, Jest.Expect.expect(result));
                             }));
               }));
-        return Jest.describe("mapValidation", (function (param) {
-                      Jest.test("mapValidation should map an error", (function (param) {
+        Jest.describe("mapValidation", (function (param) {
+                Jest.test("mapValidation should map an error", (function (param) {
+                        var f = function (n) {
+                          return n + 10 | 0;
+                        };
+                        var result = Validation$Data61Reason.mapValidation(f, /* Error */Block.__(0, ["message"]));
+                        return Jest.Expect.toBe("Error(message)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
+                      }));
+                return Jest.test("mapValidation should map a value", (function (param) {
                               var f = function (n) {
                                 return n + 10 | 0;
                               };
-                              var result = Validation$Data61Reason.mapValidation(f, /* Error */Block.__(0, ["message"]));
-                              return Jest.Expect.toBe("Error(message)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
+                              var result = Validation$Data61Reason.mapValidation(f, /* Value */Block.__(1, [7]));
+                              return Jest.Expect.toBe("Value(17)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
                             }));
-                      return Jest.test("mapValidation should map a value", (function (param) {
-                                    var f = function (n) {
-                                      return n + 10 | 0;
-                                    };
-                                    var result = Validation$Data61Reason.mapValidation(f, /* Value */Block.__(1, [7]));
-                                    return Jest.Expect.toBe("Value(17)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
+              }));
+        Jest.describe("bindValidation", (function (param) {
+                Jest.test("bindValidation should bind an error", (function (param) {
+                        var f = function (n) {
+                          var match = Curry._1(Util$Data61Reason.isEven, n);
+                          if (match) {
+                            return /* Value */Block.__(1, [n + 10 | 0]);
+                          } else {
+                            return /* Error */Block.__(0, ["odd"]);
+                          }
+                        };
+                        var result = Validation$Data61Reason.bindValidation(f, /* Error */Block.__(0, ["message"]));
+                        return Jest.Expect.toBe("Error(message)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
+                      }));
+                Jest.test("bindValidation should bind an odd value", (function (param) {
+                        var f = function (n) {
+                          var match = Curry._1(Util$Data61Reason.isEven, n);
+                          if (match) {
+                            return /* Value */Block.__(1, [n + 10 | 0]);
+                          } else {
+                            return /* Error */Block.__(0, ["odd"]);
+                          }
+                        };
+                        var result = Validation$Data61Reason.bindValidation(f, /* Value */Block.__(1, [7]));
+                        return Jest.Expect.toBe("Error(odd)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
+                      }));
+                return Jest.test("bindValidation should bind an even value", (function (param) {
+                              var f = function (n) {
+                                var match = Curry._1(Util$Data61Reason.isEven, n);
+                                if (match) {
+                                  return /* Value */Block.__(1, [n + 10 | 0]);
+                                } else {
+                                  return /* Error */Block.__(0, ["odd"]);
+                                }
+                              };
+                              var result = Validation$Data61Reason.bindValidation(f, /* Value */Block.__(1, [8]));
+                              return Jest.Expect.toBe("Value(18)", Jest.Expect.expect(Validation$Data61Reason.toString(result)));
+                            }));
+              }));
+        Jest.describe("valueOr", (function (param) {
+                Jest.test("valueOr handles an error", (function (param) {
+                        var result = Validation$Data61Reason.valueOr(/* Error */Block.__(0, ["message"]), 3);
+                        return Jest.Expect.toBe(3, Jest.Expect.expect(result));
+                      }));
+                return Jest.test("valueOr handles a value", (function (param) {
+                              var result = Validation$Data61Reason.valueOr(/* Value */Block.__(1, [7]), 3);
+                              return Jest.Expect.toBe(7, Jest.Expect.expect(result));
+                            }));
+              }));
+        return Jest.describe("errorOr", (function (param) {
+                      Jest.test("errorOr handles an error", (function (param) {
+                              var result = Validation$Data61Reason.errorOr(/* Error */Block.__(0, ["message"]), "q");
+                              return Jest.Expect.toBe("message", Jest.Expect.expect(result));
+                            }));
+                      return Jest.test("errorOr handles a value", (function (param) {
+                                    var result = Validation$Data61Reason.errorOr(/* Value */Block.__(1, [7]), "q");
+                                    return Jest.Expect.toBe("q", Jest.Expect.expect(result));
                                   }));
                     }));
       }));

@@ -46,4 +46,55 @@ describe("ExactlyOne", () => {
       expect(toString(result)) |> toBe("Value(17)");
     });
   });
+
+  describe("bindValidation", () => {
+    test("bindValidation should bind an error", () => {
+      let f = n => Util.isEven(n) ? Value(n + 10) : Error("odd");
+      let x = Error("message");
+      let result = x |> bindValidation(f);
+      expect(toString(result)) |> toBe("Error(message)");
+    });
+
+    test("bindValidation should bind an odd value", () => {
+      let f = n => Util.isEven(n) ? Value(n + 10) : Error("odd");
+      let x = Value(7);
+      let result = x |> bindValidation(f);
+      expect(toString(result)) |> toBe("Error(odd)");
+    });
+
+    test("bindValidation should bind an even value", () => {
+      let f = n => Util.isEven(n) ? Value(n + 10) : Error("odd");
+      let x = Value(8);
+      let result = x |> bindValidation(f);
+      expect(toString(result)) |> toBe("Value(18)");
+    });
+  });
+
+  describe("valueOr", () => {
+    test("valueOr handles an error", () => {
+      let x = Error("message");
+      let result = valueOr(x, 3);
+      expect(result) |> toBe(3);
+    });
+
+    test("valueOr handles a value", () => {
+      let x = Value(7);
+      let result = valueOr(x, 3);
+      expect(result) |> toBe(7);
+    });
+  });
+
+  describe("errorOr", () => {
+    test("errorOr handles an error", () => {
+      let x = Error("message");
+      let result = errorOr(x, "q");
+      expect(result) |> toBe("message");
+    });
+
+    test("errorOr handles a value", () => {
+      let x = Value(7);
+      let result = errorOr(x, "q");
+      expect(result) |> toBe("q");
+    });
+  });
 });
