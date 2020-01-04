@@ -2,6 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
 var isEven = ( n => n % 2 == 0 );
 
@@ -9,6 +10,35 @@ function isOdd(value) {
   return !Curry._1(isEven, value);
 }
 
+function $$const(a, param) {
+  return a;
+}
+
+function compose(f, g, x) {
+  return Curry._1(f, Curry._1(g, x));
+}
+
+function $less$dot$great(f, g, x) {
+  return Curry._1(f, Curry._1(g, x));
+}
+
+function id(x) {
+  return x;
+}
+
+function optionToString(opt) {
+  if (opt !== undefined) {
+    return "Some(" + (String(Caml_option.valFromOption(opt)) + ")");
+  } else {
+    return "None";
+  }
+}
+
 exports.isEven = isEven;
 exports.isOdd = isOdd;
+exports.$$const = $$const;
+exports.compose = compose;
+exports.$less$dot$great = $less$dot$great;
+exports.id = id;
+exports.optionToString = optionToString;
 /* isEven Not a pure module */
