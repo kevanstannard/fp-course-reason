@@ -21,3 +21,6 @@ let optionToString = opt => {
   | Some(a) => {j|Some($a)|j}
   };
 };
+
+type flip('a, 'b, 'c) = (('a, 'b) => 'c, 'b, 'a) => 'c;
+let flip: flip('a, 'b, 'c) = (f, b, a) => f(a, b);

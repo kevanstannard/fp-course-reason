@@ -34,6 +34,10 @@ function optionToString(opt) {
   }
 }
 
+function flip(f, b, a) {
+  return Curry._2(f, a, b);
+}
+
 exports.isEven = isEven;
 exports.isOdd = isOdd;
 exports.$$const = $$const;
@@ -41,4 +45,5 @@ exports.compose = compose;
 exports.$less$dot$great = $less$dot$great;
 exports.id = id;
 exports.optionToString = optionToString;
+exports.flip = flip;
 /* isEven Not a pure module */

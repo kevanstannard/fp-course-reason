@@ -175,6 +175,28 @@ function lengthGT4(xs) {
   }
 }
 
+function reverse(xs) {
+  return List.fold_left((function (acc, x) {
+                return /* :: */[
+                        x,
+                        acc
+                      ];
+              }), /* [] */0, xs);
+}
+
+function appendHead(x, xs) {
+  return /* :: */[
+          x,
+          xs
+        ];
+}
+
+function reverse2(xs) {
+  return List.fold_left((function (param, param$1) {
+                return Util$Data61Reason.flip(appendHead, param, param$1);
+              }), /* [] */0, xs);
+}
+
 exports.headOr = headOr;
 exports.headOr2 = headOr2;
 exports.product = product;
@@ -193,4 +215,7 @@ exports.seqOptional2 = seqOptional2;
 exports.find = find;
 exports.find2 = find2;
 exports.lengthGT4 = lengthGT4;
+exports.reverse = reverse;
+exports.appendHead = appendHead;
+exports.reverse2 = reverse2;
 /* Util-Data61Reason Not a pure module */

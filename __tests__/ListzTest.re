@@ -223,4 +223,18 @@ describe("Listz", () => {
       expect(result) |> toEqual(true);
     });
   });
+
+  describe("reverse", () => {
+    test("it correctly handles a list", () => {
+      let xs = [1, 2, 3];
+      let result = reverse(xs);
+      expect(result) |> toEqual([3, 2, 1]);
+    });
+
+    test("it correctly handles an empty list", () => {
+      let xs = [];
+      let result = reverse(xs);
+      expect(result) |> toEqual([]);
+    });
+  });
 });

@@ -360,3 +360,31 @@ let lengthGT4: lengthGT4('a) =
     | _ => false
     };
   };
+
+/*
+ -- | Reverse a list.
+ --
+ -- >>> reverse Nil
+ -- []
+ --
+ -- >>> take 1 (reverse (reverse largeList))
+ -- [1]
+ --
+ -- prop> \x -> let types = x :: List Int in reverse x ++ reverse y == reverse (y ++ x)
+ --
+ -- prop> \x -> let types = x :: Int in reverse (x :. Nil) == x :. Nil
+ reverse ::
+   List a
+   -> List a
+ reverse =
+   error "todo: Course.List#reverse"
+ */
+
+type reverse('a) = list('a) => list('a);
+let reverse: reverse('a) =
+  xs => List.fold_left((acc, x) => [x, ...acc], [], xs);
+
+type appendHead('a) = ('a, list('a)) => list('a);
+let appendHead: appendHead('a) = (x, xs) => [x, ...xs];
+
+let reverse2: reverse('a) = xs => List.fold_left(flip(appendHead), [], xs);

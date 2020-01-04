@@ -529,9 +529,47 @@ Jest.describe("Listz", (function (param) {
                               return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
                             }));
               }));
-        return Jest.describe("lengthGT4", (function (param) {
-                      Jest.test("it correctly handles a list of length 3", (function (param) {
+        Jest.describe("lengthGT4", (function (param) {
+                Jest.test("it correctly handles a list of length 3", (function (param) {
+                        var result = Listz$Data61Reason.lengthGT4(/* :: */[
+                              1,
+                              /* :: */[
+                                2,
+                                /* :: */[
+                                  3,
+                                  /* [] */0
+                                ]
+                              ]
+                            ]);
+                        return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
+                      }));
+                Jest.test("it correctly handles an empty list", (function (param) {
+                        var result = Listz$Data61Reason.lengthGT4(/* [] */0);
+                        return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
+                      }));
+                return Jest.test("it correctly handles a list of length 5", (function (param) {
                               var result = Listz$Data61Reason.lengthGT4(/* :: */[
+                                    1,
+                                    /* :: */[
+                                      2,
+                                      /* :: */[
+                                        3,
+                                        /* :: */[
+                                          4,
+                                          /* :: */[
+                                            5,
+                                            /* [] */0
+                                          ]
+                                        ]
+                                      ]
+                                    ]
+                                  ]);
+                              return Jest.Expect.toEqual(true, Jest.Expect.expect(result));
+                            }));
+              }));
+        return Jest.describe("reverse", (function (param) {
+                      Jest.test("it correctly handles a list", (function (param) {
+                              var result = Listz$Data61Reason.reverse(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -541,30 +579,20 @@ Jest.describe("Listz", (function (param) {
                                       ]
                                     ]
                                   ]);
-                              return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
-                            }));
-                      Jest.test("it correctly handles an empty list", (function (param) {
-                              var result = Listz$Data61Reason.lengthGT4(/* [] */0);
-                              return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
-                            }));
-                      return Jest.test("it correctly handles list of length 5", (function (param) {
-                                    var result = Listz$Data61Reason.lengthGT4(/* :: */[
-                                          1,
+                              return Jest.Expect.toEqual(/* :: */[
+                                          3,
                                           /* :: */[
                                             2,
                                             /* :: */[
-                                              3,
-                                              /* :: */[
-                                                4,
-                                                /* :: */[
-                                                  5,
-                                                  /* [] */0
-                                                ]
-                                              ]
+                                              1,
+                                              /* [] */0
                                             ]
                                           ]
-                                        ]);
-                                    return Jest.Expect.toEqual(true, Jest.Expect.expect(result));
+                                        ], Jest.Expect.expect(result));
+                            }));
+                      return Jest.test("it correctly handles an empty list", (function (param) {
+                                    var result = Listz$Data61Reason.reverse(/* [] */0);
+                                    return Jest.Expect.toEqual(/* [] */0, Jest.Expect.expect(result));
                                   }));
                     }));
       }));
