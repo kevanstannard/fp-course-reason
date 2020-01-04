@@ -443,36 +443,90 @@ Jest.describe("Listz", (function (param) {
                                         ], Jest.Expect.expect(result));
                             }));
               }));
-        return Jest.describe("seqOptional", (function (param) {
-                      Jest.test("it correctly handles a list of values", (function (param) {
+        Jest.describe("seqOptional", (function (param) {
+                Jest.test("it correctly handles a list of values", (function (param) {
+                        var result = Listz$Data61Reason.seqOptional(/* :: */[
+                              1,
+                              /* :: */[
+                                2,
+                                /* :: */[
+                                  3,
+                                  /* [] */0
+                                ]
+                              ]
+                            ]);
+                        return Jest.Expect.toEqual("Some(1,2,3,0)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                      }));
+                Jest.test("it correctly handles an empty list", (function (param) {
+                        var result = Listz$Data61Reason.seqOptional(/* [] */0);
+                        return Jest.Expect.toEqual("Some(0)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                      }));
+                return Jest.test("it correctly handles a None value", (function (param) {
                               var result = Listz$Data61Reason.seqOptional(/* :: */[
+                                    1,
+                                    /* :: */[
+                                      undefined,
+                                      /* :: */[
+                                        10,
+                                        /* [] */0
+                                      ]
+                                    ]
+                                  ]);
+                              return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                            }));
+              }));
+        return Jest.describe("find", (function (param) {
+                      Jest.test("it returns None when no elements found", (function (param) {
+                              var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* :: */[
+                                    1,
+                                    /* :: */[
+                                      3,
+                                      /* :: */[
+                                        5,
+                                        /* [] */0
+                                      ]
+                                    ]
+                                  ]);
+                              return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                            }));
+                      Jest.test("it returns None for an empty list", (function (param) {
+                              var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* [] */0);
+                              return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                            }));
+                      Jest.test("it finds a matching element", (function (param) {
+                              var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* :: */[
                                     1,
                                     /* :: */[
                                       2,
                                       /* :: */[
                                         3,
-                                        /* [] */0
+                                        /* :: */[
+                                          5,
+                                          /* [] */0
+                                        ]
                                       ]
                                     ]
                                   ]);
-                              return Jest.Expect.toEqual("Some(1,2,3,0)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                              return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
                             }));
-                      Jest.test("it correctly handles an empty list", (function (param) {
-                              var result = Listz$Data61Reason.seqOptional(/* [] */0);
-                              return Jest.Expect.toEqual("Some(0)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
-                            }));
-                      return Jest.test("it correctly handles a None value", (function (param) {
-                                    var result = Listz$Data61Reason.seqOptional(/* :: */[
+                      return Jest.test("it finds the first matching element", (function (param) {
+                                    var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* :: */[
                                           1,
                                           /* :: */[
-                                            undefined,
+                                            2,
                                             /* :: */[
-                                              10,
-                                              /* [] */0
+                                              3,
+                                              /* :: */[
+                                                4,
+                                                /* :: */[
+                                                  5,
+                                                  /* [] */0
+                                                ]
+                                              ]
                                             ]
                                           ]
                                         ]);
-                                    return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                                    return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
                                   }));
                     }));
       }));

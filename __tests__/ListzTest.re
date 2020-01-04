@@ -177,4 +177,30 @@ describe("Listz", () => {
       expect(optionToString(result)) |> toEqual("None");
     });
   });
+
+  describe("find", () => {
+    test("it returns None when no elements found", () => {
+      let xs = [1, 3, 5];
+      let result = find(isEven, xs);
+      expect(optionToString(result)) |> toEqual("None");
+    });
+
+    test("it returns None for an empty list", () => {
+      let xs = [];
+      let result = find(isEven, xs);
+      expect(optionToString(result)) |> toEqual("None");
+    });
+
+    test("it finds a matching element", () => {
+      let xs = [1, 2, 3, 5];
+      let result = find(isEven, xs);
+      expect(optionToString(result)) |> toEqual("Some(2)");
+    });
+
+    test("it finds the first matching element", () => {
+      let xs = [1, 2, 3, 4, 5];
+      let result = find(isEven, xs);
+      expect(optionToString(result)) |> toEqual("Some(2)");
+    });
+  });
 });

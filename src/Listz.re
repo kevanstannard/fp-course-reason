@@ -289,3 +289,44 @@ let seqOptional2: seqOptional('a) =
       );
     List.fold_right(f, xs, Some([]));
   };
+
+/*
+ -- | Find the first element in the list matching the predicate.
+ --
+ -- >>> find even (1 :. 3 :. 5 :. Nil)
+ -- Empty
+ --
+ -- >>> find even Nil
+ -- Empty
+ --
+ -- >>> find even (1 :. 2 :. 3 :. 5 :. Nil)
+ -- Full 2
+ --
+ -- >>> find even (1 :. 2 :. 3 :. 4 :. 5 :. Nil)
+ -- Full 2
+ --
+ -- >>> find (const True) infinity
+ -- Full 0
+ find ::
+   (a -> Bool)
+   -> List a
+   -> Optional a
+ find =
+   error "todo: Course.List#find"
+ */
+
+type find('a) = ('a => bool, list('a)) => option('a);
+let rec find: find('a) =
+  (f, xs) => {
+    switch (xs) {
+    | [] => None
+    | [x, ...rest] => f(x) ? Some(x) : find(f, rest)
+    };
+  };
+
+let find2: find('a) =
+  (f, xs) =>
+    switch (filter(f, xs)) {
+    | [] => None
+    | [x, ..._] => Some(x)
+    };

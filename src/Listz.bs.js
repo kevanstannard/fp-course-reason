@@ -121,6 +121,32 @@ function seqOptional2(xs) {
   return List.fold_right(f, xs, /* [] */0);
 }
 
+function find(f, _xs) {
+  while(true) {
+    var xs = _xs;
+    if (xs) {
+      var x = xs[0];
+      var match = Curry._1(f, x);
+      if (match) {
+        return Caml_option.some(x);
+      } else {
+        _xs = xs[1];
+        continue ;
+      }
+    } else {
+      return ;
+    }
+  };
+}
+
+function find2(f, xs) {
+  var match = filter(f, xs);
+  if (match) {
+    return Caml_option.some(match[0]);
+  }
+  
+}
+
 exports.headOr = headOr;
 exports.headOr2 = headOr2;
 exports.product = product;
@@ -136,4 +162,6 @@ exports.flatMapWithCompose = flatMapWithCompose;
 exports.flattenAgain = flattenAgain;
 exports.seqOptional = seqOptional;
 exports.seqOptional2 = seqOptional2;
+exports.find = find;
+exports.find2 = find2;
 /* Util-Data61Reason Not a pure module */
