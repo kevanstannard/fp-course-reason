@@ -147,6 +147,34 @@ function find2(f, xs) {
   
 }
 
+function lengthGT4(xs) {
+  if (xs) {
+    var match = xs[1];
+    if (match) {
+      var match$1 = match[1];
+      if (match$1) {
+        var match$2 = match$1[1];
+        if (match$2) {
+          var match$3 = match$2[1];
+          if (match$3 && !match$3[1]) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
 exports.headOr = headOr;
 exports.headOr2 = headOr2;
 exports.product = product;
@@ -164,4 +192,5 @@ exports.seqOptional = seqOptional;
 exports.seqOptional2 = seqOptional2;
 exports.find = find;
 exports.find2 = find2;
+exports.lengthGT4 = lengthGT4;
 /* Util-Data61Reason Not a pure module */

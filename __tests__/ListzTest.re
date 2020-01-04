@@ -203,4 +203,24 @@ describe("Listz", () => {
       expect(optionToString(result)) |> toEqual("Some(2)");
     });
   });
+
+  describe("lengthGT4", () => {
+    test("it correctly handles a list of length 3", () => {
+      let xs = [1, 2, 3];
+      let result = lengthGT4(xs);
+      expect(result) |> toEqual(false);
+    });
+
+    test("it correctly handles an empty list", () => {
+      let xs = [];
+      let result = lengthGT4(xs);
+      expect(result) |> toEqual(false);
+    });
+
+    test("it correctly handles a list of length 5", () => {
+      let xs = [1, 2, 3, 4, 5];
+      let result = lengthGT4(xs);
+      expect(result) |> toEqual(true);
+    });
+  });
 });

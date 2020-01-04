@@ -330,3 +330,33 @@ let find2: find('a) =
     | [] => None
     | [x, ..._] => Some(x)
     };
+
+/*
+ -- | Determine if the length of the given list is greater than 4.
+ --
+ -- >>> lengthGT4 (1 :. 3 :. 5 :. Nil)
+ -- False
+ --
+ -- >>> lengthGT4 Nil
+ -- False
+ --
+ -- >>> lengthGT4 (1 :. 2 :. 3 :. 4 :. 5 :. Nil)
+ -- True
+ --
+ -- >>> lengthGT4 infinity
+ -- True
+ lengthGT4 ::
+   List a
+   -> Bool
+ lengthGT4 =
+   error "todo: Course.List#lengthGT4"
+ */
+
+type lengthGT4('a) = list('a) => bool;
+let lengthGT4: lengthGT4('a) =
+  xs => {
+    switch (xs) {
+    | [_, _, _, _, _] => true
+    | _ => false
+    };
+  };
