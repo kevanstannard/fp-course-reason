@@ -388,3 +388,27 @@ type appendHead('a) = ('a, list('a)) => list('a);
 let appendHead: appendHead('a) = (x, xs) => [x, ...xs];
 
 let reverse2: reverse('a) = xs => List.fold_left(flip(appendHead), [], xs);
+
+/*
+ -- | Produce an infinite `List` that seeds with the given value at its head,
+ -- then runs the given function for subsequent elements
+ --
+ -- >>> let (x:.y:.z:.w:._) = produce (+1) 0 in [x,y,z,w]
+ -- [0,1,2,3]
+ --
+ -- >>> let (x:.y:.z:.w:._) = produce (*2) 1 in [x,y,z,w]
+ -- [1,2,4,8]
+ produce ::
+   (a -> a)
+   -> a
+   -> List a
+ produce f x = x :. produce f (f x)
+ */
+
+/*
+ type produce('a) = ('a => 'a, 'a) => list('a);
+ let rec produce: produce('a) = (f, a) => [a, ...produce(f, f(a))];
+ let x = List.hd(produce(x => x + 2, 0));
+
+ Not possible, causes a "Maximum call stack size exceeded" error
+ */
