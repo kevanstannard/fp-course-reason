@@ -3,6 +3,8 @@
  https://github.com/Risto-Stevcev/bs-abstract/
  */
 
+module type TYPE = {type t;};
+
 module type FUNCTOR = {
   type t('a);
   let fmap: ('a => 'b, t('a)) => t('b);
