@@ -6,7 +6,7 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var Util$Data61Reason = require("./Util.bs.js");
+var Util$FpCourseReason = require("./Util.bs.js");
 
 function headOr(x, xs) {
   if (xs) {
@@ -17,7 +17,7 @@ function headOr(x, xs) {
 }
 
 function headOr2(z, xs) {
-  return List.fold_right(Util$Data61Reason.$$const, xs, z);
+  return List.fold_right(Util$FpCourseReason.$$const, xs, z);
 }
 
 function product(xs) {
@@ -84,14 +84,14 @@ function flatMap2(f, xs) {
 
 function flatMapWithCompose(f) {
   return (function (param) {
-      return Util$Data61Reason.$less$dot$great(flatten, (function (param) {
+      return Util$FpCourseReason.$less$dot$great(flatten, (function (param) {
                     return map(f, param);
                   }), param);
     });
 }
 
 function flattenAgain(xs) {
-  var xs$1 = map(Util$Data61Reason.id, xs);
+  var xs$1 = map(Util$FpCourseReason.id, xs);
   return List.fold_right($plus$plus$plus, xs$1, /* [] */0);
 }
 
@@ -193,7 +193,7 @@ function appendHead(x, xs) {
 
 function reverse2(xs) {
   return List.fold_left((function (param, param$1) {
-                return Util$Data61Reason.flip(appendHead, param, param$1);
+                return Util$FpCourseReason.flip(appendHead, param, param$1);
               }), /* [] */0, xs);
 }
 
@@ -218,4 +218,4 @@ exports.lengthGT4 = lengthGT4;
 exports.reverse = reverse;
 exports.appendHead = appendHead;
 exports.reverse2 = reverse2;
-/* Util-Data61Reason Not a pure module */
+/* Util-FpCourseReason Not a pure module */

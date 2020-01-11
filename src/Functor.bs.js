@@ -3,16 +3,16 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var Listz$Data61Reason = require("./Listz.bs.js");
-var Reader$Data61Reason = require("./Reader.bs.js");
-var ExactlyOne$Data61Reason = require("./ExactlyOne.bs.js");
+var Listz$FpCourseReason = require("./Listz.bs.js");
+var Reader$FpCourseReason = require("./Reader.bs.js");
+var ExactlyOne$FpCourseReason = require("./ExactlyOne.bs.js");
 
 var ExactlyOneFunctor = {
-  map: ExactlyOne$Data61Reason.mapExactlyOne
+  map: ExactlyOne$FpCourseReason.mapExactlyOne
 };
 
 var ListzFunctor = {
-  map: Listz$Data61Reason.map
+  map: Listz$FpCourseReason.map
 };
 
 function map(f, x) {
@@ -27,11 +27,23 @@ var OptionFunctor = {
 };
 
 function MakeReaderFunctor(TYPE) {
-  var ReaderFunctor = {
-    map: Reader$Data61Reason.map
+  var Functor = {
+    map: Reader$FpCourseReason.map
   };
   return {
-          ReaderFunctor: ReaderFunctor
+          Functor: Functor
+        };
+}
+
+function MakeFunctionFunctor(TYPE) {
+  var map = function (f, g, x) {
+    return Curry._1(f, Curry._1(g, x));
+  };
+  var Functor = {
+    map: map
+  };
+  return {
+          Functor: Functor
         };
 }
 
@@ -39,4 +51,5 @@ exports.ExactlyOneFunctor = ExactlyOneFunctor;
 exports.ListzFunctor = ListzFunctor;
 exports.OptionFunctor = OptionFunctor;
 exports.MakeReaderFunctor = MakeReaderFunctor;
-/* Listz-Data61Reason Not a pure module */
+exports.MakeFunctionFunctor = MakeFunctionFunctor;
+/* Listz-FpCourseReason Not a pure module */

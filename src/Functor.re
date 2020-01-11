@@ -6,10 +6,7 @@
  https://hackernoon.com/the-reader-monad-part-1-1e4d947983a8
  */
 
-module type FUNCTOR = {
-  type t('a);
-  let map: ('a => 'b, t('a)) => t('b);
-};
+open Interface;
 
 module ExactlyOneFunctor: FUNCTOR with type t('a) = ExactlyOne.exactlyOne('a) = {
   type t('a) = ExactlyOne.exactlyOne('a);
@@ -30,23 +27,18 @@ module OptionFunctor: FUNCTOR with type t('a) = option('a) = {
     };
 };
 
-module type TYPE = {type t;};
-
 module MakeReaderFunctor = (TYPE: TYPE) => {
-  module ReaderFunctor: FUNCTOR with type t('a) = Reader.t(TYPE.t, 'a) = {
-    type t('a) = Reader.t(TYPE.t, 'a);
+  type reader('e, 'a) = Reader.t('e, 'a);
+  module Functor: FUNCTOR with type t('a) = reader(TYPE.t, 'a) = {
+    type t('a) = reader(TYPE.t, 'a);
     let map = Reader.map;
   };
 };
 
-/*
- module IntReaderFunctor =
-   MakeReaderFunctor({
-     type t = int;
-   });
-
- let f = x => x + 1;
- let g = x => x * 2;
- let fg = IntReaderFunctor.ReaderFunctor.map(f, Reader(g));
- let z = Reader.run(fg, 1);
- */
+module MakeFunctionFunctor = (TYPE: TYPE) => {
+  type xt('a) = TYPE.t => 'a;
+  module Functor: FUNCTOR with type t('a) = xt('a) = {
+    type t('a) = xt('a);
+    let map = (f, g, x) => f(g(x));
+  };
+};

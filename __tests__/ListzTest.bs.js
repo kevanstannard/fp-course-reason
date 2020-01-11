@@ -2,13 +2,13 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
-var Util$Data61Reason = require("../src/Util.bs.js");
-var Listz$Data61Reason = require("../src/Listz.bs.js");
+var Util$FpCourseReason = require("../src/Util.bs.js");
+var Listz$FpCourseReason = require("../src/Listz.bs.js");
 
 Jest.describe("Listz", (function (param) {
         Jest.describe("headOr", (function (param) {
                 Jest.test("it returns the head", (function (param) {
-                        var result = Listz$Data61Reason.headOr(0, /* :: */[
+                        var result = Listz$FpCourseReason.headOr(0, /* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -21,13 +21,13 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(1, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it returns the value", (function (param) {
-                              var result = Listz$Data61Reason.headOr(0, /* [] */0);
+                              var result = Listz$FpCourseReason.headOr(0, /* [] */0);
                               return Jest.Expect.toBe(0, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("headOr2", (function (param) {
                 Jest.test("it returns the head", (function (param) {
-                        var result = Listz$Data61Reason.headOr2(0, /* :: */[
+                        var result = Listz$FpCourseReason.headOr2(0, /* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -40,17 +40,17 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(1, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it returns the value", (function (param) {
-                              var result = Listz$Data61Reason.headOr2(0, /* [] */0);
+                              var result = Listz$FpCourseReason.headOr2(0, /* [] */0);
                               return Jest.Expect.toBe(0, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("product", (function (param) {
                 Jest.test("it handles an empty list", (function (param) {
-                        var result = Listz$Data61Reason.product(/* [] */0);
+                        var result = Listz$FpCourseReason.product(/* [] */0);
                         return Jest.Expect.toBe(1, Jest.Expect.expect(result));
                       }));
                 Jest.test("it produces the product of 1, 2, 3", (function (param) {
-                        var result = Listz$Data61Reason.product(/* :: */[
+                        var result = Listz$FpCourseReason.product(/* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -63,7 +63,7 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(6, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it produces the product of 1, 2, 3, 4", (function (param) {
-                              var result = Listz$Data61Reason.product(/* :: */[
+                              var result = Listz$FpCourseReason.product(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -81,11 +81,11 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("sum", (function (param) {
                 Jest.test("it handles an empty list", (function (param) {
-                        var result = Listz$Data61Reason.sum(/* [] */0);
+                        var result = Listz$FpCourseReason.sum(/* [] */0);
                         return Jest.Expect.toBe(0, Jest.Expect.expect(result));
                       }));
                 Jest.test("it produces the sum of 1, 2, 3", (function (param) {
-                        var result = Listz$Data61Reason.sum(/* :: */[
+                        var result = Listz$FpCourseReason.sum(/* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -98,7 +98,7 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(6, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it produces the sum of 1, 2, 3, 4", (function (param) {
-                              var result = Listz$Data61Reason.sum(/* :: */[
+                              var result = Listz$FpCourseReason.sum(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -116,11 +116,11 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("length", (function (param) {
                 Jest.test("it handles an empty list", (function (param) {
-                        var result = Listz$Data61Reason.length(/* [] */0);
+                        var result = Listz$FpCourseReason.length(/* [] */0);
                         return Jest.Expect.toBe(0, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it handles a non-empty list", (function (param) {
-                              var result = Listz$Data61Reason.length(/* :: */[
+                              var result = Listz$FpCourseReason.length(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -135,7 +135,7 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("map", (function (param) {
                 Jest.test("it handles an empty list", (function (param) {
-                        var result = Listz$Data61Reason.map((function (x) {
+                        var result = Listz$FpCourseReason.map((function (x) {
                                 return (x << 1);
                               }), /* [] */0);
                         return Jest.Expect.toBe(/* [] */0, Jest.Expect.expect(result));
@@ -144,7 +144,7 @@ Jest.describe("Listz", (function (param) {
                               var f = function (x) {
                                 return (x << 1);
                               };
-                              var result = Listz$Data61Reason.map(f, /* :: */[
+                              var result = Listz$FpCourseReason.map(f, /* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -168,7 +168,7 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("filter", (function (param) {
                 return Jest.test("it correctly filters a list", (function (param) {
-                              var result = Listz$Data61Reason.filter(Util$Data61Reason.isEven, /* :: */[
+                              var result = Listz$FpCourseReason.filter(Util$FpCourseReason.isEven, /* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -195,7 +195,7 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("+++", (function (param) {
                 return Jest.test("it correctly appends two lists", (function (param) {
-                              var result = Listz$Data61Reason.$plus$plus$plus(/* :: */[
+                              var result = Listz$FpCourseReason.$plus$plus$plus(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -237,7 +237,7 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("flatten", (function (param) {
                 return Jest.test("it correctly flattens an array of lists", (function (param) {
-                              var result = Listz$Data61Reason.flatten(/* :: */[
+                              var result = Listz$FpCourseReason.flatten(/* :: */[
                                     /* :: */[
                                       1,
                                       /* :: */[
@@ -300,7 +300,7 @@ Jest.describe("Listz", (function (param) {
                                   ]
                                 ];
                         };
-                        var result = Listz$Data61Reason.flatMap(f, /* :: */[
+                        var result = Listz$FpCourseReason.flatMap(f, /* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -352,7 +352,7 @@ Jest.describe("Listz", (function (param) {
                                         ]
                                       ];
                               };
-                              var result = Listz$Data61Reason.flatMapWithCompose(f)(/* :: */[
+                              var result = Listz$FpCourseReason.flatMapWithCompose(f)(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -394,7 +394,7 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("flattenAgain", (function (param) {
                 return Jest.test("it correctly flattens an array of lists", (function (param) {
-                              var result = Listz$Data61Reason.flattenAgain(/* :: */[
+                              var result = Listz$FpCourseReason.flattenAgain(/* :: */[
                                     /* :: */[
                                       1,
                                       /* :: */[
@@ -445,7 +445,7 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("seqOptional", (function (param) {
                 Jest.test("it correctly handles a list of values", (function (param) {
-                        var result = Listz$Data61Reason.seqOptional(/* :: */[
+                        var result = Listz$FpCourseReason.seqOptional(/* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -455,14 +455,14 @@ Jest.describe("Listz", (function (param) {
                                 ]
                               ]
                             ]);
-                        return Jest.Expect.toEqual("Some(1,2,3,0)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                        return Jest.Expect.toEqual("Some(1,2,3,0)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 Jest.test("it correctly handles an empty list", (function (param) {
-                        var result = Listz$Data61Reason.seqOptional(/* [] */0);
-                        return Jest.Expect.toEqual("Some(0)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                        var result = Listz$FpCourseReason.seqOptional(/* [] */0);
+                        return Jest.Expect.toEqual("Some(0)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 return Jest.test("it correctly handles a None value", (function (param) {
-                              var result = Listz$Data61Reason.seqOptional(/* :: */[
+                              var result = Listz$FpCourseReason.seqOptional(/* :: */[
                                     1,
                                     /* :: */[
                                       undefined,
@@ -472,12 +472,12 @@ Jest.describe("Listz", (function (param) {
                                       ]
                                     ]
                                   ]);
-                              return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                              return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                             }));
               }));
         Jest.describe("find", (function (param) {
                 Jest.test("it returns None when no elements found", (function (param) {
-                        var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* :: */[
+                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* :: */[
                               1,
                               /* :: */[
                                 3,
@@ -487,14 +487,14 @@ Jest.describe("Listz", (function (param) {
                                 ]
                               ]
                             ]);
-                        return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                        return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 Jest.test("it returns None for an empty list", (function (param) {
-                        var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* [] */0);
-                        return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* [] */0);
+                        return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 Jest.test("it finds a matching element", (function (param) {
-                        var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* :: */[
+                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -507,10 +507,10 @@ Jest.describe("Listz", (function (param) {
                                 ]
                               ]
                             ]);
-                        return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                        return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 return Jest.test("it finds the first matching element", (function (param) {
-                              var result = Listz$Data61Reason.find(Util$Data61Reason.isEven, /* :: */[
+                              var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -526,12 +526,12 @@ Jest.describe("Listz", (function (param) {
                                       ]
                                     ]
                                   ]);
-                              return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$Data61Reason.optionToString(result)));
+                              return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                             }));
               }));
         Jest.describe("lengthGT4", (function (param) {
                 Jest.test("it correctly handles a list of length 3", (function (param) {
-                        var result = Listz$Data61Reason.lengthGT4(/* :: */[
+                        var result = Listz$FpCourseReason.lengthGT4(/* :: */[
                               1,
                               /* :: */[
                                 2,
@@ -544,11 +544,11 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
                       }));
                 Jest.test("it correctly handles an empty list", (function (param) {
-                        var result = Listz$Data61Reason.lengthGT4(/* [] */0);
+                        var result = Listz$FpCourseReason.lengthGT4(/* [] */0);
                         return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it correctly handles a list of length 5", (function (param) {
-                              var result = Listz$Data61Reason.lengthGT4(/* :: */[
+                              var result = Listz$FpCourseReason.lengthGT4(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -569,7 +569,7 @@ Jest.describe("Listz", (function (param) {
               }));
         return Jest.describe("reverse", (function (param) {
                       Jest.test("it correctly handles a list", (function (param) {
-                              var result = Listz$Data61Reason.reverse(/* :: */[
+                              var result = Listz$FpCourseReason.reverse(/* :: */[
                                     1,
                                     /* :: */[
                                       2,
@@ -591,7 +591,7 @@ Jest.describe("Listz", (function (param) {
                                         ], Jest.Expect.expect(result));
                             }));
                       return Jest.test("it correctly handles an empty list", (function (param) {
-                                    var result = Listz$Data61Reason.reverse(/* [] */0);
+                                    var result = Listz$FpCourseReason.reverse(/* [] */0);
                                     return Jest.Expect.toEqual(/* [] */0, Jest.Expect.expect(result));
                                   }));
                     }));

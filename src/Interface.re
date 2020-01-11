@@ -7,5 +7,5 @@ module type TYPE = {type t;};
 
 module type FUNCTOR = {
   type t('a);
-  let fmap: ('a => 'b, t('a)) => t('b);
+  let map: ('a => 'b, t('a)) => t('b);
 };
