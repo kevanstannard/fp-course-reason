@@ -1,3 +1,8 @@
+/*
+ http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
+ https://medium.com/@l.mugnaini/functors-applicatives-and-monads-in-pictures-784c2b5786f7
+ */
+
 open Jest;
 open Expect;
 open Functor;
@@ -53,7 +58,7 @@ describe("Functor", () => {
           type t = int;
         });
       let result = ReaderFunctorInt.Functor.map(plusOne, reader);
-      expect(Reader.run(result, 2)) |> toEqual(5);
+      expect(Reader.run(result, 8)) |> toEqual(17);
     })
   });
 
@@ -66,7 +71,85 @@ describe("Functor", () => {
           type t = int;
         });
       let fg = FunctionFunctorInt.Functor.map(f, g);
-      expect(fg(2)) |> toEqual(5);
+      expect(fg(8)) |> toEqual(17);
     })
+  });
+
+  describe("Anon Map", () => {
+    test("anon map is correct for Listz", () => {
+      module FunctorUtilsList = MakeFunctorUtils(ListzFunctor);
+      let value = 7;
+      let list = [1, 2, 3];
+      let result1 = FunctorUtilsList.anonMap(value, list);
+      let result2 = FunctorUtilsList.(value <$ list);
+      expect(result1) |> toEqual(result2) |> ignore;
+      expect(result2) |> toEqual([7, 7, 7]);
+    });
+
+    test("anon map is correct for Option", () => {
+      module FunctorUtilsReader = MakeFunctorUtils(OptionFunctor);
+      let value = 7;
+      let opt = Some(123);
+      let result = FunctorUtilsReader.anonMap(value, opt);
+      expect(result) |> toEqual(Some(7));
+    });
+
+    test("anon map is correct for Reader", () => {
+      module ReaderIntFunctor =
+        MakeReaderFunctor({
+          type t = int;
+        });
+      module FunctorUtilsReader = MakeFunctorUtils(ReaderIntFunctor.Functor);
+      let value = 7;
+      let f = Reader.Reader((+)(1));
+      let g = FunctorUtilsReader.anonMap(value, f);
+      let result = Reader.run(g, 1);
+      expect(result) |> toEqual(7);
+    });
+  });
+
+  describe("Void", () => {
+    test("void is correct for Listz", () => {
+      module FunctorUtilsList = MakeFunctorUtils(ListzFunctor);
+      let result = FunctorUtilsList.void([1, 2, 3]);
+      expect(result) |> toEqual([(), (), ()]);
+    });
+
+    test("void is correct for Option Some", () => {
+      module FunctorUtilsOption = MakeFunctorUtils(OptionFunctor);
+      let result = FunctorUtilsOption.void(Some(7));
+      expect(result) |> toEqual(Some());
+    });
+
+    test("void is correct for Option None", () => {
+      module FunctorUtilsOption = MakeFunctorUtils(OptionFunctor);
+      let result = FunctorUtilsOption.void(None);
+      expect(result) |> toEqual(None);
+    });
+
+    test("void is correct for Reader", () => {
+      module ReaderIntFunctor =
+        MakeReaderFunctor({
+          type t = int;
+        });
+      module FunctorUtilsReader = MakeFunctorUtils(ReaderIntFunctor.Functor);
+      let f = Reader.Reader((+)(10));
+      let g = FunctorUtilsReader.void(f);
+      let result = Reader.run(g, 5);
+      expect(result) |> toEqual();
+    });
+
+    test("void is correct for Function", () => {
+      let f = (+)(10);
+      module FunctionFunctorInt =
+        MakeFunctionFunctor({
+          type t = int;
+        });
+      module FunctorUtilsFunction =
+        MakeFunctorUtils(FunctionFunctorInt.Functor);
+      let g = FunctorUtilsFunction.void(f);
+      let result = g(5);
+      expect(result) |> toEqual();
+    });
   });
 });

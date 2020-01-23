@@ -3,6 +3,7 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var Util$FpCourseReason = require("./Util.bs.js");
 var Listz$FpCourseReason = require("./Listz.bs.js");
 var Reader$FpCourseReason = require("./Reader.bs.js");
 var ExactlyOne$FpCourseReason = require("./ExactlyOne.bs.js");
@@ -47,9 +48,27 @@ function MakeFunctionFunctor(TYPE) {
         };
 }
 
+function MakeFunctorUtils(Functor) {
+  var anonMap = function (b, ta) {
+    var f = function (param) {
+      return Util$FpCourseReason.$$const(b, param);
+    };
+    return Curry._2(Functor.map, f, ta);
+  };
+  var $$void = function (f) {
+    return anonMap(/* () */0, f);
+  };
+  return {
+          anonMap: anonMap,
+          $less$: anonMap,
+          $$void: $$void
+        };
+}
+
 exports.ExactlyOneFunctor = ExactlyOneFunctor;
 exports.ListzFunctor = ListzFunctor;
 exports.OptionFunctor = OptionFunctor;
 exports.MakeReaderFunctor = MakeReaderFunctor;
 exports.MakeFunctionFunctor = MakeFunctionFunctor;
-/* Listz-FpCourseReason Not a pure module */
+exports.MakeFunctorUtils = MakeFunctorUtils;
+/* Util-FpCourseReason Not a pure module */
