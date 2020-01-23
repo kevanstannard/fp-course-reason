@@ -2,6 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Listz$FpCourseReason = require("./Listz.bs.js");
 
 function pure(a) {
   return /* ExactlyOne */[a];
@@ -16,5 +17,25 @@ var ExactlyOneApplicative = {
   apply: apply
 };
 
+function pure$1(a) {
+  return /* :: */[
+          a,
+          /* [] */0
+        ];
+}
+
+function apply$1(fz, az) {
+  var mapFn = function (f) {
+    return Listz$FpCourseReason.map(f, az);
+  };
+  return Listz$FpCourseReason.flatten(Listz$FpCourseReason.map(mapFn, fz));
+}
+
+var ListzApplicative = {
+  pure: pure$1,
+  apply: apply$1
+};
+
 exports.ExactlyOneApplicative = ExactlyOneApplicative;
-/* No side effect */
+exports.ListzApplicative = ListzApplicative;
+/* Listz-FpCourseReason Not a pure module */

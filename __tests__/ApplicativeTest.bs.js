@@ -5,14 +5,71 @@ var Jest = require("@glennsl/bs-jest/src/jest.js");
 var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
 var Applicative$FpCourseReason = require("../src/Applicative.bs.js");
 
-Jest.describe("Functor", (function (param) {
-        return Jest.describe("ExactlyOne", (function (param) {
+Jest.describe("Applicative", (function (param) {
+        Jest.describe("ExactlyOne", (function (param) {
+                Jest.test("pure is correct", (function (param) {
+                        var result = Applicative$FpCourseReason.ExactlyOneApplicative.pure(123);
+                        return Jest.Expect.toBe(123, Jest.Expect.expect(ExactlyOne$FpCourseReason.runExactlyOne(result)));
+                      }));
+                return Jest.test("apply is correct", (function (param) {
+                              var f = /* ExactlyOne */[(function (param) {
+                                    return 10 + param | 0;
+                                  })];
+                              var result = Applicative$FpCourseReason.ExactlyOneApplicative.apply(f, /* ExactlyOne */[8]);
+                              return Jest.Expect.toBe(18, Jest.Expect.expect(ExactlyOne$FpCourseReason.runExactlyOne(result)));
+                            }));
+              }));
+        return Jest.describe("Listz", (function (param) {
+                      Jest.test("pure is correct", (function (param) {
+                              var result = Applicative$FpCourseReason.ListzApplicative.pure(123);
+                              return Jest.Expect.toEqual(/* :: */[
+                                          123,
+                                          /* [] */0
+                                        ], Jest.Expect.expect(result));
+                            }));
                       return Jest.test("apply is correct", (function (param) {
-                                    var f = /* ExactlyOne */[(function (param) {
-                                          return 10 + param | 0;
-                                        })];
-                                    var result = Applicative$FpCourseReason.ExactlyOneApplicative.apply(f, /* ExactlyOne */[8]);
-                                    return Jest.Expect.toBe(18, Jest.Expect.expect(ExactlyOne$FpCourseReason.runExactlyOne(result)));
+                                    var fz_000 = function (param) {
+                                      return 1 + param | 0;
+                                    };
+                                    var fz_001 = /* :: */[
+                                      (function (param) {
+                                          return (param << 1);
+                                        }),
+                                      /* [] */0
+                                    ];
+                                    var fz = /* :: */[
+                                      fz_000,
+                                      fz_001
+                                    ];
+                                    var result = Applicative$FpCourseReason.ListzApplicative.apply(fz, /* :: */[
+                                          1,
+                                          /* :: */[
+                                            2,
+                                            /* :: */[
+                                              3,
+                                              /* [] */0
+                                            ]
+                                          ]
+                                        ]);
+                                    return Jest.Expect.toEqual(/* :: */[
+                                                2,
+                                                /* :: */[
+                                                  3,
+                                                  /* :: */[
+                                                    4,
+                                                    /* :: */[
+                                                      2,
+                                                      /* :: */[
+                                                        4,
+                                                        /* :: */[
+                                                          6,
+                                                          /* [] */0
+                                                        ]
+                                                      ]
+                                                    ]
+                                                  ]
+                                                ]
+                                              ], Jest.Expect.expect(result));
                                   }));
                     }));
       }));
