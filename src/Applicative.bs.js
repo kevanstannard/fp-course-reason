@@ -53,7 +53,24 @@ var OptionApplicative = {
   apply: apply$2
 };
 
+function MakeFunctionApplicative(TYPE) {
+  var pure = function (a, _t) {
+    return a;
+  };
+  var apply = function (tab, ta, t) {
+    return Curry._2(tab, t, Curry._1(ta, t));
+  };
+  var Applicative = {
+    pure: pure,
+    apply: apply
+  };
+  return {
+          Applicative: Applicative
+        };
+}
+
 exports.ExactlyOneApplicative = ExactlyOneApplicative;
 exports.ListzApplicative = ListzApplicative;
 exports.OptionApplicative = OptionApplicative;
+exports.MakeFunctionApplicative = MakeFunctionApplicative;
 /* Listz-FpCourseReason Not a pure module */

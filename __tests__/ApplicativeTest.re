@@ -61,4 +61,61 @@ describe("Applicative", () => {
       expect(result) |> toEqual(None);
     });
   });
+
+  describe("Function", () => {
+    test("apply is correct (1)", () => {
+      let f = (+);
+      let g = (+)(10);
+      module FunctionApplicative =
+        MakeFunctionApplicative({
+          type t = int;
+        });
+      let result = FunctionApplicative.Applicative.apply(f, g, 3);
+      expect(result) |> toEqual(16);
+    });
+
+    test("apply is correct (2)", () => {
+      let f = (+);
+      let g = (+)(5);
+      module FunctionApplicative =
+        MakeFunctionApplicative({
+          type t = int;
+        });
+      let result = FunctionApplicative.Applicative.apply(f, g, 3);
+      expect(result) |> toEqual(11);
+    });
+
+    test("apply is correct (3)", () => {
+      let f = (+);
+      let g = (+)(5);
+      module FunctionApplicative =
+        MakeFunctionApplicative({
+          type t = int;
+        });
+      let result = FunctionApplicative.Applicative.apply(f, g, 1);
+      expect(result) |> toEqual(7);
+    });
+
+    test("apply is correct (4)", () => {
+      let f = ( * );
+      let g = (+)(10);
+      module FunctionApplicative =
+        MakeFunctionApplicative({
+          type t = int;
+        });
+      let result = FunctionApplicative.Applicative.apply(f, g, 3);
+      expect(result) |> toEqual(39);
+    });
+
+    test("apply is correct (5)", () => {
+      let f = ( * );
+      let g = (+)(2);
+      module FunctionApplicative =
+        MakeFunctionApplicative({
+          type t = int;
+        });
+      let result = FunctionApplicative.Applicative.apply(f, g, 3);
+      expect(result) |> toEqual(15);
+    });
+  });
 });

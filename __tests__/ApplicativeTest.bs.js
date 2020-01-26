@@ -2,6 +2,8 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
 var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
 var Applicative$FpCourseReason = require("../src/Applicative.bs.js");
 
@@ -72,28 +74,81 @@ Jest.describe("Applicative", (function (param) {
                                         ], Jest.Expect.expect(result));
                             }));
               }));
-        return Jest.describe("Option", (function (param) {
-                      Jest.test("pure is correct", (function (param) {
-                              var result = Applicative$FpCourseReason.OptionApplicative.pure(123);
-                              return Jest.Expect.toEqual(123, Jest.Expect.expect(result));
-                            }));
-                      Jest.test("apply is correct when the function and value are Some", (function (param) {
+        Jest.describe("Option", (function (param) {
+                Jest.test("pure is correct", (function (param) {
+                        var result = Applicative$FpCourseReason.OptionApplicative.pure(123);
+                        return Jest.Expect.toEqual(123, Jest.Expect.expect(result));
+                      }));
+                Jest.test("apply is correct when the function and value are Some", (function (param) {
+                        var f = (function (param) {
+                            return 8 + param | 0;
+                          });
+                        var result = Applicative$FpCourseReason.OptionApplicative.apply(f, 7);
+                        return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
+                      }));
+                Jest.test("apply is correct with the function is None and value is Some", (function (param) {
+                        var result = Applicative$FpCourseReason.OptionApplicative.apply(undefined, 7);
+                        return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
+                      }));
+                return Jest.test("apply is correct with the function is Some and value is None", (function (param) {
                               var f = (function (param) {
                                   return 8 + param | 0;
                                 });
-                              var result = Applicative$FpCourseReason.OptionApplicative.apply(f, 7);
-                              return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
-                            }));
-                      Jest.test("apply is correct with the function is None and value is Some", (function (param) {
-                              var result = Applicative$FpCourseReason.OptionApplicative.apply(undefined, 7);
+                              var result = Applicative$FpCourseReason.OptionApplicative.apply(f, undefined);
                               return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                             }));
-                      return Jest.test("apply is correct with the function is Some and value is None", (function (param) {
-                                    var f = (function (param) {
-                                        return 8 + param | 0;
-                                      });
-                                    var result = Applicative$FpCourseReason.OptionApplicative.apply(f, undefined);
-                                    return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
+              }));
+        return Jest.describe("Function", (function (param) {
+                      Jest.test("apply is correct (1)", (function (param) {
+                              var f = function (prim, prim$1) {
+                                return prim + prim$1 | 0;
+                              };
+                              var g = function (param) {
+                                return 10 + param | 0;
+                              };
+                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                              return Jest.Expect.toEqual(16, Jest.Expect.expect(result));
+                            }));
+                      Jest.test("apply is correct (2)", (function (param) {
+                              var f = function (prim, prim$1) {
+                                return prim + prim$1 | 0;
+                              };
+                              var g = function (param) {
+                                return 5 + param | 0;
+                              };
+                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                              return Jest.Expect.toEqual(11, Jest.Expect.expect(result));
+                            }));
+                      Jest.test("apply is correct (3)", (function (param) {
+                              var f = function (prim, prim$1) {
+                                return prim + prim$1 | 0;
+                              };
+                              var g = function (param) {
+                                return 5 + param | 0;
+                              };
+                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 1);
+                              return Jest.Expect.toEqual(7, Jest.Expect.expect(result));
+                            }));
+                      Jest.test("apply is correct (4)", (function (param) {
+                              var f = Caml_int32.imul;
+                              var g = function (param) {
+                                return 10 + param | 0;
+                              };
+                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                              return Jest.Expect.toEqual(39, Jest.Expect.expect(result));
+                            }));
+                      return Jest.test("apply is correct (5)", (function (param) {
+                                    var f = Caml_int32.imul;
+                                    var g = function (param) {
+                                      return 2 + param | 0;
+                                    };
+                                    var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                                    var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                                    return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
                                   }));
                     }));
       }));

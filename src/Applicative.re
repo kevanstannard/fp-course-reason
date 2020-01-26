@@ -67,3 +67,33 @@ module OptionApplicative: APPLICATIVE with type t('a) = option('a) = {
     | (_, _) => None
     };
 };
+
+/*
+ -- | Insert into a constant function.
+ --
+ -- >>> ((+) <*> (+10)) 3
+ -- 16
+ --
+ -- >>> ((+) <*> (+5)) 3
+ -- 11
+ --
+ -- >>> ((+) <*> (+5)) 1
+ -- 7
+ --
+ -- >>> ((*) <*> (+10)) 3
+ -- 39
+ --
+ -- >>> ((*) <*> (+2)) 3
+ -- 15
+ --
+ -- prop> \x y -> pure x y == x
+ */
+
+module MakeFunctionApplicative = (TYPE: TYPE) => {
+  type xt('a) = TYPE.t => 'a;
+  module Applicative: APPLICATIVE with type t('a) = xt('a) = {
+    type t('a) = xt('a);
+    let pure = (a: 'a, _t: TYPE.t) => a;
+    let apply = (tab: t('a => 'b), ta: t('a), t: TYPE.t) => tab(t, ta(t));
+  };
+};
