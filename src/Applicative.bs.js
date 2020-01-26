@@ -2,6 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Listz$FpCourseReason = require("./Listz.bs.js");
 
 function pure(a) {
@@ -36,6 +37,23 @@ var ListzApplicative = {
   apply: apply$1
 };
 
+function pure$2(a) {
+  return Caml_option.some(a);
+}
+
+function apply$2(fOpt, aOpt) {
+  if (fOpt !== undefined && aOpt !== undefined) {
+    return Caml_option.some(Curry._1(fOpt, Caml_option.valFromOption(aOpt)));
+  }
+  
+}
+
+var OptionApplicative = {
+  pure: pure$2,
+  apply: apply$2
+};
+
 exports.ExactlyOneApplicative = ExactlyOneApplicative;
 exports.ListzApplicative = ListzApplicative;
+exports.OptionApplicative = OptionApplicative;
 /* Listz-FpCourseReason Not a pure module */

@@ -41,3 +41,29 @@ module ListzApplicative: APPLICATIVE with type t('a) = list('a) = {
     flatten(mapResult);
   };
 };
+
+/*
+ -- | Insert into an Optional.
+ --
+ -- prop> \x -> pure x == Full x
+ --
+ -- >>> Full (+8) <*> Full 7
+ -- Full 15
+ --
+ -- >>> Empty <*> Full 7
+ -- Empty
+ --
+ -- >>> Full (+8) <*> Empty
+ -- Empty
+ */
+module OptionApplicative: APPLICATIVE with type t('a) = option('a) = {
+  type t('a) = option('a);
+
+  let pure = a => Some(a);
+
+  let apply = (fOpt, aOpt) =>
+    switch (fOpt, aOpt) {
+    | (Some(f), Some(a)) => Some(f(a))
+    | (_, _) => None
+    };
+};

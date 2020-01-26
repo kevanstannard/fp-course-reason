@@ -19,57 +19,81 @@ Jest.describe("Applicative", (function (param) {
                               return Jest.Expect.toBe(18, Jest.Expect.expect(ExactlyOne$FpCourseReason.runExactlyOne(result)));
                             }));
               }));
-        return Jest.describe("Listz", (function (param) {
-                      Jest.test("pure is correct", (function (param) {
-                              var result = Applicative$FpCourseReason.ListzApplicative.pure(123);
+        Jest.describe("Listz", (function (param) {
+                Jest.test("pure is correct", (function (param) {
+                        var result = Applicative$FpCourseReason.ListzApplicative.pure(123);
+                        return Jest.Expect.toEqual(/* :: */[
+                                    123,
+                                    /* [] */0
+                                  ], Jest.Expect.expect(result));
+                      }));
+                return Jest.test("apply is correct", (function (param) {
+                              var fz_000 = function (param) {
+                                return 1 + param | 0;
+                              };
+                              var fz_001 = /* :: */[
+                                (function (param) {
+                                    return (param << 1);
+                                  }),
+                                /* [] */0
+                              ];
+                              var fz = /* :: */[
+                                fz_000,
+                                fz_001
+                              ];
+                              var result = Applicative$FpCourseReason.ListzApplicative.apply(fz, /* :: */[
+                                    1,
+                                    /* :: */[
+                                      2,
+                                      /* :: */[
+                                        3,
+                                        /* [] */0
+                                      ]
+                                    ]
+                                  ]);
                               return Jest.Expect.toEqual(/* :: */[
-                                          123,
-                                          /* [] */0
-                                        ], Jest.Expect.expect(result));
-                            }));
-                      return Jest.test("apply is correct", (function (param) {
-                                    var fz_000 = function (param) {
-                                      return 1 + param | 0;
-                                    };
-                                    var fz_001 = /* :: */[
-                                      (function (param) {
-                                          return (param << 1);
-                                        }),
-                                      /* [] */0
-                                    ];
-                                    var fz = /* :: */[
-                                      fz_000,
-                                      fz_001
-                                    ];
-                                    var result = Applicative$FpCourseReason.ListzApplicative.apply(fz, /* :: */[
-                                          1,
+                                          2,
                                           /* :: */[
-                                            2,
+                                            3,
                                             /* :: */[
-                                              3,
-                                              /* [] */0
-                                            ]
-                                          ]
-                                        ]);
-                                    return Jest.Expect.toEqual(/* :: */[
+                                              4,
+                                              /* :: */[
                                                 2,
                                                 /* :: */[
-                                                  3,
+                                                  4,
                                                   /* :: */[
-                                                    4,
-                                                    /* :: */[
-                                                      2,
-                                                      /* :: */[
-                                                        4,
-                                                        /* :: */[
-                                                          6,
-                                                          /* [] */0
-                                                        ]
-                                                      ]
-                                                    ]
+                                                    6,
+                                                    /* [] */0
                                                   ]
                                                 ]
-                                              ], Jest.Expect.expect(result));
+                                              ]
+                                            ]
+                                          ]
+                                        ], Jest.Expect.expect(result));
+                            }));
+              }));
+        return Jest.describe("Option", (function (param) {
+                      Jest.test("pure is correct", (function (param) {
+                              var result = Applicative$FpCourseReason.OptionApplicative.pure(123);
+                              return Jest.Expect.toEqual(123, Jest.Expect.expect(result));
+                            }));
+                      Jest.test("apply is correct when the function and value are Some", (function (param) {
+                              var f = (function (param) {
+                                  return 8 + param | 0;
+                                });
+                              var result = Applicative$FpCourseReason.OptionApplicative.apply(f, 7);
+                              return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
+                            }));
+                      Jest.test("apply is correct with the function is None and value is Some", (function (param) {
+                              var result = Applicative$FpCourseReason.OptionApplicative.apply(undefined, 7);
+                              return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
+                            }));
+                      return Jest.test("apply is correct with the function is Some and value is None", (function (param) {
+                                    var f = (function (param) {
+                                        return 8 + param | 0;
+                                      });
+                                    var result = Applicative$FpCourseReason.OptionApplicative.apply(f, undefined);
+                                    return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                                   }));
                     }));
       }));
