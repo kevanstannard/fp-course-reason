@@ -38,7 +38,7 @@ module type FUNCTOR = {
  */
 
 module type APPLICATIVE = {
-  type t('a);
+  include FUNCTOR;
   let pure: 'a => t('a);
   let apply: (t('a => 'b), t('a)) => t('b);
 };

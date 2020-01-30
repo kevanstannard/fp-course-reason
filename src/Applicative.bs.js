@@ -4,6 +4,9 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Listz$FpCourseReason = require("./Listz.bs.js");
+var Functor$FpCourseReason = require("./Functor.bs.js");
+
+var map = Functor$FpCourseReason.ExactlyOneFunctor.map;
 
 function pure(a) {
   return /* ExactlyOne */[a];
@@ -14,9 +17,12 @@ function apply(f, a) {
 }
 
 var ExactlyOneApplicative = {
+  map: map,
   pure: pure,
   apply: apply
 };
+
+var map$1 = Functor$FpCourseReason.ListzFunctor.map;
 
 function pure$1(a) {
   return /* :: */[
@@ -27,15 +33,18 @@ function pure$1(a) {
 
 function apply$1(fz, az) {
   var mapFn = function (f) {
-    return Listz$FpCourseReason.map(f, az);
+    return Curry._2(map$1, f, az);
   };
-  return Listz$FpCourseReason.flatten(Listz$FpCourseReason.map(mapFn, fz));
+  return Listz$FpCourseReason.flatten(Curry._2(map$1, mapFn, fz));
 }
 
 var ListzApplicative = {
+  map: map$1,
   pure: pure$1,
   apply: apply$1
 };
+
+var map$2 = Functor$FpCourseReason.OptionFunctor.map;
 
 function pure$2(a) {
   return Caml_option.some(a);
@@ -49,11 +58,14 @@ function apply$2(fOpt, aOpt) {
 }
 
 var OptionApplicative = {
+  map: map$2,
   pure: pure$2,
   apply: apply$2
 };
 
 function MakeFunctionApplicative(TYPE) {
+  var FunctionFunctor = Functor$FpCourseReason.MakeFunctionFunctor(TYPE);
+  var map = FunctionFunctor.Functor.map;
   var pure = function (a, _t) {
     return a;
   };
@@ -61,10 +73,12 @@ function MakeFunctionApplicative(TYPE) {
     return Curry._2(tab, t, Curry._1(ta, t));
   };
   var Applicative = {
+    map: map,
     pure: pure,
     apply: apply
   };
   return {
+          FunctionFunctor: FunctionFunctor,
           Applicative: Applicative
         };
 }

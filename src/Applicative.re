@@ -8,9 +8,12 @@ open Interface;
  -- >>> ExactlyOne (+10) <*> ExactlyOne 8
  -- ExactlyOne 18
  */
+
 module ExactlyOneApplicative:
-  APPLICATIVE with type t('a) = ExactlyOne.exactlyOne('a) = {
-  type t('a) = ExactlyOne.exactlyOne('a);
+  APPLICATIVE with type t('a) = Functor.ExactlyOneFunctor.t('a) = {
+  type t('a) = Functor.ExactlyOneFunctor.t('a);
+
+  let map = Functor.ExactlyOneFunctor.map;
 
   let pure = a => ExactlyOne.ExactlyOne(a);
 
@@ -29,16 +32,19 @@ module ExactlyOneApplicative:
  -- >>> (+1) :. (*2) :. Nil <*> 1 :. 2 :. 3 :. Nil
  -- [2,3,4,2,4,6]
  */
-module ListzApplicative: APPLICATIVE with type t('a) = list('a) = {
-  type t('a) = list('a);
+
+module ListzApplicative:
+  APPLICATIVE with type t('a) = Functor.ListzFunctor.t('a) = {
+  type t('a) = Functor.ListzFunctor.t('a);
+
+  let map = Functor.ListzFunctor.map;
 
   let pure = a => [a];
 
   let apply = (fz, az) => {
-    open Listz;
     let mapFn = f => map(f, az);
     let mapResult = map(mapFn, fz);
-    flatten(mapResult);
+    Listz.flatten(mapResult);
   };
 };
 
@@ -56,8 +62,12 @@ module ListzApplicative: APPLICATIVE with type t('a) = list('a) = {
  -- >>> Full (+8) <*> Empty
  -- Empty
  */
-module OptionApplicative: APPLICATIVE with type t('a) = option('a) = {
-  type t('a) = option('a);
+
+module OptionApplicative:
+  APPLICATIVE with type t('a) = Functor.OptionFunctor.t('a) = {
+  type t('a) = Functor.OptionFunctor.t('a);
+
+  let map = Functor.OptionFunctor.map;
 
   let pure = a => Some(a);
 
@@ -90,9 +100,11 @@ module OptionApplicative: APPLICATIVE with type t('a) = option('a) = {
  */
 
 module MakeFunctionApplicative = (TYPE: TYPE) => {
-  type xt('a) = TYPE.t => 'a;
-  module Applicative: APPLICATIVE with type t('a) = xt('a) = {
-    type t('a) = xt('a);
+  module FunctionFunctor = Functor.MakeFunctionFunctor(TYPE);
+  module Applicative:
+    APPLICATIVE with type t('a) = FunctionFunctor.Functor.t('a) = {
+    type t('a) = FunctionFunctor.Functor.t('a);
+    let map = FunctionFunctor.Functor.map;
     let pure = (a: 'a, _t: TYPE.t) => a;
     let apply = (tab: t('a => 'b), ta: t('a), t: TYPE.t) => tab(t, ta(t));
   };
