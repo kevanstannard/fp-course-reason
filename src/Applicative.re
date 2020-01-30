@@ -111,7 +111,13 @@ module MakeFunctionApplicative = (TYPE: TYPE) => {
 };
 
 module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
-  type t('a) = Applicative.t('a);
+  // type t('a) = Applicative.t('a);
+
+  open Applicative;
+
+  let (<$>) = Applicative.map;
+  let (<*>) = Applicative.apply;
+
   /*
    -- | Apply a binary function in the environment.
    --
@@ -134,12 +140,8 @@ module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
    -- 18
    */
   type lift2('a, 'b, 'c) = (('a, 'b) => 'c, t('a), t('b)) => t('c);
-  let lift2: lift2('a, 'b, 'c) =
-    (abc, ta, tb) => {
-      let (<$>) = Applicative.map;
-      let (<*>) = Applicative.apply;
-      abc <$> ta <*> tb;
-    };
+  let lift2: lift2('a, 'b, 'c) = (abc, ta, tb) => abc <$> ta <*> tb;
+
   /*
    Note the interesting pattern here:
    (a' => b' => c') <$> t('a) = t('b => 'c)
@@ -147,5 +149,68 @@ module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
 
   type lift2'('a, 'b, 'c) = (('a, 'b) => 'c, t('a), t('b)) => t('c);
   let lift2': lift2('a, 'b, 'c) =
-    Applicative.((abc, ta, tb) => apply(map(abc, ta), tb));
+    (abc, ta, tb) => {
+      let tbc = map(abc, ta);
+      apply(tbc, tb);
+    };
+
+  /*
+   -- | Apply a ternary function in the environment.
+   -- /can be written using `lift2` and `(<*>)`./
+   --
+   -- >>> lift3 (\a b c -> a + b + c) (ExactlyOne 7) (ExactlyOne 8) (ExactlyOne 9)
+   -- ExactlyOne 24
+   --
+   -- >>> lift3 (\a b c -> a + b + c) (1 :. 2 :. 3 :. Nil) (4 :. 5 :. Nil) (6 :. 7 :. 8 :. Nil)
+   -- [11,12,13,12,13,14,12,13,14,13,14,15,13,14,15,14,15,16]
+   --
+   -- >>> lift3 (\a b c -> a + b + c) (Full 7) (Full 8) (Full 9)
+   -- Full 24
+   --
+   -- >>> lift3 (\a b c -> a + b + c) (Full 7) (Full 8) Empty
+   -- Empty
+   --
+   -- >>> lift3 (\a b c -> a + b + c) Empty (Full 8) (Full 9)
+   -- Empty
+   --
+   -- >>> lift3 (\a b c -> a + b + c) Empty Empty (Full 9)
+   -- Empty
+   --
+   -- >>> lift3 (\a b c -> a + b + c) length sum product (listh [4,5,6])
+   -- 138
+   */
+  type lift3('a, 'b, 'c, 'd) =
+    (('a, 'b, 'c) => 'd, t('a), t('b), t('c)) => t('d);
+  let lift3: lift3('a, 'b, 'c, 'd) =
+    (abcd, ta, tb, tc) => lift2(abcd, ta, tb) <*> tc;
+
+  /*
+   -- | Apply a quaternary function in the environment.
+   -- /can be written using `lift3` and `(<*>)`./
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) (ExactlyOne 7) (ExactlyOne 8) (ExactlyOne 9) (ExactlyOne 10)
+   -- ExactlyOne 34
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) (1 :. 2 :. 3 :. Nil) (4 :. 5 :. Nil) (6 :. 7 :. 8 :. Nil) (9 :. 10 :. Nil)
+   -- [20,21,21,22,22,23,21,22,22,23,23,24,21,22,22,23,23,24,22,23,23,24,24,25,22,23,23,24,24,25,23,24,24,25,25,26]
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) (Full 7) (Full 8) (Full 9) (Full 10)
+   -- Full 34
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) (Full 7) (Full 8) Empty  (Full 10)
+   -- Empty
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) Empty (Full 8) (Full 9) (Full 10)
+   -- Empty
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) Empty Empty (Full 9) (Full 10)
+   -- Empty
+   --
+   -- >>> lift4 (\a b c d -> a + b + c + d) length sum product (sum . filter even) (listh [4,5,6])
+   -- 148
+   */
+  type lift4('a, 'b, 'c, 'd, 'e) =
+    (('a, 'b, 'c, 'd) => 'e, t('a), t('b), t('c), t('d)) => t('e);
+  let lift4: lift4('a, 'b, 'c, 'd, 'e) =
+    (abcde, ta, tb, tc, td) => lift3(abcde, ta, tb, tc) <*> td;
 };

@@ -84,15 +84,28 @@ function MakeFunctionApplicative(TYPE) {
 }
 
 function MakeApplicativeUtils(Applicative) {
+  var $less$$great = Applicative.map;
+  var $less$star$great = Applicative.apply;
   var lift2 = function (abc, ta, tb) {
-    return Curry._2(Applicative.apply, Curry._2(Applicative.map, abc, ta), tb);
+    return Curry._2($less$star$great, Curry._2($less$$great, abc, ta), tb);
   };
   var lift2$prime = function (abc, ta, tb) {
-    return Curry._2(Applicative.apply, Curry._2(Applicative.map, abc, ta), tb);
+    var tbc = Curry._2(Applicative.map, abc, ta);
+    return Curry._2(Applicative.apply, tbc, tb);
+  };
+  var lift3 = function (abcd, ta, tb, tc) {
+    return Curry._2($less$star$great, lift2(abcd, ta, tb), tc);
+  };
+  var lift4 = function (abcde, ta, tb, tc, td) {
+    return Curry._2($less$star$great, lift3(abcde, ta, tb, tc), td);
   };
   return {
+          $less$$great: $less$$great,
+          $less$star$great: $less$star$great,
           lift2: lift2,
-          lift2$prime: lift2$prime
+          lift2$prime: lift2$prime,
+          lift3: lift3,
+          lift4: lift4
         };
 }
 
