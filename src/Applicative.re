@@ -111,8 +111,6 @@ module MakeFunctionApplicative = (TYPE: TYPE) => {
 };
 
 module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
-  // type t('a) = Applicative.t('a);
-
   open Applicative;
 
   let (<$>) = Applicative.map;
@@ -213,4 +211,26 @@ module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
     (('a, 'b, 'c, 'd) => 'e, t('a), t('b), t('c), t('d)) => t('e);
   let lift4: lift4('a, 'b, 'c, 'd, 'e) =
     (abcde, ta, tb, tc, td) => lift3(abcde, ta, tb, tc) <*> td;
+
+  /*
+   -- | Apply a nullary function in the environment.
+   */
+  type lift0('a) = 'a => t('a);
+  let lift0 = a => pure(a);
+
+  /*
+   -- | Apply a unary function in the environment.
+   -- /can be written using `lift0` and `(<*>)`./
+   --
+   -- >>> lift1 (+1) (ExactlyOne 2)
+   -- ExactlyOne 3
+   --
+   -- >>> lift1 (+1) Nil
+   -- []
+   --
+   -- >>> lift1 (+1) (1 :. 2 :. 3 :. Nil)
+   -- [2,3,4]
+   */
+  type lift1('a, 'b) = ('a => 'b, t('a)) => t('b);
+  let lift1: lift1('a, 'b) = (ab, ta) => lift0(ab) <*> ta;
 };

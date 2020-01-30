@@ -99,13 +99,21 @@ function MakeApplicativeUtils(Applicative) {
   var lift4 = function (abcde, ta, tb, tc, td) {
     return Curry._2($less$star$great, lift3(abcde, ta, tb, tc), td);
   };
+  var lift0 = function (a) {
+    return Curry._1(Applicative.pure, a);
+  };
+  var lift1 = function (ab, ta) {
+    return Curry._2($less$star$great, Curry._1(Applicative.pure, ab), ta);
+  };
   return {
           $less$$great: $less$$great,
           $less$star$great: $less$star$great,
           lift2: lift2,
           lift2$prime: lift2$prime,
           lift3: lift3,
-          lift4: lift4
+          lift4: lift4,
+          lift0: lift0,
+          lift1: lift1
         };
 }
 
