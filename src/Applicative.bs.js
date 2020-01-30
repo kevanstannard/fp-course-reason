@@ -83,8 +83,22 @@ function MakeFunctionApplicative(TYPE) {
         };
 }
 
+function MakeApplicativeUtils(Applicative) {
+  var lift2 = function (abc, ta, tb) {
+    return Curry._2(Applicative.apply, Curry._2(Applicative.map, abc, ta), tb);
+  };
+  var lift2$prime = function (abc, ta, tb) {
+    return Curry._2(Applicative.apply, Curry._2(Applicative.map, abc, ta), tb);
+  };
+  return {
+          lift2: lift2,
+          lift2$prime: lift2$prime
+        };
+}
+
 exports.ExactlyOneApplicative = ExactlyOneApplicative;
 exports.ListzApplicative = ListzApplicative;
 exports.OptionApplicative = OptionApplicative;
 exports.MakeFunctionApplicative = MakeFunctionApplicative;
+exports.MakeApplicativeUtils = MakeApplicativeUtils;
 /* Listz-FpCourseReason Not a pure module */

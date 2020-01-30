@@ -109,3 +109,43 @@ module MakeFunctionApplicative = (TYPE: TYPE) => {
     let apply = (tab: t('a => 'b), ta: t('a), t: TYPE.t) => tab(t, ta(t));
   };
 };
+
+module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
+  type t('a) = Applicative.t('a);
+  /*
+   -- | Apply a binary function in the environment.
+   --
+   -- >>> lift2 (+) (ExactlyOne 7) (ExactlyOne 8)
+   -- ExactlyOne 15
+   --
+   -- >>> lift2 (+) (1 :. 2 :. 3 :. Nil) (4 :. 5 :. Nil)
+   -- [5,6,6,7,7,8]
+   --
+   -- >>> lift2 (+) (Full 7) (Full 8)
+   -- Full 15
+   --
+   -- >>> lift2 (+) (Full 7) Empty
+   -- Empty
+   --
+   -- >>> lift2 (+) Empty (Full 8)
+   -- Empty
+   --
+   -- >>> lift2 (+) length sum (listh [4,5,6])
+   -- 18
+   */
+  type lift2('a, 'b, 'c) = (('a, 'b) => 'c, t('a), t('b)) => t('c);
+  let lift2: lift2('a, 'b, 'c) =
+    (abc, ta, tb) => {
+      let (<$>) = Applicative.map;
+      let (<*>) = Applicative.apply;
+      abc <$> ta <*> tb;
+    };
+  /*
+   Note the interesting pattern here:
+   (a' => b' => c') <$> t('a) = t('b => 'c)
+   */
+
+  type lift2'('a, 'b, 'c) = (('a, 'b) => 'c, t('a), t('b)) => t('c);
+  let lift2': lift2('a, 'b, 'c) =
+    Applicative.((abc, ta, tb) => apply(map(abc, ta), tb));
+};
