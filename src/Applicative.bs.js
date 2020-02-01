@@ -4,6 +4,7 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var Util$FpCourseReason = require("./Util.bs.js");
 var Listz$FpCourseReason = require("./Listz.bs.js");
 var Functor$FpCourseReason = require("./Functor.bs.js");
 
@@ -128,6 +129,25 @@ function MakeApplicativeUtils(Applicative) {
                               }), tla, ta);
                 }));
   };
+  var replicateA = function (n, ta) {
+    return sequence(Util$FpCourseReason.replicate(n, ta));
+  };
+  var filtering = function (f, xs) {
+    var fn = function (tacc, x) {
+      var tb = Curry._1(f, x);
+      return lift2((function (acc, b) {
+                    if (b) {
+                      return Belt_List.concat(acc, /* :: */[
+                                  x,
+                                  /* [] */0
+                                ]);
+                    } else {
+                      return acc;
+                    }
+                  }), tacc, tb);
+    };
+    return Belt_List.reduce(xs, Curry._1(Applicative.pure, /* [] */0), fn);
+  };
   return {
           $less$$great: $less$$great,
           $less$star$great: $less$star$great,
@@ -141,7 +161,9 @@ function MakeApplicativeUtils(Applicative) {
           $star$great: rightApply,
           leftApply: leftApply,
           $less$star: leftApply,
-          sequence: sequence
+          sequence: sequence,
+          replicateA: replicateA,
+          filtering: filtering
         };
 }
 
@@ -150,4 +172,4 @@ exports.ListzApplicative = ListzApplicative;
 exports.OptionApplicative = OptionApplicative;
 exports.MakeFunctionApplicative = MakeFunctionApplicative;
 exports.MakeApplicativeUtils = MakeApplicativeUtils;
-/* Listz-FpCourseReason Not a pure module */
+/* Util-FpCourseReason Not a pure module */

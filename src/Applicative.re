@@ -308,4 +308,64 @@ module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
       lta->Belt.List.reduce(pure([]), (tla, ta) =>
         lift2((la, a) => Belt.List.concat(la, [a]), tla, ta)
       );
+
+  /*
+   -- | Replicate an effect a given number of times.
+   --
+   -- /Tip:/ Use `Course.List#replicate`.
+   --
+   -- >>> replicateA 4 (ExactlyOne "hi")
+   -- ExactlyOne ["hi","hi","hi","hi"]
+   --
+   -- >>> replicateA 4 (Full "hi")
+   -- Full ["hi","hi","hi","hi"]
+   --
+   -- >>> replicateA 4 Empty
+   -- Empty
+   --
+   -- >>> replicateA 4 (*2) 5
+   -- [10,10,10,10]
+   --
+   -- >>> replicateA 3 ('a' :. 'b' :. 'c' :. Nil)
+   -- ["aaa","aab","aac","aba","abb","abc","aca","acb","acc","baa","bab","bac","bba","bbb","bbc","bca","bcb","bcc","caa","cab","cac","cba","cbb","cbc","cca","ccb","ccc"]
+   */
+  type replicateA('a) = (int, t('a)) => t(list('a));
+  let replicateA: replicateA('a) =
+    (n, ta) => sequence(Util.replicate(n, ta));
+
+  /*
+   -- | Filter a list with a predicate that produces an effect.
+   --
+   -- >>> filtering (ExactlyOne . even) (4 :. 5 :. 6 :. Nil)
+   -- ExactlyOne [4,6]
+   --
+   -- >>> filtering (\a -> if a > 13 then Empty else Full (a <= 7)) (4 :. 5 :. 6 :. Nil)
+   -- Full [4,5,6]
+   --
+   -- >>> filtering (\a -> if a > 13 then Empty else Full (a <= 7)) (4 :. 5 :. 6 :. 7 :. 8 :. 9 :. Nil)
+   -- Full [4,5,6,7]
+   --
+   -- >>> filtering (\a -> if a > 13 then Empty else Full (a <= 7)) (4 :. 5 :. 6 :. 13 :. 14 :. Nil)
+   -- Empty
+   --
+   -- >>> filtering (>) (4 :. 5 :. 6 :. 7 :. 8 :. 9 :. 10 :. 11 :. 12 :. Nil) 8
+   -- [9,10,11,12]
+   --
+   -- >>> filtering (const $ True :. True :.  Nil) (1 :. 2 :. 3 :. Nil)
+   -- [[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3]]
+   --
+   */
+  type filtering('a) = ('a => t(bool), list('a)) => t(list('a));
+  let filtering: filtering('a) =
+    (f, xs) => {
+      let fn = (tacc, x) => {
+        let tb = f(x);
+        lift2(
+          (acc, b) => {b ? Belt.List.concat(acc, [x]) : acc},
+          tacc,
+          tb,
+        );
+      };
+      Belt.List.reduce(xs, pure([]), fn);
+    };
 };

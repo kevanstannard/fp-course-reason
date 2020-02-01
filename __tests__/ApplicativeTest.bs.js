@@ -5,6 +5,7 @@ var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
+var Util$FpCourseReason = require("../src/Util.bs.js");
 var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
 var Applicative$FpCourseReason = require("../src/Applicative.bs.js");
 
@@ -152,30 +153,36 @@ Jest.describe("Applicative", (function (param) {
                               return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
                             }));
               }));
-        return Jest.describe("ApplicativeUtils", (function (param) {
-                      Jest.describe("rightApply with lists", (function (param) {
-                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
-                              return Jest.test("lists are correct", (function (param) {
-                                            var result = Curry._2(ApplicativeUtils.$star$great, /* :: */[
-                                                  1,
-                                                  /* :: */[
-                                                    2,
-                                                    /* :: */[
-                                                      3,
-                                                      /* [] */0
-                                                    ]
-                                                  ]
-                                                ], /* :: */[
-                                                  4,
-                                                  /* :: */[
-                                                    5,
-                                                    /* :: */[
-                                                      6,
-                                                      /* [] */0
-                                                    ]
-                                                  ]
-                                                ]);
-                                            return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+        Jest.describe("ApplicativeUtils", (function (param) {
+                Jest.describe("rightApply with lists", (function (param) {
+                        var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                        return Jest.test("lists are correct", (function (param) {
+                                      var result = Curry._2(ApplicativeUtils.$star$great, /* :: */[
+                                            1,
+                                            /* :: */[
+                                              2,
+                                              /* :: */[
+                                                3,
+                                                /* [] */0
+                                              ]
+                                            ]
+                                          ], /* :: */[
+                                            4,
+                                            /* :: */[
+                                              5,
+                                              /* :: */[
+                                                6,
+                                                /* [] */0
+                                              ]
+                                            ]
+                                          ]);
+                                      return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                      4,
+                                                      /* :: */[
+                                                        5,
+                                                        /* :: */[
+                                                          6,
+                                                          /* :: */[
                                                             4,
                                                             /* :: */[
                                                               5,
@@ -187,13 +194,504 @@ Jest.describe("Applicative", (function (param) {
                                                                     5,
                                                                     /* :: */[
                                                                       6,
+                                                                      /* [] */0
+                                                                    ]
+                                                                  ]
+                                                                ]
+                                                              ]
+                                                            ]
+                                                          ]
+                                                        ]
+                                                      ]
+                                                    ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                    }));
+                      }));
+                Jest.describe("leftApply with lists", (function (param) {
+                        var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                        return Jest.test("lists are correct", (function (param) {
+                                      var result = Curry._2(ApplicativeUtils.$less$star, /* :: */[
+                                            1,
+                                            /* :: */[
+                                              2,
+                                              /* :: */[
+                                                3,
+                                                /* [] */0
+                                              ]
+                                            ]
+                                          ], /* :: */[
+                                            4,
+                                            /* :: */[
+                                              5,
+                                              /* :: */[
+                                                6,
+                                                /* [] */0
+                                              ]
+                                            ]
+                                          ]);
+                                      return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                      1,
+                                                      /* :: */[
+                                                        1,
+                                                        /* :: */[
+                                                          1,
+                                                          /* :: */[
+                                                            2,
+                                                            /* :: */[
+                                                              2,
+                                                              /* :: */[
+                                                                2,
+                                                                /* :: */[
+                                                                  3,
+                                                                  /* :: */[
+                                                                    3,
+                                                                    /* :: */[
+                                                                      3,
+                                                                      /* [] */0
+                                                                    ]
+                                                                  ]
+                                                                ]
+                                                              ]
+                                                            ]
+                                                          ]
+                                                        ]
+                                                      ]
+                                                    ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                    }));
+                      }));
+                Jest.describe("sequence with ExactlyOne", (function (param) {
+                        var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ExactlyOneApplicative);
+                        return Jest.test("ExactlyOne is correct", (function (param) {
+                                      var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
+                                            /* ExactlyOne */[7],
+                                            /* :: */[
+                                              /* ExactlyOne */[8],
+                                              /* :: */[
+                                                /* ExactlyOne */[9],
+                                                /* [] */0
+                                              ]
+                                            ]
+                                          ]);
+                                      return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */[/* :: */[
+                                                        7,
+                                                        /* :: */[
+                                                          8,
+                                                          /* :: */[
+                                                            9,
+                                                            /* [] */0
+                                                          ]
+                                                        ]
+                                                      ]]), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
+                                    }));
+                      }));
+                Jest.describe("sequence with Lists", (function (param) {
+                        var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                        return Jest.test("list is correct", (function (param) {
+                                      var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
+                                            /* :: */[
+                                              1,
+                                              /* :: */[
+                                                2,
+                                                /* :: */[
+                                                  3,
+                                                  /* [] */0
+                                                ]
+                                              ]
+                                            ],
+                                            /* :: */[
+                                              /* :: */[
+                                                1,
+                                                /* :: */[
+                                                  2,
+                                                  /* [] */0
+                                                ]
+                                              ],
+                                              /* [] */0
+                                            ]
+                                          ]);
+                                      return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                      /* :: */[
+                                                        1,
+                                                        /* :: */[
+                                                          1,
+                                                          /* [] */0
+                                                        ]
+                                                      ],
+                                                      /* :: */[
+                                                        /* :: */[
+                                                          1,
+                                                          /* :: */[
+                                                            2,
+                                                            /* [] */0
+                                                          ]
+                                                        ],
+                                                        /* :: */[
+                                                          /* :: */[
+                                                            2,
+                                                            /* :: */[
+                                                              1,
+                                                              /* [] */0
+                                                            ]
+                                                          ],
+                                                          /* :: */[
+                                                            /* :: */[
+                                                              2,
+                                                              /* :: */[
+                                                                2,
+                                                                /* [] */0
+                                                              ]
+                                                            ],
+                                                            /* :: */[
+                                                              /* :: */[
+                                                                3,
+                                                                /* :: */[
+                                                                  1,
+                                                                  /* [] */0
+                                                                ]
+                                                              ],
+                                                              /* :: */[
+                                                                /* :: */[
+                                                                  3,
+                                                                  /* :: */[
+                                                                    2,
+                                                                    /* [] */0
+                                                                  ]
+                                                                ],
+                                                                /* [] */0
+                                                              ]
+                                                            ]
+                                                          ]
+                                                        ]
+                                                      ]
+                                                    ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                    }));
+                      }));
+                return Jest.describe("replicateA with Lists", (function (param) {
+                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                              return Jest.test("list is correct", (function (param) {
+                                            var result = Curry._2(ApplicativeUtils.replicateA, 3, /* :: */[
+                                                  /* "a" */97,
+                                                  /* :: */[
+                                                    /* "b" */98,
+                                                    /* :: */[
+                                                      /* "c" */99,
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ]);
+                                            return Jest.Expect.toEqual(/* :: */[
+                                                        /* :: */[
+                                                          /* "a" */97,
+                                                          /* :: */[
+                                                            /* "a" */97,
+                                                            /* :: */[
+                                                              /* "a" */97,
+                                                              /* [] */0
+                                                            ]
+                                                          ]
+                                                        ],
+                                                        /* :: */[
+                                                          /* :: */[
+                                                            /* "a" */97,
+                                                            /* :: */[
+                                                              /* "a" */97,
+                                                              /* :: */[
+                                                                /* "b" */98,
+                                                                /* [] */0
+                                                              ]
+                                                            ]
+                                                          ],
+                                                          /* :: */[
+                                                            /* :: */[
+                                                              /* "a" */97,
+                                                              /* :: */[
+                                                                /* "a" */97,
+                                                                /* :: */[
+                                                                  /* "c" */99,
+                                                                  /* [] */0
+                                                                ]
+                                                              ]
+                                                            ],
+                                                            /* :: */[
+                                                              /* :: */[
+                                                                /* "a" */97,
+                                                                /* :: */[
+                                                                  /* "b" */98,
+                                                                  /* :: */[
+                                                                    /* "a" */97,
+                                                                    /* [] */0
+                                                                  ]
+                                                                ]
+                                                              ],
+                                                              /* :: */[
+                                                                /* :: */[
+                                                                  /* "a" */97,
+                                                                  /* :: */[
+                                                                    /* "b" */98,
+                                                                    /* :: */[
+                                                                      /* "b" */98,
+                                                                      /* [] */0
+                                                                    ]
+                                                                  ]
+                                                                ],
+                                                                /* :: */[
+                                                                  /* :: */[
+                                                                    /* "a" */97,
+                                                                    /* :: */[
+                                                                      /* "b" */98,
                                                                       /* :: */[
-                                                                        4,
+                                                                        /* "c" */99,
+                                                                        /* [] */0
+                                                                      ]
+                                                                    ]
+                                                                  ],
+                                                                  /* :: */[
+                                                                    /* :: */[
+                                                                      /* "a" */97,
+                                                                      /* :: */[
+                                                                        /* "c" */99,
                                                                         /* :: */[
-                                                                          5,
+                                                                          /* "a" */97,
+                                                                          /* [] */0
+                                                                        ]
+                                                                      ]
+                                                                    ],
+                                                                    /* :: */[
+                                                                      /* :: */[
+                                                                        /* "a" */97,
+                                                                        /* :: */[
+                                                                          /* "c" */99,
                                                                           /* :: */[
-                                                                            6,
+                                                                            /* "b" */98,
                                                                             /* [] */0
+                                                                          ]
+                                                                        ]
+                                                                      ],
+                                                                      /* :: */[
+                                                                        /* :: */[
+                                                                          /* "a" */97,
+                                                                          /* :: */[
+                                                                            /* "c" */99,
+                                                                            /* :: */[
+                                                                              /* "c" */99,
+                                                                              /* [] */0
+                                                                            ]
+                                                                          ]
+                                                                        ],
+                                                                        /* :: */[
+                                                                          /* :: */[
+                                                                            /* "b" */98,
+                                                                            /* :: */[
+                                                                              /* "a" */97,
+                                                                              /* :: */[
+                                                                                /* "a" */97,
+                                                                                /* [] */0
+                                                                              ]
+                                                                            ]
+                                                                          ],
+                                                                          /* :: */[
+                                                                            /* :: */[
+                                                                              /* "b" */98,
+                                                                              /* :: */[
+                                                                                /* "a" */97,
+                                                                                /* :: */[
+                                                                                  /* "b" */98,
+                                                                                  /* [] */0
+                                                                                ]
+                                                                              ]
+                                                                            ],
+                                                                            /* :: */[
+                                                                              /* :: */[
+                                                                                /* "b" */98,
+                                                                                /* :: */[
+                                                                                  /* "a" */97,
+                                                                                  /* :: */[
+                                                                                    /* "c" */99,
+                                                                                    /* [] */0
+                                                                                  ]
+                                                                                ]
+                                                                              ],
+                                                                              /* :: */[
+                                                                                /* :: */[
+                                                                                  /* "b" */98,
+                                                                                  /* :: */[
+                                                                                    /* "b" */98,
+                                                                                    /* :: */[
+                                                                                      /* "a" */97,
+                                                                                      /* [] */0
+                                                                                    ]
+                                                                                  ]
+                                                                                ],
+                                                                                /* :: */[
+                                                                                  /* :: */[
+                                                                                    /* "b" */98,
+                                                                                    /* :: */[
+                                                                                      /* "b" */98,
+                                                                                      /* :: */[
+                                                                                        /* "b" */98,
+                                                                                        /* [] */0
+                                                                                      ]
+                                                                                    ]
+                                                                                  ],
+                                                                                  /* :: */[
+                                                                                    /* :: */[
+                                                                                      /* "b" */98,
+                                                                                      /* :: */[
+                                                                                        /* "b" */98,
+                                                                                        /* :: */[
+                                                                                          /* "c" */99,
+                                                                                          /* [] */0
+                                                                                        ]
+                                                                                      ]
+                                                                                    ],
+                                                                                    /* :: */[
+                                                                                      /* :: */[
+                                                                                        /* "b" */98,
+                                                                                        /* :: */[
+                                                                                          /* "c" */99,
+                                                                                          /* :: */[
+                                                                                            /* "a" */97,
+                                                                                            /* [] */0
+                                                                                          ]
+                                                                                        ]
+                                                                                      ],
+                                                                                      /* :: */[
+                                                                                        /* :: */[
+                                                                                          /* "b" */98,
+                                                                                          /* :: */[
+                                                                                            /* "c" */99,
+                                                                                            /* :: */[
+                                                                                              /* "b" */98,
+                                                                                              /* [] */0
+                                                                                            ]
+                                                                                          ]
+                                                                                        ],
+                                                                                        /* :: */[
+                                                                                          /* :: */[
+                                                                                            /* "b" */98,
+                                                                                            /* :: */[
+                                                                                              /* "c" */99,
+                                                                                              /* :: */[
+                                                                                                /* "c" */99,
+                                                                                                /* [] */0
+                                                                                              ]
+                                                                                            ]
+                                                                                          ],
+                                                                                          /* :: */[
+                                                                                            /* :: */[
+                                                                                              /* "c" */99,
+                                                                                              /* :: */[
+                                                                                                /* "a" */97,
+                                                                                                /* :: */[
+                                                                                                  /* "a" */97,
+                                                                                                  /* [] */0
+                                                                                                ]
+                                                                                              ]
+                                                                                            ],
+                                                                                            /* :: */[
+                                                                                              /* :: */[
+                                                                                                /* "c" */99,
+                                                                                                /* :: */[
+                                                                                                  /* "a" */97,
+                                                                                                  /* :: */[
+                                                                                                    /* "b" */98,
+                                                                                                    /* [] */0
+                                                                                                  ]
+                                                                                                ]
+                                                                                              ],
+                                                                                              /* :: */[
+                                                                                                /* :: */[
+                                                                                                  /* "c" */99,
+                                                                                                  /* :: */[
+                                                                                                    /* "a" */97,
+                                                                                                    /* :: */[
+                                                                                                      /* "c" */99,
+                                                                                                      /* [] */0
+                                                                                                    ]
+                                                                                                  ]
+                                                                                                ],
+                                                                                                /* :: */[
+                                                                                                  /* :: */[
+                                                                                                    /* "c" */99,
+                                                                                                    /* :: */[
+                                                                                                      /* "b" */98,
+                                                                                                      /* :: */[
+                                                                                                        /* "a" */97,
+                                                                                                        /* [] */0
+                                                                                                      ]
+                                                                                                    ]
+                                                                                                  ],
+                                                                                                  /* :: */[
+                                                                                                    /* :: */[
+                                                                                                      /* "c" */99,
+                                                                                                      /* :: */[
+                                                                                                        /* "b" */98,
+                                                                                                        /* :: */[
+                                                                                                          /* "b" */98,
+                                                                                                          /* [] */0
+                                                                                                        ]
+                                                                                                      ]
+                                                                                                    ],
+                                                                                                    /* :: */[
+                                                                                                      /* :: */[
+                                                                                                        /* "c" */99,
+                                                                                                        /* :: */[
+                                                                                                          /* "b" */98,
+                                                                                                          /* :: */[
+                                                                                                            /* "c" */99,
+                                                                                                            /* [] */0
+                                                                                                          ]
+                                                                                                        ]
+                                                                                                      ],
+                                                                                                      /* :: */[
+                                                                                                        /* :: */[
+                                                                                                          /* "c" */99,
+                                                                                                          /* :: */[
+                                                                                                            /* "c" */99,
+                                                                                                            /* :: */[
+                                                                                                              /* "a" */97,
+                                                                                                              /* [] */0
+                                                                                                            ]
+                                                                                                          ]
+                                                                                                        ],
+                                                                                                        /* :: */[
+                                                                                                          /* :: */[
+                                                                                                            /* "c" */99,
+                                                                                                            /* :: */[
+                                                                                                              /* "c" */99,
+                                                                                                              /* :: */[
+                                                                                                                /* "b" */98,
+                                                                                                                /* [] */0
+                                                                                                              ]
+                                                                                                            ]
+                                                                                                          ],
+                                                                                                          /* :: */[
+                                                                                                            /* :: */[
+                                                                                                              /* "c" */99,
+                                                                                                              /* :: */[
+                                                                                                                /* "c" */99,
+                                                                                                                /* :: */[
+                                                                                                                  /* "c" */99,
+                                                                                                                  /* [] */0
+                                                                                                                ]
+                                                                                                              ]
+                                                                                                            ],
+                                                                                                            /* [] */0
+                                                                                                          ]
+                                                                                                        ]
+                                                                                                      ]
+                                                                                                    ]
+                                                                                                  ]
+                                                                                                ]
+                                                                                              ]
+                                                                                            ]
+                                                                                          ]
+                                                                                        ]
+                                                                                      ]
+                                                                                    ]
+                                                                                  ]
+                                                                                ]
+                                                                              ]
+                                                                            ]
                                                                           ]
                                                                         ]
                                                                       ]
@@ -202,13 +700,160 @@ Jest.describe("Applicative", (function (param) {
                                                                 ]
                                                               ]
                                                             ]
-                                                          ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                                          ]
+                                                        ]
+                                                      ], Jest.Expect.expect(result));
                                           }));
                             }));
-                      Jest.describe("leftApply with lists", (function (param) {
-                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
-                              return Jest.test("lists are correct", (function (param) {
-                                            var result = Curry._2(ApplicativeUtils.$less$star, /* :: */[
+              }));
+        Jest.describe("filtering with ExactlyOne", (function (param) {
+                var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ExactlyOneApplicative);
+                return Jest.test("ExactlyOne is correct", (function (param) {
+                              var f = function (a) {
+                                return /* ExactlyOne */[Curry._1(Util$FpCourseReason.isEven, a)];
+                              };
+                              var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
+                                    4,
+                                    /* :: */[
+                                      5,
+                                      /* :: */[
+                                        6,
+                                        /* [] */0
+                                      ]
+                                    ]
+                                  ]);
+                              return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */[/* :: */[
+                                                4,
+                                                /* :: */[
+                                                  6,
+                                                  /* [] */0
+                                                ]
+                                              ]]), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
+                            }));
+              }));
+        Jest.describe("filtering with Option", (function (param) {
+                var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.OptionApplicative);
+                Jest.test("option is correct (1)", (function (param) {
+                        var f = function (a) {
+                          if (a > 13) {
+                            return ;
+                          } else {
+                            return a <= 7;
+                          }
+                        };
+                        var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
+                              4,
+                              /* :: */[
+                                5,
+                                /* :: */[
+                                  6,
+                                  /* [] */0
+                                ]
+                              ]
+                            ]);
+                        return Jest.Expect.toEqual(/* :: */[
+                                    4,
+                                    /* :: */[
+                                      5,
+                                      /* :: */[
+                                        6,
+                                        /* [] */0
+                                      ]
+                                    ]
+                                  ], Jest.Expect.expect(result));
+                      }));
+                Jest.test("option is correct (2)", (function (param) {
+                        var f = function (a) {
+                          if (a > 13) {
+                            return ;
+                          } else {
+                            return a <= 7;
+                          }
+                        };
+                        var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
+                              4,
+                              /* :: */[
+                                5,
+                                /* :: */[
+                                  6,
+                                  /* :: */[
+                                    7,
+                                    /* :: */[
+                                      8,
+                                      /* :: */[
+                                        9,
+                                        /* [] */0
+                                      ]
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ]);
+                        return Jest.Expect.toEqual(/* :: */[
+                                    4,
+                                    /* :: */[
+                                      5,
+                                      /* :: */[
+                                        6,
+                                        /* :: */[
+                                          7,
+                                          /* [] */0
+                                        ]
+                                      ]
+                                    ]
+                                  ], Jest.Expect.expect(result));
+                      }));
+                return Jest.test("option is correct (2)", (function (param) {
+                              var f = function (a) {
+                                if (a > 13) {
+                                  return ;
+                                } else {
+                                  return a <= 7;
+                                }
+                              };
+                              var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
+                                    4,
+                                    /* :: */[
+                                      5,
+                                      /* :: */[
+                                        6,
+                                        /* :: */[
+                                          13,
+                                          /* :: */[
+                                            14,
+                                            /* [] */0
+                                          ]
+                                        ]
+                                      ]
+                                    ]
+                                  ]);
+                              return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
+                            }));
+              }));
+        return Jest.describe("filtering with List", (function (param) {
+                      var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                      return Jest.test("ExactlyOne is correct", (function (param) {
+                                    var f = function (param) {
+                                      return /* :: */[
+                                              true,
+                                              /* :: */[
+                                                true,
+                                                /* [] */0
+                                              ]
+                                            ];
+                                    };
+                                    var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
+                                          1,
+                                          /* :: */[
+                                            2,
+                                            /* :: */[
+                                              3,
+                                              /* [] */0
+                                            ]
+                                          ]
+                                        ]);
+                                    return Jest.Expect.toEqual(/* :: */[
+                                                /* :: */[
                                                   1,
                                                   /* :: */[
                                                     2,
@@ -217,75 +862,41 @@ Jest.describe("Applicative", (function (param) {
                                                       /* [] */0
                                                     ]
                                                   ]
-                                                ], /* :: */[
-                                                  4,
+                                                ],
+                                                /* :: */[
                                                   /* :: */[
-                                                    5,
+                                                    1,
                                                     /* :: */[
-                                                      6,
-                                                      /* [] */0
+                                                      2,
+                                                      /* :: */[
+                                                        3,
+                                                        /* [] */0
+                                                      ]
                                                     ]
-                                                  ]
-                                                ]);
-                                            return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
-                                                            1,
-                                                            /* :: */[
-                                                              1,
-                                                              /* :: */[
-                                                                1,
-                                                                /* :: */[
-                                                                  2,
-                                                                  /* :: */[
-                                                                    2,
-                                                                    /* :: */[
-                                                                      2,
-                                                                      /* :: */[
-                                                                        3,
-                                                                        /* :: */[
-                                                                          3,
-                                                                          /* :: */[
-                                                                            3,
-                                                                            /* [] */0
-                                                                          ]
-                                                                        ]
-                                                                      ]
-                                                                    ]
-                                                                  ]
-                                                                ]
-                                                              ]
-                                                            ]
-                                                          ]), Jest.Expect.expect(Belt_List.toArray(result)));
-                                          }));
-                            }));
-                      Jest.describe("sequence with ExactlyOne", (function (param) {
-                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ExactlyOneApplicative);
-                              return Jest.test("ExactlyOne is correct", (function (param) {
-                                            var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
-                                                  /* ExactlyOne */[7],
+                                                  ],
                                                   /* :: */[
-                                                    /* ExactlyOne */[8],
                                                     /* :: */[
-                                                      /* ExactlyOne */[9],
-                                                      /* [] */0
-                                                    ]
-                                                  ]
-                                                ]);
-                                            return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */[/* :: */[
-                                                              7,
-                                                              /* :: */[
-                                                                8,
-                                                                /* :: */[
-                                                                  9,
-                                                                  /* [] */0
-                                                                ]
-                                                              ]
-                                                            ]]), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
-                                          }));
-                            }));
-                      return Jest.describe("sequence with Lists", (function (param) {
-                                    var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
-                                    return Jest.test("list is correct", (function (param) {
-                                                  var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
+                                                      1,
+                                                      /* :: */[
+                                                        2,
+                                                        /* :: */[
+                                                          3,
+                                                          /* [] */0
+                                                        ]
+                                                      ]
+                                                    ],
+                                                    /* :: */[
+                                                      /* :: */[
+                                                        1,
+                                                        /* :: */[
+                                                          2,
+                                                          /* :: */[
+                                                            3,
+                                                            /* [] */0
+                                                          ]
+                                                        ]
+                                                      ],
+                                                      /* :: */[
                                                         /* :: */[
                                                           1,
                                                           /* :: */[
@@ -301,68 +912,43 @@ Jest.describe("Applicative", (function (param) {
                                                             1,
                                                             /* :: */[
                                                               2,
-                                                              /* [] */0
+                                                              /* :: */[
+                                                                3,
+                                                                /* [] */0
+                                                              ]
                                                             ]
                                                           ],
-                                                          /* [] */0
-                                                        ]
-                                                      ]);
-                                                  return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                          /* :: */[
+                                                            /* :: */[
+                                                              1,
+                                                              /* :: */[
+                                                                2,
+                                                                /* :: */[
+                                                                  3,
+                                                                  /* [] */0
+                                                                ]
+                                                              ]
+                                                            ],
+                                                            /* :: */[
+                                                              /* :: */[
+                                                                1,
+                                                                /* :: */[
+                                                                  2,
                                                                   /* :: */[
-                                                                    1,
-                                                                    /* :: */[
-                                                                      1,
-                                                                      /* [] */0
-                                                                    ]
-                                                                  ],
-                                                                  /* :: */[
-                                                                    /* :: */[
-                                                                      1,
-                                                                      /* :: */[
-                                                                        2,
-                                                                        /* [] */0
-                                                                      ]
-                                                                    ],
-                                                                    /* :: */[
-                                                                      /* :: */[
-                                                                        2,
-                                                                        /* :: */[
-                                                                          1,
-                                                                          /* [] */0
-                                                                        ]
-                                                                      ],
-                                                                      /* :: */[
-                                                                        /* :: */[
-                                                                          2,
-                                                                          /* :: */[
-                                                                            2,
-                                                                            /* [] */0
-                                                                          ]
-                                                                        ],
-                                                                        /* :: */[
-                                                                          /* :: */[
-                                                                            3,
-                                                                            /* :: */[
-                                                                              1,
-                                                                              /* [] */0
-                                                                            ]
-                                                                          ],
-                                                                          /* :: */[
-                                                                            /* :: */[
-                                                                              3,
-                                                                              /* :: */[
-                                                                                2,
-                                                                                /* [] */0
-                                                                              ]
-                                                                            ],
-                                                                            /* [] */0
-                                                                          ]
-                                                                        ]
-                                                                      ]
-                                                                    ]
+                                                                    3,
+                                                                    /* [] */0
                                                                   ]
-                                                                ]), Jest.Expect.expect(Belt_List.toArray(result)));
-                                                }));
+                                                                ]
+                                                              ],
+                                                              /* [] */0
+                                                            ]
+                                                          ]
+                                                        ]
+                                                      ]
+                                                    ]
+                                                  ]
+                                                ]
+                                              ], Jest.Expect.expect(result));
                                   }));
                     }));
       }));

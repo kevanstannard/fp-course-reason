@@ -182,5 +182,151 @@ describe("Applicative", () => {
         })
       );
     });
+
+    describe("replicateA with Lists", () => {
+      module ApplicativeUtils = MakeApplicativeUtils(ListzApplicative);
+      ApplicativeUtils.(
+        test("list is correct", () => {
+          let list = ['a', 'b', 'c'];
+          let result = replicateA(3, list);
+          let expected = [
+            // "aaa",
+            ['a', 'a', 'a'],
+            // "aab",
+            ['a', 'a', 'b'],
+            // "aac",
+            ['a', 'a', 'c'],
+            // "aba",
+            ['a', 'b', 'a'],
+            // "abb",
+            ['a', 'b', 'b'],
+            // "abc",
+            ['a', 'b', 'c'],
+            // "aca",
+            ['a', 'c', 'a'],
+            // "acb",
+            ['a', 'c', 'b'],
+            // "acc",
+            ['a', 'c', 'c'],
+            // "baa",
+            ['b', 'a', 'a'],
+            // "bab",
+            ['b', 'a', 'b'],
+            // "bac",
+            ['b', 'a', 'c'],
+            // "bba",
+            ['b', 'b', 'a'],
+            // "bbb",
+            ['b', 'b', 'b'],
+            // "bbc",
+            ['b', 'b', 'c'],
+            // "bca",
+            ['b', 'c', 'a'],
+            // "bcb",
+            ['b', 'c', 'b'],
+            // "bcc",
+            ['b', 'c', 'c'],
+            // "caa",
+            ['c', 'a', 'a'],
+            // "cab",
+            ['c', 'a', 'b'],
+            // "cac",
+            ['c', 'a', 'c'],
+            // "cba",
+            ['c', 'b', 'a'],
+            // "cbb",
+            ['c', 'b', 'b'],
+            // "cbc",
+            ['c', 'b', 'c'],
+            // "cca",
+            ['c', 'c', 'a'],
+            // "ccb",
+            ['c', 'c', 'b'],
+            // "ccc",
+            ['c', 'c', 'c'],
+          ];
+          expect(result) |> toEqual(expected);
+        })
+      );
+    });
+  });
+
+  describe("filtering with ExactlyOne", () => {
+    module ApplicativeUtils = MakeApplicativeUtils(ExactlyOneApplicative);
+    ApplicativeUtils.(
+      test("ExactlyOne is correct", () => {
+        let f = a => ExactlyOne.ExactlyOne(Util.isEven(a));
+        let list = [4, 5, 6];
+        let result = filtering(f, list);
+        let expected = ExactlyOne.ExactlyOne([4, 6]);
+        expect(ExactlyOne.toString(result))
+        |> toEqual(ExactlyOne.toString(expected));
+      })
+    );
+  });
+
+  describe("filtering with Option", () => {
+    module ApplicativeUtils = MakeApplicativeUtils(OptionApplicative);
+    open ApplicativeUtils;
+    test("option is correct (1)", () => {
+      let f = a =>
+        if (a > 13) {
+          None;
+        } else {
+          Some(a <= 7);
+        };
+      let list = [4, 5, 6];
+      let result = filtering(f, list);
+      let expected = Some([4, 5, 6]);
+      expect(result) |> toEqual(expected);
+    });
+
+    test("option is correct (2)", () => {
+      let f = a =>
+        if (a > 13) {
+          None;
+        } else {
+          Some(a <= 7);
+        };
+      let list = [4, 5, 6, 7, 8, 9];
+      let result = filtering(f, list);
+      let expected = Some([4, 5, 6, 7]);
+      expect(result) |> toEqual(expected);
+    });
+
+    test("option is correct (2)", () => {
+      let f = a =>
+        if (a > 13) {
+          None;
+        } else {
+          Some(a <= 7);
+        };
+      let list = [4, 5, 6, 13, 14];
+      let result = filtering(f, list);
+      let expected = None;
+      expect(result) |> toEqual(expected);
+    });
+  });
+
+  describe("filtering with List", () => {
+    module ApplicativeUtils = MakeApplicativeUtils(ListzApplicative);
+    ApplicativeUtils.(
+      test("ExactlyOne is correct", () => {
+        let f = _ => [true, true];
+        let list = [1, 2, 3];
+        let result = filtering(f, list);
+        let expected = [
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+        ];
+        expect(result) |> toEqual(expected);
+      })
+    );
   });
 });

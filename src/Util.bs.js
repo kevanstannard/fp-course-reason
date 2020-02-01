@@ -38,6 +38,27 @@ function flip(f, b, a) {
   return Curry._2(f, a, b);
 }
 
+function replicate(n, a) {
+  var _xs = /* [] */0;
+  var x = a;
+  var _n = n;
+  while(true) {
+    var n$1 = _n;
+    var xs = _xs;
+    var match = n$1 > 0;
+    if (match) {
+      _n = n$1 - 1 | 0;
+      _xs = /* :: */[
+        x,
+        xs
+      ];
+      continue ;
+    } else {
+      return xs;
+    }
+  };
+}
+
 exports.isEven = isEven;
 exports.isOdd = isOdd;
 exports.$$const = $$const;
@@ -46,4 +67,5 @@ exports.$less$dot$great = $less$dot$great;
 exports.id = id;
 exports.optionToString = optionToString;
 exports.flip = flip;
+exports.replicate = replicate;
 /* isEven Not a pure module */

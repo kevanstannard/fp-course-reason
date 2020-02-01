@@ -24,3 +24,8 @@ let optionToString = opt => {
 
 type flip('a, 'b, 'c) = (('a, 'b) => 'c, 'b, 'a) => 'c;
 let flip: flip('a, 'b, 'c) = (f, b, a) => f(a, b);
+
+let replicate = (n, a) => {
+  let rec append = (xs, x, n) => n > 0 ? append([x, ...xs], x, n - 1) : xs;
+  append([], a, n);
+};
