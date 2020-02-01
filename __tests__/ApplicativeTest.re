@@ -118,4 +118,32 @@ describe("Applicative", () => {
       expect(result) |> toEqual(15);
     });
   });
+
+  describe("ApplicativeUtils", () => {
+    describe("rightApply with lists", () => {
+      module ApplicativeUtils = MakeApplicativeUtils(ListzApplicative);
+      ApplicativeUtils.(
+        test("lists are correct", () => {
+          let list1 = [1, 2, 3];
+          let list2 = [4, 5, 6];
+          let result = list1 *> list2;
+          expect(Belt.List.toArray(result))
+          |> toEqual(Belt.List.toArray([4, 5, 6, 4, 5, 6, 4, 5, 6]));
+        })
+      );
+    });
+
+    describe("leftApply with lists", () => {
+      module ApplicativeUtils = MakeApplicativeUtils(ListzApplicative);
+      ApplicativeUtils.(
+        test("lists are correct", () => {
+          let list1 = [1, 2, 3];
+          let list2 = [4, 5, 6];
+          let result = list1 <* list2;
+          expect(Belt.List.toArray(result))
+          |> toEqual(Belt.List.toArray([1, 1, 1, 2, 2, 2, 3, 3, 3]));
+        })
+      );
+    });
+  });
 });

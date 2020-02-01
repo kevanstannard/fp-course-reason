@@ -105,6 +105,18 @@ function MakeApplicativeUtils(Applicative) {
   var lift1 = function (ab, ta) {
     return Curry._2($less$star$great, Curry._1(Applicative.pure, ab), ta);
   };
+  var rightApply = function (ta, tb) {
+    var f = function (param, b) {
+      return b;
+    };
+    return lift2(f, ta, tb);
+  };
+  var leftApply = function (tb, ta) {
+    var f = function (b, param) {
+      return b;
+    };
+    return lift2(f, tb, ta);
+  };
   return {
           $less$$great: $less$$great,
           $less$star$great: $less$star$great,
@@ -113,7 +125,11 @@ function MakeApplicativeUtils(Applicative) {
           lift3: lift3,
           lift4: lift4,
           lift0: lift0,
-          lift1: lift1
+          lift1: lift1,
+          rightApply: rightApply,
+          $star$great: rightApply,
+          leftApply: leftApply,
+          $less$star: leftApply
         };
 }
 

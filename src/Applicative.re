@@ -233,4 +233,57 @@ module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
    */
   type lift1('a, 'b) = ('a => 'b, t('a)) => t('b);
   let lift1: lift1('a, 'b) = (ab, ta) => lift0(ab) <*> ta;
+
+  /*
+   -- | Apply, discarding the value of the first argument.
+   -- Pronounced, right apply.
+   --
+   -- >>> (1 :. 2 :. 3 :. Nil) *> (4 :. 5 :. 6 :. Nil)
+   -- [4,5,6,4,5,6,4,5,6]
+   --
+   -- >>> (1 :. 2 :. Nil) *> (4 :. 5 :. 6 :. Nil)
+   -- [4,5,6,4,5,6]
+   --
+   -- >>> (1 :. 2 :. 3 :. Nil) *> (4 :. 5 :. Nil)
+   -- [4,5,4,5,4,5]
+   --
+   -- >>> Full 7 *> Full 8
+   -- Full 8
+   */
+  type rightApply('a, 'b) = (t('a), t('b)) => t('b);
+  let rightApply: rightApply('a, 'b) =
+    (ta, tb) => {
+      let f = (_, b) => b;
+      lift2(f, ta, tb);
+    };
+
+  let ( *> ) = rightApply;
+  /*
+   Important: *lift* functions are *apply* functions.
+   */
+
+  /*
+   -- | Apply, discarding the value of the second argument.
+   -- Pronounced, left apply.
+   --
+   -- >>> (1 :. 2 :. 3 :. Nil) <* (4 :. 5 :. 6 :. Nil)
+   -- [1,1,1,2,2,2,3,3,3]
+   --
+   -- >>> (1 :. 2 :. Nil) <* (4 :. 5 :. 6 :. Nil)
+   -- [1,1,1,2,2,2]
+   --
+   -- >>> (1 :. 2 :. 3 :. Nil) <* (4 :. 5 :. Nil)
+   -- [1,1,2,2,3,3]
+   --
+   -- >>> Full 7 <* Full 8
+   -- Full 7
+   */
+  type leftApply('a, 'b) = (t('b), t('a)) => t('b);
+  let leftApply: leftApply('a, 'b) =
+    (tb, ta) => {
+      let f = (b, _) => b;
+      lift2(f, tb, ta);
+    };
+
+  let ( <* ) = leftApply;
 };

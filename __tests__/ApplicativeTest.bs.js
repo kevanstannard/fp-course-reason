@@ -3,6 +3,7 @@
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Curry = require("bs-platform/lib/js/curry.js");
+var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
 var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
 var Applicative$FpCourseReason = require("../src/Applicative.bs.js");
@@ -98,57 +99,163 @@ Jest.describe("Applicative", (function (param) {
                               return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                             }));
               }));
-        return Jest.describe("Function", (function (param) {
-                      Jest.test("apply is correct (1)", (function (param) {
-                              var f = function (prim, prim$1) {
-                                return prim + prim$1 | 0;
-                              };
-                              var g = function (param) {
-                                return 10 + param | 0;
-                              };
-                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
-                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
-                              return Jest.Expect.toEqual(16, Jest.Expect.expect(result));
-                            }));
-                      Jest.test("apply is correct (2)", (function (param) {
-                              var f = function (prim, prim$1) {
-                                return prim + prim$1 | 0;
-                              };
-                              var g = function (param) {
-                                return 5 + param | 0;
-                              };
-                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
-                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
-                              return Jest.Expect.toEqual(11, Jest.Expect.expect(result));
-                            }));
-                      Jest.test("apply is correct (3)", (function (param) {
-                              var f = function (prim, prim$1) {
-                                return prim + prim$1 | 0;
-                              };
-                              var g = function (param) {
-                                return 5 + param | 0;
-                              };
-                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
-                              var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 1);
-                              return Jest.Expect.toEqual(7, Jest.Expect.expect(result));
-                            }));
-                      Jest.test("apply is correct (4)", (function (param) {
+        Jest.describe("Function", (function (param) {
+                Jest.test("apply is correct (1)", (function (param) {
+                        var f = function (prim, prim$1) {
+                          return prim + prim$1 | 0;
+                        };
+                        var g = function (param) {
+                          return 10 + param | 0;
+                        };
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                        return Jest.Expect.toEqual(16, Jest.Expect.expect(result));
+                      }));
+                Jest.test("apply is correct (2)", (function (param) {
+                        var f = function (prim, prim$1) {
+                          return prim + prim$1 | 0;
+                        };
+                        var g = function (param) {
+                          return 5 + param | 0;
+                        };
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                        return Jest.Expect.toEqual(11, Jest.Expect.expect(result));
+                      }));
+                Jest.test("apply is correct (3)", (function (param) {
+                        var f = function (prim, prim$1) {
+                          return prim + prim$1 | 0;
+                        };
+                        var g = function (param) {
+                          return 5 + param | 0;
+                        };
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 1);
+                        return Jest.Expect.toEqual(7, Jest.Expect.expect(result));
+                      }));
+                Jest.test("apply is correct (4)", (function (param) {
+                        var f = Caml_int32.imul;
+                        var g = function (param) {
+                          return 10 + param | 0;
+                        };
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
+                        return Jest.Expect.toEqual(39, Jest.Expect.expect(result));
+                      }));
+                return Jest.test("apply is correct (5)", (function (param) {
                               var f = Caml_int32.imul;
                               var g = function (param) {
-                                return 10 + param | 0;
+                                return 2 + param | 0;
                               };
                               var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
                               var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
-                              return Jest.Expect.toEqual(39, Jest.Expect.expect(result));
+                              return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
                             }));
-                      return Jest.test("apply is correct (5)", (function (param) {
-                                    var f = Caml_int32.imul;
-                                    var g = function (param) {
-                                      return 2 + param | 0;
-                                    };
-                                    var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
-                                    var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
-                                    return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
+              }));
+        return Jest.describe("ApplicativeUtils", (function (param) {
+                      Jest.describe("rightApply with lists", (function (param) {
+                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                              return Jest.test("lists are correct", (function (param) {
+                                            var result = Curry._2(ApplicativeUtils.$star$great, /* :: */[
+                                                  1,
+                                                  /* :: */[
+                                                    2,
+                                                    /* :: */[
+                                                      3,
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ], /* :: */[
+                                                  4,
+                                                  /* :: */[
+                                                    5,
+                                                    /* :: */[
+                                                      6,
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ]);
+                                            return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                            4,
+                                                            /* :: */[
+                                                              5,
+                                                              /* :: */[
+                                                                6,
+                                                                /* :: */[
+                                                                  4,
+                                                                  /* :: */[
+                                                                    5,
+                                                                    /* :: */[
+                                                                      6,
+                                                                      /* :: */[
+                                                                        4,
+                                                                        /* :: */[
+                                                                          5,
+                                                                          /* :: */[
+                                                                            6,
+                                                                            /* [] */0
+                                                                          ]
+                                                                        ]
+                                                                      ]
+                                                                    ]
+                                                                  ]
+                                                                ]
+                                                              ]
+                                                            ]
+                                                          ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                          }));
+                            }));
+                      return Jest.describe("leftApply with lists", (function (param) {
+                                    var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                                    return Jest.test("lists are correct", (function (param) {
+                                                  var result = Curry._2(ApplicativeUtils.$less$star, /* :: */[
+                                                        1,
+                                                        /* :: */[
+                                                          2,
+                                                          /* :: */[
+                                                            3,
+                                                            /* [] */0
+                                                          ]
+                                                        ]
+                                                      ], /* :: */[
+                                                        4,
+                                                        /* :: */[
+                                                          5,
+                                                          /* :: */[
+                                                            6,
+                                                            /* [] */0
+                                                          ]
+                                                        ]
+                                                      ]);
+                                                  return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                                  1,
+                                                                  /* :: */[
+                                                                    1,
+                                                                    /* :: */[
+                                                                      1,
+                                                                      /* :: */[
+                                                                        2,
+                                                                        /* :: */[
+                                                                          2,
+                                                                          /* :: */[
+                                                                            2,
+                                                                            /* :: */[
+                                                                              3,
+                                                                              /* :: */[
+                                                                                3,
+                                                                                /* :: */[
+                                                                                  3,
+                                                                                  /* [] */0
+                                                                                ]
+                                                                              ]
+                                                                            ]
+                                                                          ]
+                                                                        ]
+                                                                      ]
+                                                                    ]
+                                                                  ]
+                                                                ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                                }));
                                   }));
                     }));
       }));
