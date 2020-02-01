@@ -145,5 +145,42 @@ describe("Applicative", () => {
         })
       );
     });
+
+    describe("sequence with ExactlyOne", () => {
+      module ApplicativeUtils = MakeApplicativeUtils(ExactlyOneApplicative);
+      ApplicativeUtils.(
+        test("ExactlyOne is correct", () => {
+          let list = [
+            ExactlyOne.ExactlyOne(7),
+            ExactlyOne.ExactlyOne(8),
+            ExactlyOne.ExactlyOne(9),
+          ];
+          let result = sequence(list);
+          let expected = ExactlyOne.ExactlyOne([7, 8, 9]);
+          expect(ExactlyOne.toString(result))
+          |> toEqual(ExactlyOne.toString(expected));
+        })
+      );
+    });
+
+    describe("sequence with Lists", () => {
+      module ApplicativeUtils = MakeApplicativeUtils(ListzApplicative);
+      ApplicativeUtils.(
+        test("list is correct", () => {
+          let list = [[1, 2, 3], [1, 2]];
+          let result = sequence(list);
+          let expected = [
+            [1, 1],
+            [1, 2],
+            [2, 1],
+            [2, 2],
+            [3, 1],
+            [3, 2],
+          ];
+          expect(Belt.List.toArray(result))
+          |> toEqual(Belt.List.toArray(expected));
+        })
+      );
+    });
   });
 });

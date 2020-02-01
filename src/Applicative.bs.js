@@ -2,6 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Listz$FpCourseReason = require("./Listz.bs.js");
 var Functor$FpCourseReason = require("./Functor.bs.js");
@@ -117,6 +118,16 @@ function MakeApplicativeUtils(Applicative) {
     };
     return lift2(f, tb, ta);
   };
+  var sequence = function (lta) {
+    return Belt_List.reduce(lta, Curry._1(Applicative.pure, /* [] */0), (function (tla, ta) {
+                  return lift2((function (la, a) {
+                                return Belt_List.concat(la, /* :: */[
+                                            a,
+                                            /* [] */0
+                                          ]);
+                              }), tla, ta);
+                }));
+  };
   return {
           $less$$great: $less$$great,
           $less$star$great: $less$star$great,
@@ -129,7 +140,8 @@ function MakeApplicativeUtils(Applicative) {
           rightApply: rightApply,
           $star$great: rightApply,
           leftApply: leftApply,
-          $less$star: leftApply
+          $less$star: leftApply,
+          sequence: sequence
         };
 }
 

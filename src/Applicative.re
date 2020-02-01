@@ -286,4 +286,26 @@ module MakeApplicativeUtils = (Applicative: APPLICATIVE) => {
     };
 
   let ( <* ) = leftApply;
+
+  /*
+   -- | Sequences a list of structures to a structure of list.
+   --
+   -- >>> sequence (ExactlyOne 7 :. ExactlyOne 8 :. ExactlyOne 9 :. Nil)
+   -- ExactlyOne [7,8,9]
+   --
+   -- >>> sequence ((1 :. 2 :. 3 :. Nil) :. (1 :. 2 :. Nil) :. Nil)
+   -- [[1,1],[1,2],[2,1],[2,2],[3,1],[3,2]]
+   --
+   -- >>> sequence (Full 7 :. Empty :. Nil)
+   -- Empty
+   --
+   -- >>> sequence (Full 7 :. Full 8 :. Nil)
+   -- Full [7,8]
+   */
+  type sequence('a) = list(t('a)) => t(list('a));
+  let sequence: sequence('a) =
+    lta =>
+      lta->Belt.List.reduce(pure([]), (tla, ta) =>
+        lift2((la, a) => Belt.List.concat(la, [a]), tla, ta)
+      );
 };

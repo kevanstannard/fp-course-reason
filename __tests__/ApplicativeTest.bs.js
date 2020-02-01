@@ -205,50 +205,157 @@ Jest.describe("Applicative", (function (param) {
                                                           ]), Jest.Expect.expect(Belt_List.toArray(result)));
                                           }));
                             }));
-                      return Jest.describe("leftApply with lists", (function (param) {
+                      Jest.describe("leftApply with lists", (function (param) {
+                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
+                              return Jest.test("lists are correct", (function (param) {
+                                            var result = Curry._2(ApplicativeUtils.$less$star, /* :: */[
+                                                  1,
+                                                  /* :: */[
+                                                    2,
+                                                    /* :: */[
+                                                      3,
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ], /* :: */[
+                                                  4,
+                                                  /* :: */[
+                                                    5,
+                                                    /* :: */[
+                                                      6,
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ]);
+                                            return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
+                                                            1,
+                                                            /* :: */[
+                                                              1,
+                                                              /* :: */[
+                                                                1,
+                                                                /* :: */[
+                                                                  2,
+                                                                  /* :: */[
+                                                                    2,
+                                                                    /* :: */[
+                                                                      2,
+                                                                      /* :: */[
+                                                                        3,
+                                                                        /* :: */[
+                                                                          3,
+                                                                          /* :: */[
+                                                                            3,
+                                                                            /* [] */0
+                                                                          ]
+                                                                        ]
+                                                                      ]
+                                                                    ]
+                                                                  ]
+                                                                ]
+                                                              ]
+                                                            ]
+                                                          ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                          }));
+                            }));
+                      Jest.describe("sequence with ExactlyOne", (function (param) {
+                              var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ExactlyOneApplicative);
+                              return Jest.test("ExactlyOne is correct", (function (param) {
+                                            var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
+                                                  /* ExactlyOne */[7],
+                                                  /* :: */[
+                                                    /* ExactlyOne */[8],
+                                                    /* :: */[
+                                                      /* ExactlyOne */[9],
+                                                      /* [] */0
+                                                    ]
+                                                  ]
+                                                ]);
+                                            return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */[/* :: */[
+                                                              7,
+                                                              /* :: */[
+                                                                8,
+                                                                /* :: */[
+                                                                  9,
+                                                                  /* [] */0
+                                                                ]
+                                                              ]
+                                                            ]]), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
+                                          }));
+                            }));
+                      return Jest.describe("sequence with Lists", (function (param) {
                                     var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
-                                    return Jest.test("lists are correct", (function (param) {
-                                                  var result = Curry._2(ApplicativeUtils.$less$star, /* :: */[
-                                                        1,
+                                    return Jest.test("list is correct", (function (param) {
+                                                  var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
                                                         /* :: */[
-                                                          2,
+                                                          1,
                                                           /* :: */[
-                                                            3,
-                                                            /* [] */0
+                                                            2,
+                                                            /* :: */[
+                                                              3,
+                                                              /* [] */0
+                                                            ]
                                                           ]
-                                                        ]
-                                                      ], /* :: */[
-                                                        4,
+                                                        ],
                                                         /* :: */[
-                                                          5,
                                                           /* :: */[
-                                                            6,
-                                                            /* [] */0
-                                                          ]
+                                                            1,
+                                                            /* :: */[
+                                                              2,
+                                                              /* [] */0
+                                                            ]
+                                                          ],
+                                                          /* [] */0
                                                         ]
                                                       ]);
                                                   return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
-                                                                  1,
                                                                   /* :: */[
                                                                     1,
                                                                     /* :: */[
                                                                       1,
+                                                                      /* [] */0
+                                                                    ]
+                                                                  ],
+                                                                  /* :: */[
+                                                                    /* :: */[
+                                                                      1,
                                                                       /* :: */[
                                                                         2,
+                                                                        /* [] */0
+                                                                      ]
+                                                                    ],
+                                                                    /* :: */[
+                                                                      /* :: */[
+                                                                        2,
+                                                                        /* :: */[
+                                                                          1,
+                                                                          /* [] */0
+                                                                        ]
+                                                                      ],
+                                                                      /* :: */[
                                                                         /* :: */[
                                                                           2,
                                                                           /* :: */[
                                                                             2,
+                                                                            /* [] */0
+                                                                          ]
+                                                                        ],
+                                                                        /* :: */[
+                                                                          /* :: */[
+                                                                            3,
+                                                                            /* :: */[
+                                                                              1,
+                                                                              /* [] */0
+                                                                            ]
+                                                                          ],
+                                                                          /* :: */[
                                                                             /* :: */[
                                                                               3,
                                                                               /* :: */[
-                                                                                3,
-                                                                                /* :: */[
-                                                                                  3,
-                                                                                  /* [] */0
-                                                                                ]
+                                                                                2,
+                                                                                /* [] */0
                                                                               ]
-                                                                            ]
+                                                                            ],
+                                                                            /* [] */0
                                                                           ]
                                                                         ]
                                                                       ]
