@@ -162,7 +162,10 @@ describe("Listz", () => {
     test("it correctly handles a list of values", () => {
       let xs = [Some(1), Some(2), Some(3)];
       let result = seqOptional(xs);
-      expect(optionToString(result)) |> toEqual("Some(1,2,3,0)");
+      expect(optionToString(result))
+      |> toEqual(
+           "Some({\"hd\":1,\"tl\":{\"hd\":2,\"tl\":{\"hd\":3,\"tl\":0}}})",
+         );
     });
 
     test("it correctly handles an empty list", () => {

@@ -6,21 +6,29 @@ var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
 
 Jest.describe("ExactlyOne", (function (param) {
         Jest.test("runExactlyOne should extract a value", (function (param) {
-                var result = ExactlyOne$FpCourseReason.runExactlyOne(/* ExactlyOne */["hello"]);
+                var result = ExactlyOne$FpCourseReason.runExactlyOne(/* ExactlyOne */{
+                      _0: "hello"
+                    });
                 return Jest.Expect.toBe("hello", Jest.Expect.expect(result));
               }));
         Jest.test("mapExactlyOne should map a value", (function (param) {
                 var f = function (n) {
                   return (n << 1);
                 };
-                var result = ExactlyOne$FpCourseReason.mapExactlyOne(f, /* ExactlyOne */[2]);
+                var result = ExactlyOne$FpCourseReason.mapExactlyOne(f, /* ExactlyOne */{
+                      _0: 2
+                    });
                 return Jest.Expect.toBe("ExactlyOne(4)", Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
               }));
         return Jest.test("bindExactlyOne should bind a value", (function (param) {
                       var f = function (s) {
-                        return /* ExactlyOne */["Hello " + s];
+                        return /* ExactlyOne */{
+                                _0: "Hello " + s
+                              };
                       };
-                      var result = ExactlyOne$FpCourseReason.bindExactlyOne(f, /* ExactlyOne */["World"]);
+                      var result = ExactlyOne$FpCourseReason.bindExactlyOne(f, /* ExactlyOne */{
+                            _0: "World"
+                          });
                       return Jest.Expect.toBe("ExactlyOne(Hello World)", Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
                     }));
       }));

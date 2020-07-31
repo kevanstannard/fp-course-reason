@@ -3,20 +3,22 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 
-function toString(param) {
-  return "ExactlyOne(" + (String(param[0]) + ")");
+function toString(a) {
+  return "ExactlyOne(" + a._0 + ")";
 }
 
-function runExactlyOne(param) {
-  return param[0];
+function runExactlyOne(a) {
+  return a._0;
 }
 
-function mapExactlyOne(f, param) {
-  return /* ExactlyOne */[Curry._1(f, param[0])];
+function mapExactlyOne(f, a) {
+  return /* ExactlyOne */{
+          _0: Curry._1(f, a._0)
+        };
 }
 
-function bindExactlyOne(f, param) {
-  return Curry._1(f, param[0]);
+function bindExactlyOne(f, a) {
+  return Curry._1(f, a._0);
 }
 
 exports.toString = toString;

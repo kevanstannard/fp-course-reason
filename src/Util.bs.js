@@ -4,10 +4,10 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
-var isEven = ( n => n % 2 == 0 );
+var isEven = (n => n % 2 == 0);
 
 function isOdd(value) {
-  return !Curry._1(isEven, value);
+  return !isEven(value);
 }
 
 function $$const(a, param) {
@@ -27,11 +27,11 @@ function id(x) {
 }
 
 function optionToString(opt) {
-  if (opt !== undefined) {
-    return "Some(" + (String(Caml_option.valFromOption(opt)) + ")");
-  } else {
+  if (opt === undefined) {
     return "None";
   }
+  var json = JSON.stringify(Caml_option.valFromOption(opt));
+  return "Some(" + json + ")";
 }
 
 function flip(f, b, a) {
@@ -40,22 +40,19 @@ function flip(f, b, a) {
 
 function replicate(n, a) {
   var _xs = /* [] */0;
-  var x = a;
   var _n = n;
   while(true) {
     var n$1 = _n;
     var xs = _xs;
-    var match = n$1 > 0;
-    if (match) {
-      _n = n$1 - 1 | 0;
-      _xs = /* :: */[
-        x,
-        xs
-      ];
-      continue ;
-    } else {
+    if (n$1 <= 0) {
       return xs;
     }
+    _n = n$1 - 1 | 0;
+    _xs = {
+      hd: a,
+      tl: xs
+    };
+    continue ;
   };
 }
 
@@ -68,4 +65,4 @@ exports.id = id;
 exports.optionToString = optionToString;
 exports.flip = flip;
 exports.replicate = replicate;
-/* isEven Not a pure module */
+/* No side effect */

@@ -2,29 +2,39 @@
 'use strict';
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
-var Block = require("bs-platform/lib/js/block.js");
-var Curry = require("bs-platform/lib/js/curry.js");
 var Util$FpCourseReason = require("../src/Util.bs.js");
 var Validation$FpCourseReason = require("../src/Validation.bs.js");
 
 Jest.describe("ExactlyOne", (function (param) {
         Jest.describe("isError", (function (param) {
                 Jest.test("isError should indicate an error", (function (param) {
-                        var result = Validation$FpCourseReason.isError(/* Error */Block.__(0, ["message"]));
+                        var result = Validation$FpCourseReason.isError({
+                              TAG: /* Error */0,
+                              _0: "message"
+                            });
                         return Jest.Expect.toBe(true, Jest.Expect.expect(result));
                       }));
                 return Jest.test("isError should indicate not an error", (function (param) {
-                              var result = Validation$FpCourseReason.isError(/* Value */Block.__(1, [123]));
+                              var result = Validation$FpCourseReason.isError({
+                                    TAG: /* Value */1,
+                                    _0: 123
+                                  });
                               return Jest.Expect.toBe(false, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("isValue", (function (param) {
                 Jest.test("isValue should indicate a value", (function (param) {
-                        var result = Validation$FpCourseReason.isValue(/* Error */Block.__(0, ["message"]));
+                        var result = Validation$FpCourseReason.isValue({
+                              TAG: /* Error */0,
+                              _0: "message"
+                            });
                         return Jest.Expect.toBe(false, Jest.Expect.expect(result));
                       }));
                 return Jest.test("isValue should indicate not a value", (function (param) {
-                              var result = Validation$FpCourseReason.isValue(/* Value */Block.__(1, [123]));
+                              var result = Validation$FpCourseReason.isValue({
+                                    TAG: /* Value */1,
+                                    _0: 123
+                                  });
                               return Jest.Expect.toBe(true, Jest.Expect.expect(result));
                             }));
               }));
@@ -33,72 +43,114 @@ Jest.describe("ExactlyOne", (function (param) {
                         var f = function (n) {
                           return n + 10 | 0;
                         };
-                        var result = Validation$FpCourseReason.mapValidation(f, /* Error */Block.__(0, ["message"]));
+                        var result = Validation$FpCourseReason.mapValidation(f, {
+                              TAG: /* Error */0,
+                              _0: "message"
+                            });
                         return Jest.Expect.toBe("Error(message)", Jest.Expect.expect(Validation$FpCourseReason.toString(result)));
                       }));
                 return Jest.test("mapValidation should map a value", (function (param) {
                               var f = function (n) {
                                 return n + 10 | 0;
                               };
-                              var result = Validation$FpCourseReason.mapValidation(f, /* Value */Block.__(1, [7]));
+                              var result = Validation$FpCourseReason.mapValidation(f, {
+                                    TAG: /* Value */1,
+                                    _0: 7
+                                  });
                               return Jest.Expect.toBe("Value(17)", Jest.Expect.expect(Validation$FpCourseReason.toString(result)));
                             }));
               }));
         Jest.describe("bindValidation", (function (param) {
                 Jest.test("bindValidation should bind an error", (function (param) {
                         var f = function (n) {
-                          var match = Curry._1(Util$FpCourseReason.isEven, n);
-                          if (match) {
-                            return /* Value */Block.__(1, [n + 10 | 0]);
+                          if (Util$FpCourseReason.isEven(n)) {
+                            return {
+                                    TAG: /* Value */1,
+                                    _0: n + 10 | 0
+                                  };
                           } else {
-                            return /* Error */Block.__(0, ["odd"]);
+                            return {
+                                    TAG: /* Error */0,
+                                    _0: "odd"
+                                  };
                           }
                         };
-                        var result = Validation$FpCourseReason.bindValidation(f, /* Error */Block.__(0, ["message"]));
+                        var result = Validation$FpCourseReason.bindValidation(f, {
+                              TAG: /* Error */0,
+                              _0: "message"
+                            });
                         return Jest.Expect.toBe("Error(message)", Jest.Expect.expect(Validation$FpCourseReason.toString(result)));
                       }));
                 Jest.test("bindValidation should bind an odd value", (function (param) {
                         var f = function (n) {
-                          var match = Curry._1(Util$FpCourseReason.isEven, n);
-                          if (match) {
-                            return /* Value */Block.__(1, [n + 10 | 0]);
+                          if (Util$FpCourseReason.isEven(n)) {
+                            return {
+                                    TAG: /* Value */1,
+                                    _0: n + 10 | 0
+                                  };
                           } else {
-                            return /* Error */Block.__(0, ["odd"]);
+                            return {
+                                    TAG: /* Error */0,
+                                    _0: "odd"
+                                  };
                           }
                         };
-                        var result = Validation$FpCourseReason.bindValidation(f, /* Value */Block.__(1, [7]));
+                        var result = Validation$FpCourseReason.bindValidation(f, {
+                              TAG: /* Value */1,
+                              _0: 7
+                            });
                         return Jest.Expect.toBe("Error(odd)", Jest.Expect.expect(Validation$FpCourseReason.toString(result)));
                       }));
                 return Jest.test("bindValidation should bind an even value", (function (param) {
                               var f = function (n) {
-                                var match = Curry._1(Util$FpCourseReason.isEven, n);
-                                if (match) {
-                                  return /* Value */Block.__(1, [n + 10 | 0]);
+                                if (Util$FpCourseReason.isEven(n)) {
+                                  return {
+                                          TAG: /* Value */1,
+                                          _0: n + 10 | 0
+                                        };
                                 } else {
-                                  return /* Error */Block.__(0, ["odd"]);
+                                  return {
+                                          TAG: /* Error */0,
+                                          _0: "odd"
+                                        };
                                 }
                               };
-                              var result = Validation$FpCourseReason.bindValidation(f, /* Value */Block.__(1, [8]));
+                              var result = Validation$FpCourseReason.bindValidation(f, {
+                                    TAG: /* Value */1,
+                                    _0: 8
+                                  });
                               return Jest.Expect.toBe("Value(18)", Jest.Expect.expect(Validation$FpCourseReason.toString(result)));
                             }));
               }));
         Jest.describe("valueOr", (function (param) {
                 Jest.test("valueOr handles an error", (function (param) {
-                        var result = Validation$FpCourseReason.valueOr(/* Error */Block.__(0, ["message"]), 3);
+                        var result = Validation$FpCourseReason.valueOr({
+                              TAG: /* Error */0,
+                              _0: "message"
+                            }, 3);
                         return Jest.Expect.toBe(3, Jest.Expect.expect(result));
                       }));
                 return Jest.test("valueOr handles a value", (function (param) {
-                              var result = Validation$FpCourseReason.valueOr(/* Value */Block.__(1, [7]), 3);
+                              var result = Validation$FpCourseReason.valueOr({
+                                    TAG: /* Value */1,
+                                    _0: 7
+                                  }, 3);
                               return Jest.Expect.toBe(7, Jest.Expect.expect(result));
                             }));
               }));
         return Jest.describe("errorOr", (function (param) {
                       Jest.test("errorOr handles an error", (function (param) {
-                              var result = Validation$FpCourseReason.errorOr(/* Error */Block.__(0, ["message"]), "q");
+                              var result = Validation$FpCourseReason.errorOr({
+                                    TAG: /* Error */0,
+                                    _0: "message"
+                                  }, "q");
                               return Jest.Expect.toBe("message", Jest.Expect.expect(result));
                             }));
                       return Jest.test("errorOr handles a value", (function (param) {
-                                    var result = Validation$FpCourseReason.errorOr(/* Value */Block.__(1, [7]), "q");
+                                    var result = Validation$FpCourseReason.errorOr({
+                                          TAG: /* Value */1,
+                                          _0: 7
+                                        }, "q");
                                     return Jest.Expect.toBe("q", Jest.Expect.expect(result));
                                   }));
                     }));

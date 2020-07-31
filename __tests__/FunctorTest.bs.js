@@ -3,6 +3,7 @@
 
 var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Curry = require("bs-platform/lib/js/curry.js");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Reader$FpCourseReason = require("../src/Reader.bs.js");
 var Functor$FpCourseReason = require("../src/Functor.bs.js");
 var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
@@ -13,7 +14,9 @@ Jest.describe("Functor", (function (param) {
                               var plusOne = function (param) {
                                 return 1 + param | 0;
                               };
-                              var result = Curry._2(Functor$FpCourseReason.ExactlyOneFunctor.map, plusOne, /* ExactlyOne */[2]);
+                              var result = Curry._2(Functor$FpCourseReason.ExactlyOneFunctor.map, plusOne, /* ExactlyOne */{
+                                    _0: 2
+                                  });
                               return Jest.Expect.toBe("ExactlyOne(3)", Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
                             }));
               }));
@@ -29,26 +32,26 @@ Jest.describe("Functor", (function (param) {
                               var plusOne = function (param) {
                                 return 1 + param | 0;
                               };
-                              var result = Curry._2(Functor$FpCourseReason.ListzFunctor.map, plusOne, /* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          2,
-                                          /* :: */[
-                                            3,
-                                            /* :: */[
-                                              4,
-                                              /* [] */0
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Curry._2(Functor$FpCourseReason.ListzFunctor.map, plusOne, {
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 2,
+                                          tl: {
+                                            hd: 3,
+                                            tl: {
+                                              hd: 4,
+                                              tl: /* [] */0
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("Option", (function (param) {
@@ -72,10 +75,12 @@ Jest.describe("Functor", (function (param) {
                               var plusOne = function (param) {
                                 return 1 + param | 0;
                               };
-                              var reader = /* Reader */[(function (param) {
+                              var reader = /* Reader */{
+                                _0: (function (param) {
                                     return (param << 1);
-                                  })];
-                              var ReaderFunctorInt = Functor$FpCourseReason.MakeReaderFunctor({ });
+                                  })
+                              };
+                              var ReaderFunctorInt = Functor$FpCourseReason.MakeReaderFunctor({});
                               var result = Curry._2(ReaderFunctorInt.Functor.map, plusOne, reader);
                               return Jest.Expect.toEqual(17, Jest.Expect.expect(Reader$FpCourseReason.run(result, 8)));
                             }));
@@ -88,7 +93,7 @@ Jest.describe("Functor", (function (param) {
                               var g = function (param) {
                                 return (param << 1);
                               };
-                              var FunctionFunctorInt = Functor$FpCourseReason.MakeFunctionFunctor({ });
+                              var FunctionFunctorInt = Functor$FpCourseReason.MakeFunctionFunctor({});
                               var fg = Curry._2(FunctionFunctorInt.Functor.map, f, g);
                               return Jest.Expect.toEqual(17, Jest.Expect.expect(Curry._1(fg, 8)));
                             }));
@@ -96,29 +101,29 @@ Jest.describe("Functor", (function (param) {
         Jest.describe("Anon Map", (function (param) {
                 Jest.test("anon map is correct for Listz", (function (param) {
                         var FunctorUtilsList = Functor$FpCourseReason.MakeFunctorUtils(Functor$FpCourseReason.ListzFunctor);
-                        var list = /* :: */[
-                          1,
-                          /* :: */[
-                            2,
-                            /* :: */[
-                              3,
-                              /* [] */0
-                            ]
-                          ]
-                        ];
+                        var list = {
+                          hd: 1,
+                          tl: {
+                            hd: 2,
+                            tl: {
+                              hd: 3,
+                              tl: /* [] */0
+                            }
+                          }
+                        };
                         var result1 = Curry._2(FunctorUtilsList.anonMap, 7, list);
                         var result2 = Curry._2(FunctorUtilsList.$less$, 7, list);
                         Jest.Expect.toEqual(result2, Jest.Expect.expect(result1));
-                        return Jest.Expect.toEqual(/* :: */[
-                                    7,
-                                    /* :: */[
-                                      7,
-                                      /* :: */[
-                                        7,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ], Jest.Expect.expect(result2));
+                        return Jest.Expect.toEqual({
+                                    hd: 7,
+                                    tl: {
+                                      hd: 7,
+                                      tl: {
+                                        hd: 7,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  }, Jest.Expect.expect(result2));
                       }));
                 Jest.test("anon map is correct for Option", (function (param) {
                         var FunctorUtilsReader = Functor$FpCourseReason.MakeFunctorUtils(Functor$FpCourseReason.OptionFunctor);
@@ -126,11 +131,13 @@ Jest.describe("Functor", (function (param) {
                         return Jest.Expect.toEqual(7, Jest.Expect.expect(result));
                       }));
                 return Jest.test("anon map is correct for Reader", (function (param) {
-                              var ReaderIntFunctor = Functor$FpCourseReason.MakeReaderFunctor({ });
+                              var ReaderIntFunctor = Functor$FpCourseReason.MakeReaderFunctor({});
                               var FunctorUtilsReader = Functor$FpCourseReason.MakeFunctorUtils(ReaderIntFunctor.Functor);
-                              var f = /* Reader */[(function (param) {
+                              var f = /* Reader */{
+                                _0: (function (param) {
                                     return 1 + param | 0;
-                                  })];
+                                  })
+                              };
                               var g = Curry._2(FunctorUtilsReader.anonMap, 7, f);
                               var result = Reader$FpCourseReason.run(g, 1);
                               return Jest.Expect.toEqual(7, Jest.Expect.expect(result));
@@ -139,31 +146,31 @@ Jest.describe("Functor", (function (param) {
         return Jest.describe("Void", (function (param) {
                       Jest.test("void is correct for Listz", (function (param) {
                               var FunctorUtilsList = Functor$FpCourseReason.MakeFunctorUtils(Functor$FpCourseReason.ListzFunctor);
-                              var result = Curry._1(FunctorUtilsList.$$void, /* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          /* () */0,
-                                          /* :: */[
-                                            /* () */0,
-                                            /* :: */[
-                                              /* () */0,
-                                              /* [] */0
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Curry._1(FunctorUtilsList.$$void, {
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: undefined,
+                                          tl: {
+                                            hd: undefined,
+                                            tl: {
+                                              hd: undefined,
+                                              tl: /* [] */0
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
                       Jest.test("void is correct for Option Some", (function (param) {
                               var FunctorUtilsOption = Functor$FpCourseReason.MakeFunctorUtils(Functor$FpCourseReason.OptionFunctor);
                               var result = Curry._1(FunctorUtilsOption.$$void, 7);
-                              return Jest.Expect.toEqual(/* () */0, Jest.Expect.expect(result));
+                              return Jest.Expect.toEqual(Caml_option.some(undefined), Jest.Expect.expect(result));
                             }));
                       Jest.test("void is correct for Option None", (function (param) {
                               var FunctorUtilsOption = Functor$FpCourseReason.MakeFunctorUtils(Functor$FpCourseReason.OptionFunctor);
@@ -171,24 +178,26 @@ Jest.describe("Functor", (function (param) {
                               return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                             }));
                       Jest.test("void is correct for Reader", (function (param) {
-                              var ReaderIntFunctor = Functor$FpCourseReason.MakeReaderFunctor({ });
+                              var ReaderIntFunctor = Functor$FpCourseReason.MakeReaderFunctor({});
                               var FunctorUtilsReader = Functor$FpCourseReason.MakeFunctorUtils(ReaderIntFunctor.Functor);
-                              var f = /* Reader */[(function (param) {
+                              var f = /* Reader */{
+                                _0: (function (param) {
                                     return 10 + param | 0;
-                                  })];
+                                  })
+                              };
                               var g = Curry._1(FunctorUtilsReader.$$void, f);
                               var result = Reader$FpCourseReason.run(g, 5);
-                              return Jest.Expect.toEqual(/* () */0, Jest.Expect.expect(result));
+                              return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                             }));
                       return Jest.test("void is correct for Function", (function (param) {
                                     var f = function (param) {
                                       return 10 + param | 0;
                                     };
-                                    var FunctionFunctorInt = Functor$FpCourseReason.MakeFunctionFunctor({ });
+                                    var FunctionFunctorInt = Functor$FpCourseReason.MakeFunctionFunctor({});
                                     var FunctorUtilsFunction = Functor$FpCourseReason.MakeFunctorUtils(FunctionFunctorInt.Functor);
                                     var g = Curry._1(FunctorUtilsFunction.$$void, f);
                                     var result = Curry._1(g, 5);
-                                    return Jest.Expect.toEqual(/* () */0, Jest.Expect.expect(result));
+                                    return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                                   }));
                     }));
       }));

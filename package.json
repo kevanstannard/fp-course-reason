@@ -1,6 +1,6 @@
 {
   "name": "fp-course-reason",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -13,8 +13,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@glennsl/bs-jest": "^0.4.9",
-    "bs-platform": "^7.0.1",
-    "jest": "^24.9.0"
+    "@glennsl/bs-jest": "0.5.1",
+    "bs-platform": "8.0.3",
+    "jest": "26.2.2"
   }
 }

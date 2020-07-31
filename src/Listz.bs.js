@@ -3,14 +3,13 @@
 
 var List = require("bs-platform/lib/js/list.js");
 var Curry = require("bs-platform/lib/js/curry.js");
-var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var Util$FpCourseReason = require("./Util.bs.js");
 
 function headOr(x, xs) {
   if (xs) {
-    return xs[0];
+    return xs.hd;
   } else {
     return x;
   }
@@ -21,7 +20,9 @@ function headOr2(z, xs) {
 }
 
 function product(xs) {
-  return List.fold_left(Caml_int32.imul, 1, xs);
+  return List.fold_left((function (prim, prim$1) {
+                return Math.imul(prim, prim$1);
+              }), 1, xs);
 }
 
 function sum(xs) {
@@ -38,21 +39,20 @@ function length(xs) {
 
 function map(f, xs) {
   return List.fold_right((function (x, acc) {
-                return /* :: */[
-                        Curry._1(f, x),
-                        acc
-                      ];
+                return {
+                        hd: Curry._1(f, x),
+                        tl: acc
+                      };
               }), xs, /* [] */0);
 }
 
 function filter(f, xs) {
   return List.fold_right((function (x, acc) {
-                var match = Curry._1(f, x);
-                if (match) {
-                  return /* :: */[
-                          x,
-                          acc
-                        ];
+                if (Curry._1(f, x)) {
+                  return {
+                          hd: x,
+                          tl: acc
+                        };
                 } else {
                   return acc;
                 }
@@ -61,10 +61,10 @@ function filter(f, xs) {
 
 function $plus$plus$plus(xs, ys) {
   return List.fold_right((function (x, acc) {
-                return /* :: */[
-                        x,
-                        acc
-                      ];
+                return {
+                        hd: x,
+                        tl: acc
+                      };
               }), xs, ys);
 }
 
@@ -73,35 +73,32 @@ function flatten(xs) {
 }
 
 function flatMap(f, xs) {
-  var xs$1 = map(f, xs);
-  return List.fold_right($plus$plus$plus, xs$1, /* [] */0);
+  return List.fold_right($plus$plus$plus, map(f, xs), /* [] */0);
 }
 
 function flatMap2(f, xs) {
-  var xs$1 = map(f, xs);
-  return List.fold_right($plus$plus$plus, xs$1, /* [] */0);
+  return List.fold_right($plus$plus$plus, map(f, xs), /* [] */0);
 }
 
 function flatMapWithCompose(f) {
-  return (function (param) {
-      return Util$FpCourseReason.$less$dot$great(flatten, (function (param) {
-                    return map(f, param);
-                  }), param);
-    });
+  return function (param) {
+    return Util$FpCourseReason.$less$dot$great(flatten, (function (param) {
+                  return map(f, param);
+                }), param);
+  };
 }
 
 function flattenAgain(xs) {
-  var xs$1 = map(Util$FpCourseReason.id, xs);
-  return List.fold_right($plus$plus$plus, xs$1, /* [] */0);
+  return List.fold_right($plus$plus$plus, map(Util$FpCourseReason.id, xs), /* [] */0);
 }
 
 function seqOptional(xs) {
   return List.fold_right((function (xOpt, accOpt) {
                 if (xOpt !== undefined && accOpt !== undefined) {
-                  return /* :: */[
-                          Caml_option.valFromOption(xOpt),
-                          accOpt
-                        ];
+                  return {
+                          hd: Caml_option.valFromOption(xOpt),
+                          tl: accOpt
+                        };
                 }
                 
               }), xs, /* [] */0);
@@ -111,10 +108,10 @@ function seqOptional2(xs) {
   var f = function (xOpt, accOpt) {
     return Belt_Option.flatMap(xOpt, (function (x) {
                   return Belt_Option.flatMap(accOpt, (function (acc) {
-                                return /* :: */[
-                                        x,
-                                        acc
-                                      ];
+                                return {
+                                        hd: x,
+                                        tl: acc
+                                      };
                               }));
                 }));
   };
@@ -124,52 +121,45 @@ function seqOptional2(xs) {
 function find(f, _xs) {
   while(true) {
     var xs = _xs;
-    if (xs) {
-      var x = xs[0];
-      var match = Curry._1(f, x);
-      if (match) {
-        return Caml_option.some(x);
-      } else {
-        _xs = xs[1];
-        continue ;
-      }
-    } else {
+    if (!xs) {
       return ;
     }
+    var x = xs.hd;
+    if (Curry._1(f, x)) {
+      return Caml_option.some(x);
+    }
+    _xs = xs.tl;
+    continue ;
   };
 }
 
 function find2(f, xs) {
   var match = filter(f, xs);
   if (match) {
-    return Caml_option.some(match[0]);
+    return Caml_option.some(match.hd);
   }
   
 }
 
 function lengthGT4(xs) {
-  if (xs) {
-    var match = xs[1];
-    if (match) {
-      var match$1 = match[1];
-      if (match$1) {
-        var match$2 = match$1[1];
-        if (match$2) {
-          var match$3 = match$2[1];
-          if (match$3 && !match$3[1]) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+  if (!xs) {
+    return false;
+  }
+  var match = xs.tl;
+  if (!match) {
+    return false;
+  }
+  var match$1 = match.tl;
+  if (!match$1) {
+    return false;
+  }
+  var match$2 = match$1.tl;
+  if (!match$2) {
+    return false;
+  }
+  var match$3 = match$2.tl;
+  if (match$3 && !match$3.tl) {
+    return true;
   } else {
     return false;
   }
@@ -177,18 +167,18 @@ function lengthGT4(xs) {
 
 function reverse(xs) {
   return List.fold_left((function (acc, x) {
-                return /* :: */[
-                        x,
-                        acc
-                      ];
+                return {
+                        hd: x,
+                        tl: acc
+                      };
               }), /* [] */0, xs);
 }
 
 function appendHead(x, xs) {
-  return /* :: */[
-          x,
-          xs
-        ];
+  return {
+          hd: x,
+          tl: xs
+        };
 }
 
 function reverse2(xs) {
@@ -218,4 +208,4 @@ exports.lengthGT4 = lengthGT4;
 exports.reverse = reverse;
 exports.appendHead = appendHead;
 exports.reverse2 = reverse2;
-/* Util-FpCourseReason Not a pure module */
+/* No side effect */

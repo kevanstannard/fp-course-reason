@@ -4,7 +4,6 @@
 var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
-var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
 var Util$FpCourseReason = require("../src/Util.bs.js");
 var ExactlyOne$FpCourseReason = require("../src/ExactlyOne.bs.js");
 var Applicative$FpCourseReason = require("../src/Applicative.bs.js");
@@ -16,64 +15,68 @@ Jest.describe("Applicative", (function (param) {
                         return Jest.Expect.toBe(123, Jest.Expect.expect(ExactlyOne$FpCourseReason.runExactlyOne(result)));
                       }));
                 return Jest.test("apply is correct", (function (param) {
-                              var f = /* ExactlyOne */[(function (param) {
+                              var f = /* ExactlyOne */{
+                                _0: (function (param) {
                                     return 10 + param | 0;
-                                  })];
-                              var result = Applicative$FpCourseReason.ExactlyOneApplicative.apply(f, /* ExactlyOne */[8]);
+                                  })
+                              };
+                              var result = Applicative$FpCourseReason.ExactlyOneApplicative.apply(f, /* ExactlyOne */{
+                                    _0: 8
+                                  });
                               return Jest.Expect.toBe(18, Jest.Expect.expect(ExactlyOne$FpCourseReason.runExactlyOne(result)));
                             }));
               }));
         Jest.describe("Listz", (function (param) {
                 Jest.test("pure is correct", (function (param) {
                         var result = Applicative$FpCourseReason.ListzApplicative.pure(123);
-                        return Jest.Expect.toEqual(/* :: */[
-                                    123,
-                                    /* [] */0
-                                  ], Jest.Expect.expect(result));
+                        return Jest.Expect.toEqual({
+                                    hd: 123,
+                                    tl: /* [] */0
+                                  }, Jest.Expect.expect(result));
                       }));
                 return Jest.test("apply is correct", (function (param) {
-                              var fz_000 = function (param) {
+                              var fz_0 = function (param) {
                                 return 1 + param | 0;
                               };
-                              var fz_001 = /* :: */[
-                                (function (param) {
+                              var fz_1 = {
+                                hd: (function (param) {
                                     return (param << 1);
                                   }),
-                                /* [] */0
-                              ];
-                              var fz = /* :: */[
-                                fz_000,
-                                fz_001
-                              ];
-                              var result = Applicative$FpCourseReason.ListzApplicative.apply(fz, /* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          2,
-                                          /* :: */[
-                                            3,
-                                            /* :: */[
-                                              4,
-                                              /* :: */[
-                                                2,
-                                                /* :: */[
-                                                  4,
-                                                  /* :: */[
-                                                    6,
-                                                    /* [] */0
-                                                  ]
-                                                ]
-                                              ]
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                                tl: /* [] */0
+                              };
+                              var fz = {
+                                hd: fz_0,
+                                tl: fz_1
+                              };
+                              var result = Applicative$FpCourseReason.ListzApplicative.apply(fz, {
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 2,
+                                          tl: {
+                                            hd: 3,
+                                            tl: {
+                                              hd: 4,
+                                              tl: {
+                                                hd: 2,
+                                                tl: {
+                                                  hd: 4,
+                                                  tl: {
+                                                    hd: 6,
+                                                    tl: /* [] */0
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("Option", (function (param) {
@@ -108,7 +111,7 @@ Jest.describe("Applicative", (function (param) {
                         var g = function (param) {
                           return 10 + param | 0;
                         };
-                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({});
                         var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
                         return Jest.Expect.toEqual(16, Jest.Expect.expect(result));
                       }));
@@ -119,7 +122,7 @@ Jest.describe("Applicative", (function (param) {
                         var g = function (param) {
                           return 5 + param | 0;
                         };
-                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({});
                         var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
                         return Jest.Expect.toEqual(11, Jest.Expect.expect(result));
                       }));
@@ -130,25 +133,29 @@ Jest.describe("Applicative", (function (param) {
                         var g = function (param) {
                           return 5 + param | 0;
                         };
-                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({});
                         var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 1);
                         return Jest.Expect.toEqual(7, Jest.Expect.expect(result));
                       }));
                 Jest.test("apply is correct (4)", (function (param) {
-                        var f = Caml_int32.imul;
+                        var f = function (prim, prim$1) {
+                          return Math.imul(prim, prim$1);
+                        };
                         var g = function (param) {
                           return 10 + param | 0;
                         };
-                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                        var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({});
                         var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
                         return Jest.Expect.toEqual(39, Jest.Expect.expect(result));
                       }));
                 return Jest.test("apply is correct (5)", (function (param) {
-                              var f = Caml_int32.imul;
+                              var f = function (prim, prim$1) {
+                                return Math.imul(prim, prim$1);
+                              };
                               var g = function (param) {
                                 return 2 + param | 0;
                               };
-                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({ });
+                              var FunctionApplicative = Applicative$FpCourseReason.MakeFunctionApplicative({});
                               var result = Curry._3(FunctionApplicative.Applicative.apply, f, g, 3);
                               return Jest.Expect.toEqual(15, Jest.Expect.expect(result));
                             }));
@@ -157,552 +164,560 @@ Jest.describe("Applicative", (function (param) {
                 Jest.describe("rightApply with lists", (function (param) {
                         var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
                         return Jest.test("lists are correct", (function (param) {
-                                      var result = Curry._2(ApplicativeUtils.$star$great, /* :: */[
-                                            1,
-                                            /* :: */[
-                                              2,
-                                              /* :: */[
-                                                3,
-                                                /* [] */0
-                                              ]
-                                            ]
-                                          ], /* :: */[
-                                            4,
-                                            /* :: */[
-                                              5,
-                                              /* :: */[
-                                                6,
-                                                /* [] */0
-                                              ]
-                                            ]
-                                          ]);
-                                      return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
-                                                      4,
-                                                      /* :: */[
-                                                        5,
-                                                        /* :: */[
-                                                          6,
-                                                          /* :: */[
-                                                            4,
-                                                            /* :: */[
-                                                              5,
-                                                              /* :: */[
-                                                                6,
-                                                                /* :: */[
-                                                                  4,
-                                                                  /* :: */[
-                                                                    5,
-                                                                    /* :: */[
-                                                                      6,
-                                                                      /* [] */0
-                                                                    ]
-                                                                  ]
-                                                                ]
-                                                              ]
-                                                            ]
-                                                          ]
-                                                        ]
-                                                      ]
-                                                    ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                      var result = Curry._2(ApplicativeUtils.$star$great, {
+                                            hd: 1,
+                                            tl: {
+                                              hd: 2,
+                                              tl: {
+                                                hd: 3,
+                                                tl: /* [] */0
+                                              }
+                                            }
+                                          }, {
+                                            hd: 4,
+                                            tl: {
+                                              hd: 5,
+                                              tl: {
+                                                hd: 6,
+                                                tl: /* [] */0
+                                              }
+                                            }
+                                          });
+                                      return Jest.Expect.toEqual(Belt_List.toArray({
+                                                      hd: 4,
+                                                      tl: {
+                                                        hd: 5,
+                                                        tl: {
+                                                          hd: 6,
+                                                          tl: {
+                                                            hd: 4,
+                                                            tl: {
+                                                              hd: 5,
+                                                              tl: {
+                                                                hd: 6,
+                                                                tl: {
+                                                                  hd: 4,
+                                                                  tl: {
+                                                                    hd: 5,
+                                                                    tl: {
+                                                                      hd: 6,
+                                                                      tl: /* [] */0
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }), Jest.Expect.expect(Belt_List.toArray(result)));
                                     }));
                       }));
                 Jest.describe("leftApply with lists", (function (param) {
                         var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
                         return Jest.test("lists are correct", (function (param) {
-                                      var result = Curry._2(ApplicativeUtils.$less$star, /* :: */[
-                                            1,
-                                            /* :: */[
-                                              2,
-                                              /* :: */[
-                                                3,
-                                                /* [] */0
-                                              ]
-                                            ]
-                                          ], /* :: */[
-                                            4,
-                                            /* :: */[
-                                              5,
-                                              /* :: */[
-                                                6,
-                                                /* [] */0
-                                              ]
-                                            ]
-                                          ]);
-                                      return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
-                                                      1,
-                                                      /* :: */[
-                                                        1,
-                                                        /* :: */[
-                                                          1,
-                                                          /* :: */[
-                                                            2,
-                                                            /* :: */[
-                                                              2,
-                                                              /* :: */[
-                                                                2,
-                                                                /* :: */[
-                                                                  3,
-                                                                  /* :: */[
-                                                                    3,
-                                                                    /* :: */[
-                                                                      3,
-                                                                      /* [] */0
-                                                                    ]
-                                                                  ]
-                                                                ]
-                                                              ]
-                                                            ]
-                                                          ]
-                                                        ]
-                                                      ]
-                                                    ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                      var result = Curry._2(ApplicativeUtils.$less$star, {
+                                            hd: 1,
+                                            tl: {
+                                              hd: 2,
+                                              tl: {
+                                                hd: 3,
+                                                tl: /* [] */0
+                                              }
+                                            }
+                                          }, {
+                                            hd: 4,
+                                            tl: {
+                                              hd: 5,
+                                              tl: {
+                                                hd: 6,
+                                                tl: /* [] */0
+                                              }
+                                            }
+                                          });
+                                      return Jest.Expect.toEqual(Belt_List.toArray({
+                                                      hd: 1,
+                                                      tl: {
+                                                        hd: 1,
+                                                        tl: {
+                                                          hd: 1,
+                                                          tl: {
+                                                            hd: 2,
+                                                            tl: {
+                                                              hd: 2,
+                                                              tl: {
+                                                                hd: 2,
+                                                                tl: {
+                                                                  hd: 3,
+                                                                  tl: {
+                                                                    hd: 3,
+                                                                    tl: {
+                                                                      hd: 3,
+                                                                      tl: /* [] */0
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }), Jest.Expect.expect(Belt_List.toArray(result)));
                                     }));
                       }));
                 Jest.describe("sequence with ExactlyOne", (function (param) {
                         var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ExactlyOneApplicative);
                         return Jest.test("ExactlyOne is correct", (function (param) {
-                                      var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
-                                            /* ExactlyOne */[7],
-                                            /* :: */[
-                                              /* ExactlyOne */[8],
-                                              /* :: */[
-                                                /* ExactlyOne */[9],
-                                                /* [] */0
-                                              ]
-                                            ]
-                                          ]);
-                                      return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */[/* :: */[
-                                                        7,
-                                                        /* :: */[
-                                                          8,
-                                                          /* :: */[
-                                                            9,
-                                                            /* [] */0
-                                                          ]
-                                                        ]
-                                                      ]]), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
+                                      var result = Curry._1(ApplicativeUtils.sequence, {
+                                            hd: /* ExactlyOne */{
+                                              _0: 7
+                                            },
+                                            tl: {
+                                              hd: /* ExactlyOne */{
+                                                _0: 8
+                                              },
+                                              tl: {
+                                                hd: /* ExactlyOne */{
+                                                  _0: 9
+                                                },
+                                                tl: /* [] */0
+                                              }
+                                            }
+                                          });
+                                      return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */{
+                                                      _0: {
+                                                        hd: 7,
+                                                        tl: {
+                                                          hd: 8,
+                                                          tl: {
+                                                            hd: 9,
+                                                            tl: /* [] */0
+                                                          }
+                                                        }
+                                                      }
+                                                    }), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
                                     }));
                       }));
                 Jest.describe("sequence with Lists", (function (param) {
                         var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
                         return Jest.test("list is correct", (function (param) {
-                                      var result = Curry._1(ApplicativeUtils.sequence, /* :: */[
-                                            /* :: */[
-                                              1,
-                                              /* :: */[
-                                                2,
-                                                /* :: */[
-                                                  3,
-                                                  /* [] */0
-                                                ]
-                                              ]
-                                            ],
-                                            /* :: */[
-                                              /* :: */[
-                                                1,
-                                                /* :: */[
-                                                  2,
-                                                  /* [] */0
-                                                ]
-                                              ],
-                                              /* [] */0
-                                            ]
-                                          ]);
-                                      return Jest.Expect.toEqual(Belt_List.toArray(/* :: */[
-                                                      /* :: */[
-                                                        1,
-                                                        /* :: */[
-                                                          1,
-                                                          /* [] */0
-                                                        ]
-                                                      ],
-                                                      /* :: */[
-                                                        /* :: */[
-                                                          1,
-                                                          /* :: */[
-                                                            2,
-                                                            /* [] */0
-                                                          ]
-                                                        ],
-                                                        /* :: */[
-                                                          /* :: */[
-                                                            2,
-                                                            /* :: */[
-                                                              1,
-                                                              /* [] */0
-                                                            ]
-                                                          ],
-                                                          /* :: */[
-                                                            /* :: */[
-                                                              2,
-                                                              /* :: */[
-                                                                2,
-                                                                /* [] */0
-                                                              ]
-                                                            ],
-                                                            /* :: */[
-                                                              /* :: */[
-                                                                3,
-                                                                /* :: */[
-                                                                  1,
-                                                                  /* [] */0
-                                                                ]
-                                                              ],
-                                                              /* :: */[
-                                                                /* :: */[
-                                                                  3,
-                                                                  /* :: */[
-                                                                    2,
-                                                                    /* [] */0
-                                                                  ]
-                                                                ],
-                                                                /* [] */0
-                                                              ]
-                                                            ]
-                                                          ]
-                                                        ]
-                                                      ]
-                                                    ]), Jest.Expect.expect(Belt_List.toArray(result)));
+                                      var result = Curry._1(ApplicativeUtils.sequence, {
+                                            hd: {
+                                              hd: 1,
+                                              tl: {
+                                                hd: 2,
+                                                tl: {
+                                                  hd: 3,
+                                                  tl: /* [] */0
+                                                }
+                                              }
+                                            },
+                                            tl: {
+                                              hd: {
+                                                hd: 1,
+                                                tl: {
+                                                  hd: 2,
+                                                  tl: /* [] */0
+                                                }
+                                              },
+                                              tl: /* [] */0
+                                            }
+                                          });
+                                      return Jest.Expect.toEqual(Belt_List.toArray({
+                                                      hd: {
+                                                        hd: 1,
+                                                        tl: {
+                                                          hd: 1,
+                                                          tl: /* [] */0
+                                                        }
+                                                      },
+                                                      tl: {
+                                                        hd: {
+                                                          hd: 1,
+                                                          tl: {
+                                                            hd: 2,
+                                                            tl: /* [] */0
+                                                          }
+                                                        },
+                                                        tl: {
+                                                          hd: {
+                                                            hd: 2,
+                                                            tl: {
+                                                              hd: 1,
+                                                              tl: /* [] */0
+                                                            }
+                                                          },
+                                                          tl: {
+                                                            hd: {
+                                                              hd: 2,
+                                                              tl: {
+                                                                hd: 2,
+                                                                tl: /* [] */0
+                                                              }
+                                                            },
+                                                            tl: {
+                                                              hd: {
+                                                                hd: 3,
+                                                                tl: {
+                                                                  hd: 1,
+                                                                  tl: /* [] */0
+                                                                }
+                                                              },
+                                                              tl: {
+                                                                hd: {
+                                                                  hd: 3,
+                                                                  tl: {
+                                                                    hd: 2,
+                                                                    tl: /* [] */0
+                                                                  }
+                                                                },
+                                                                tl: /* [] */0
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }), Jest.Expect.expect(Belt_List.toArray(result)));
                                     }));
                       }));
                 return Jest.describe("replicateA with Lists", (function (param) {
                               var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
                               return Jest.test("list is correct", (function (param) {
-                                            var result = Curry._2(ApplicativeUtils.replicateA, 3, /* :: */[
-                                                  /* "a" */97,
-                                                  /* :: */[
-                                                    /* "b" */98,
-                                                    /* :: */[
-                                                      /* "c" */99,
-                                                      /* [] */0
-                                                    ]
-                                                  ]
-                                                ]);
-                                            return Jest.Expect.toEqual(/* :: */[
-                                                        /* :: */[
-                                                          /* "a" */97,
-                                                          /* :: */[
-                                                            /* "a" */97,
-                                                            /* :: */[
-                                                              /* "a" */97,
-                                                              /* [] */0
-                                                            ]
-                                                          ]
-                                                        ],
-                                                        /* :: */[
-                                                          /* :: */[
-                                                            /* "a" */97,
-                                                            /* :: */[
-                                                              /* "a" */97,
-                                                              /* :: */[
-                                                                /* "b" */98,
-                                                                /* [] */0
-                                                              ]
-                                                            ]
-                                                          ],
-                                                          /* :: */[
-                                                            /* :: */[
-                                                              /* "a" */97,
-                                                              /* :: */[
-                                                                /* "a" */97,
-                                                                /* :: */[
-                                                                  /* "c" */99,
-                                                                  /* [] */0
-                                                                ]
-                                                              ]
-                                                            ],
-                                                            /* :: */[
-                                                              /* :: */[
-                                                                /* "a" */97,
-                                                                /* :: */[
-                                                                  /* "b" */98,
-                                                                  /* :: */[
-                                                                    /* "a" */97,
-                                                                    /* [] */0
-                                                                  ]
-                                                                ]
-                                                              ],
-                                                              /* :: */[
-                                                                /* :: */[
-                                                                  /* "a" */97,
-                                                                  /* :: */[
-                                                                    /* "b" */98,
-                                                                    /* :: */[
-                                                                      /* "b" */98,
-                                                                      /* [] */0
-                                                                    ]
-                                                                  ]
-                                                                ],
-                                                                /* :: */[
-                                                                  /* :: */[
-                                                                    /* "a" */97,
-                                                                    /* :: */[
-                                                                      /* "b" */98,
-                                                                      /* :: */[
-                                                                        /* "c" */99,
-                                                                        /* [] */0
-                                                                      ]
-                                                                    ]
-                                                                  ],
-                                                                  /* :: */[
-                                                                    /* :: */[
-                                                                      /* "a" */97,
-                                                                      /* :: */[
-                                                                        /* "c" */99,
-                                                                        /* :: */[
-                                                                          /* "a" */97,
-                                                                          /* [] */0
-                                                                        ]
-                                                                      ]
-                                                                    ],
-                                                                    /* :: */[
-                                                                      /* :: */[
-                                                                        /* "a" */97,
-                                                                        /* :: */[
-                                                                          /* "c" */99,
-                                                                          /* :: */[
-                                                                            /* "b" */98,
-                                                                            /* [] */0
-                                                                          ]
-                                                                        ]
-                                                                      ],
-                                                                      /* :: */[
-                                                                        /* :: */[
-                                                                          /* "a" */97,
-                                                                          /* :: */[
-                                                                            /* "c" */99,
-                                                                            /* :: */[
-                                                                              /* "c" */99,
-                                                                              /* [] */0
-                                                                            ]
-                                                                          ]
-                                                                        ],
-                                                                        /* :: */[
-                                                                          /* :: */[
-                                                                            /* "b" */98,
-                                                                            /* :: */[
-                                                                              /* "a" */97,
-                                                                              /* :: */[
-                                                                                /* "a" */97,
-                                                                                /* [] */0
-                                                                              ]
-                                                                            ]
-                                                                          ],
-                                                                          /* :: */[
-                                                                            /* :: */[
-                                                                              /* "b" */98,
-                                                                              /* :: */[
-                                                                                /* "a" */97,
-                                                                                /* :: */[
-                                                                                  /* "b" */98,
-                                                                                  /* [] */0
-                                                                                ]
-                                                                              ]
-                                                                            ],
-                                                                            /* :: */[
-                                                                              /* :: */[
-                                                                                /* "b" */98,
-                                                                                /* :: */[
-                                                                                  /* "a" */97,
-                                                                                  /* :: */[
-                                                                                    /* "c" */99,
-                                                                                    /* [] */0
-                                                                                  ]
-                                                                                ]
-                                                                              ],
-                                                                              /* :: */[
-                                                                                /* :: */[
-                                                                                  /* "b" */98,
-                                                                                  /* :: */[
-                                                                                    /* "b" */98,
-                                                                                    /* :: */[
-                                                                                      /* "a" */97,
-                                                                                      /* [] */0
-                                                                                    ]
-                                                                                  ]
-                                                                                ],
-                                                                                /* :: */[
-                                                                                  /* :: */[
-                                                                                    /* "b" */98,
-                                                                                    /* :: */[
-                                                                                      /* "b" */98,
-                                                                                      /* :: */[
-                                                                                        /* "b" */98,
-                                                                                        /* [] */0
-                                                                                      ]
-                                                                                    ]
-                                                                                  ],
-                                                                                  /* :: */[
-                                                                                    /* :: */[
-                                                                                      /* "b" */98,
-                                                                                      /* :: */[
-                                                                                        /* "b" */98,
-                                                                                        /* :: */[
-                                                                                          /* "c" */99,
-                                                                                          /* [] */0
-                                                                                        ]
-                                                                                      ]
-                                                                                    ],
-                                                                                    /* :: */[
-                                                                                      /* :: */[
-                                                                                        /* "b" */98,
-                                                                                        /* :: */[
-                                                                                          /* "c" */99,
-                                                                                          /* :: */[
-                                                                                            /* "a" */97,
-                                                                                            /* [] */0
-                                                                                          ]
-                                                                                        ]
-                                                                                      ],
-                                                                                      /* :: */[
-                                                                                        /* :: */[
-                                                                                          /* "b" */98,
-                                                                                          /* :: */[
-                                                                                            /* "c" */99,
-                                                                                            /* :: */[
-                                                                                              /* "b" */98,
-                                                                                              /* [] */0
-                                                                                            ]
-                                                                                          ]
-                                                                                        ],
-                                                                                        /* :: */[
-                                                                                          /* :: */[
-                                                                                            /* "b" */98,
-                                                                                            /* :: */[
-                                                                                              /* "c" */99,
-                                                                                              /* :: */[
-                                                                                                /* "c" */99,
-                                                                                                /* [] */0
-                                                                                              ]
-                                                                                            ]
-                                                                                          ],
-                                                                                          /* :: */[
-                                                                                            /* :: */[
-                                                                                              /* "c" */99,
-                                                                                              /* :: */[
-                                                                                                /* "a" */97,
-                                                                                                /* :: */[
-                                                                                                  /* "a" */97,
-                                                                                                  /* [] */0
-                                                                                                ]
-                                                                                              ]
-                                                                                            ],
-                                                                                            /* :: */[
-                                                                                              /* :: */[
-                                                                                                /* "c" */99,
-                                                                                                /* :: */[
-                                                                                                  /* "a" */97,
-                                                                                                  /* :: */[
-                                                                                                    /* "b" */98,
-                                                                                                    /* [] */0
-                                                                                                  ]
-                                                                                                ]
-                                                                                              ],
-                                                                                              /* :: */[
-                                                                                                /* :: */[
-                                                                                                  /* "c" */99,
-                                                                                                  /* :: */[
-                                                                                                    /* "a" */97,
-                                                                                                    /* :: */[
-                                                                                                      /* "c" */99,
-                                                                                                      /* [] */0
-                                                                                                    ]
-                                                                                                  ]
-                                                                                                ],
-                                                                                                /* :: */[
-                                                                                                  /* :: */[
-                                                                                                    /* "c" */99,
-                                                                                                    /* :: */[
-                                                                                                      /* "b" */98,
-                                                                                                      /* :: */[
-                                                                                                        /* "a" */97,
-                                                                                                        /* [] */0
-                                                                                                      ]
-                                                                                                    ]
-                                                                                                  ],
-                                                                                                  /* :: */[
-                                                                                                    /* :: */[
-                                                                                                      /* "c" */99,
-                                                                                                      /* :: */[
-                                                                                                        /* "b" */98,
-                                                                                                        /* :: */[
-                                                                                                          /* "b" */98,
-                                                                                                          /* [] */0
-                                                                                                        ]
-                                                                                                      ]
-                                                                                                    ],
-                                                                                                    /* :: */[
-                                                                                                      /* :: */[
-                                                                                                        /* "c" */99,
-                                                                                                        /* :: */[
-                                                                                                          /* "b" */98,
-                                                                                                          /* :: */[
-                                                                                                            /* "c" */99,
-                                                                                                            /* [] */0
-                                                                                                          ]
-                                                                                                        ]
-                                                                                                      ],
-                                                                                                      /* :: */[
-                                                                                                        /* :: */[
-                                                                                                          /* "c" */99,
-                                                                                                          /* :: */[
-                                                                                                            /* "c" */99,
-                                                                                                            /* :: */[
-                                                                                                              /* "a" */97,
-                                                                                                              /* [] */0
-                                                                                                            ]
-                                                                                                          ]
-                                                                                                        ],
-                                                                                                        /* :: */[
-                                                                                                          /* :: */[
-                                                                                                            /* "c" */99,
-                                                                                                            /* :: */[
-                                                                                                              /* "c" */99,
-                                                                                                              /* :: */[
-                                                                                                                /* "b" */98,
-                                                                                                                /* [] */0
-                                                                                                              ]
-                                                                                                            ]
-                                                                                                          ],
-                                                                                                          /* :: */[
-                                                                                                            /* :: */[
-                                                                                                              /* "c" */99,
-                                                                                                              /* :: */[
-                                                                                                                /* "c" */99,
-                                                                                                                /* :: */[
-                                                                                                                  /* "c" */99,
-                                                                                                                  /* [] */0
-                                                                                                                ]
-                                                                                                              ]
-                                                                                                            ],
-                                                                                                            /* [] */0
-                                                                                                          ]
-                                                                                                        ]
-                                                                                                      ]
-                                                                                                    ]
-                                                                                                  ]
-                                                                                                ]
-                                                                                              ]
-                                                                                            ]
-                                                                                          ]
-                                                                                        ]
-                                                                                      ]
-                                                                                    ]
-                                                                                  ]
-                                                                                ]
-                                                                              ]
-                                                                            ]
-                                                                          ]
-                                                                        ]
-                                                                      ]
-                                                                    ]
-                                                                  ]
-                                                                ]
-                                                              ]
-                                                            ]
-                                                          ]
-                                                        ]
-                                                      ], Jest.Expect.expect(result));
+                                            var result = Curry._2(ApplicativeUtils.replicateA, 3, {
+                                                  hd: /* "a" */97,
+                                                  tl: {
+                                                    hd: /* "b" */98,
+                                                    tl: {
+                                                      hd: /* "c" */99,
+                                                      tl: /* [] */0
+                                                    }
+                                                  }
+                                                });
+                                            return Jest.Expect.toEqual({
+                                                        hd: {
+                                                          hd: /* "a" */97,
+                                                          tl: {
+                                                            hd: /* "a" */97,
+                                                            tl: {
+                                                              hd: /* "a" */97,
+                                                              tl: /* [] */0
+                                                            }
+                                                          }
+                                                        },
+                                                        tl: {
+                                                          hd: {
+                                                            hd: /* "a" */97,
+                                                            tl: {
+                                                              hd: /* "a" */97,
+                                                              tl: {
+                                                                hd: /* "b" */98,
+                                                                tl: /* [] */0
+                                                              }
+                                                            }
+                                                          },
+                                                          tl: {
+                                                            hd: {
+                                                              hd: /* "a" */97,
+                                                              tl: {
+                                                                hd: /* "a" */97,
+                                                                tl: {
+                                                                  hd: /* "c" */99,
+                                                                  tl: /* [] */0
+                                                                }
+                                                              }
+                                                            },
+                                                            tl: {
+                                                              hd: {
+                                                                hd: /* "a" */97,
+                                                                tl: {
+                                                                  hd: /* "b" */98,
+                                                                  tl: {
+                                                                    hd: /* "a" */97,
+                                                                    tl: /* [] */0
+                                                                  }
+                                                                }
+                                                              },
+                                                              tl: {
+                                                                hd: {
+                                                                  hd: /* "a" */97,
+                                                                  tl: {
+                                                                    hd: /* "b" */98,
+                                                                    tl: {
+                                                                      hd: /* "b" */98,
+                                                                      tl: /* [] */0
+                                                                    }
+                                                                  }
+                                                                },
+                                                                tl: {
+                                                                  hd: {
+                                                                    hd: /* "a" */97,
+                                                                    tl: {
+                                                                      hd: /* "b" */98,
+                                                                      tl: {
+                                                                        hd: /* "c" */99,
+                                                                        tl: /* [] */0
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  tl: {
+                                                                    hd: {
+                                                                      hd: /* "a" */97,
+                                                                      tl: {
+                                                                        hd: /* "c" */99,
+                                                                        tl: {
+                                                                          hd: /* "a" */97,
+                                                                          tl: /* [] */0
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    tl: {
+                                                                      hd: {
+                                                                        hd: /* "a" */97,
+                                                                        tl: {
+                                                                          hd: /* "c" */99,
+                                                                          tl: {
+                                                                            hd: /* "b" */98,
+                                                                            tl: /* [] */0
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      tl: {
+                                                                        hd: {
+                                                                          hd: /* "a" */97,
+                                                                          tl: {
+                                                                            hd: /* "c" */99,
+                                                                            tl: {
+                                                                              hd: /* "c" */99,
+                                                                              tl: /* [] */0
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        tl: {
+                                                                          hd: {
+                                                                            hd: /* "b" */98,
+                                                                            tl: {
+                                                                              hd: /* "a" */97,
+                                                                              tl: {
+                                                                                hd: /* "a" */97,
+                                                                                tl: /* [] */0
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          tl: {
+                                                                            hd: {
+                                                                              hd: /* "b" */98,
+                                                                              tl: {
+                                                                                hd: /* "a" */97,
+                                                                                tl: {
+                                                                                  hd: /* "b" */98,
+                                                                                  tl: /* [] */0
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            tl: {
+                                                                              hd: {
+                                                                                hd: /* "b" */98,
+                                                                                tl: {
+                                                                                  hd: /* "a" */97,
+                                                                                  tl: {
+                                                                                    hd: /* "c" */99,
+                                                                                    tl: /* [] */0
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              tl: {
+                                                                                hd: {
+                                                                                  hd: /* "b" */98,
+                                                                                  tl: {
+                                                                                    hd: /* "b" */98,
+                                                                                    tl: {
+                                                                                      hd: /* "a" */97,
+                                                                                      tl: /* [] */0
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                tl: {
+                                                                                  hd: {
+                                                                                    hd: /* "b" */98,
+                                                                                    tl: {
+                                                                                      hd: /* "b" */98,
+                                                                                      tl: {
+                                                                                        hd: /* "b" */98,
+                                                                                        tl: /* [] */0
+                                                                                      }
+                                                                                    }
+                                                                                  },
+                                                                                  tl: {
+                                                                                    hd: {
+                                                                                      hd: /* "b" */98,
+                                                                                      tl: {
+                                                                                        hd: /* "b" */98,
+                                                                                        tl: {
+                                                                                          hd: /* "c" */99,
+                                                                                          tl: /* [] */0
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    tl: {
+                                                                                      hd: {
+                                                                                        hd: /* "b" */98,
+                                                                                        tl: {
+                                                                                          hd: /* "c" */99,
+                                                                                          tl: {
+                                                                                            hd: /* "a" */97,
+                                                                                            tl: /* [] */0
+                                                                                          }
+                                                                                        }
+                                                                                      },
+                                                                                      tl: {
+                                                                                        hd: {
+                                                                                          hd: /* "b" */98,
+                                                                                          tl: {
+                                                                                            hd: /* "c" */99,
+                                                                                            tl: {
+                                                                                              hd: /* "b" */98,
+                                                                                              tl: /* [] */0
+                                                                                            }
+                                                                                          }
+                                                                                        },
+                                                                                        tl: {
+                                                                                          hd: {
+                                                                                            hd: /* "b" */98,
+                                                                                            tl: {
+                                                                                              hd: /* "c" */99,
+                                                                                              tl: {
+                                                                                                hd: /* "c" */99,
+                                                                                                tl: /* [] */0
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          tl: {
+                                                                                            hd: {
+                                                                                              hd: /* "c" */99,
+                                                                                              tl: {
+                                                                                                hd: /* "a" */97,
+                                                                                                tl: {
+                                                                                                  hd: /* "a" */97,
+                                                                                                  tl: /* [] */0
+                                                                                                }
+                                                                                              }
+                                                                                            },
+                                                                                            tl: {
+                                                                                              hd: {
+                                                                                                hd: /* "c" */99,
+                                                                                                tl: {
+                                                                                                  hd: /* "a" */97,
+                                                                                                  tl: {
+                                                                                                    hd: /* "b" */98,
+                                                                                                    tl: /* [] */0
+                                                                                                  }
+                                                                                                }
+                                                                                              },
+                                                                                              tl: {
+                                                                                                hd: {
+                                                                                                  hd: /* "c" */99,
+                                                                                                  tl: {
+                                                                                                    hd: /* "a" */97,
+                                                                                                    tl: {
+                                                                                                      hd: /* "c" */99,
+                                                                                                      tl: /* [] */0
+                                                                                                    }
+                                                                                                  }
+                                                                                                },
+                                                                                                tl: {
+                                                                                                  hd: {
+                                                                                                    hd: /* "c" */99,
+                                                                                                    tl: {
+                                                                                                      hd: /* "b" */98,
+                                                                                                      tl: {
+                                                                                                        hd: /* "a" */97,
+                                                                                                        tl: /* [] */0
+                                                                                                      }
+                                                                                                    }
+                                                                                                  },
+                                                                                                  tl: {
+                                                                                                    hd: {
+                                                                                                      hd: /* "c" */99,
+                                                                                                      tl: {
+                                                                                                        hd: /* "b" */98,
+                                                                                                        tl: {
+                                                                                                          hd: /* "b" */98,
+                                                                                                          tl: /* [] */0
+                                                                                                        }
+                                                                                                      }
+                                                                                                    },
+                                                                                                    tl: {
+                                                                                                      hd: {
+                                                                                                        hd: /* "c" */99,
+                                                                                                        tl: {
+                                                                                                          hd: /* "b" */98,
+                                                                                                          tl: {
+                                                                                                            hd: /* "c" */99,
+                                                                                                            tl: /* [] */0
+                                                                                                          }
+                                                                                                        }
+                                                                                                      },
+                                                                                                      tl: {
+                                                                                                        hd: {
+                                                                                                          hd: /* "c" */99,
+                                                                                                          tl: {
+                                                                                                            hd: /* "c" */99,
+                                                                                                            tl: {
+                                                                                                              hd: /* "a" */97,
+                                                                                                              tl: /* [] */0
+                                                                                                            }
+                                                                                                          }
+                                                                                                        },
+                                                                                                        tl: {
+                                                                                                          hd: {
+                                                                                                            hd: /* "c" */99,
+                                                                                                            tl: {
+                                                                                                              hd: /* "c" */99,
+                                                                                                              tl: {
+                                                                                                                hd: /* "b" */98,
+                                                                                                                tl: /* [] */0
+                                                                                                              }
+                                                                                                            }
+                                                                                                          },
+                                                                                                          tl: {
+                                                                                                            hd: {
+                                                                                                              hd: /* "c" */99,
+                                                                                                              tl: {
+                                                                                                                hd: /* "c" */99,
+                                                                                                                tl: {
+                                                                                                                  hd: /* "c" */99,
+                                                                                                                  tl: /* [] */0
+                                                                                                                }
+                                                                                                              }
+                                                                                                            },
+                                                                                                            tl: /* [] */0
+                                                                                                          }
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }, Jest.Expect.expect(result));
                                           }));
                             }));
               }));
@@ -710,25 +725,29 @@ Jest.describe("Applicative", (function (param) {
                 var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ExactlyOneApplicative);
                 return Jest.test("ExactlyOne is correct", (function (param) {
                               var f = function (a) {
-                                return /* ExactlyOne */[Curry._1(Util$FpCourseReason.isEven, a)];
+                                return /* ExactlyOne */{
+                                        _0: Util$FpCourseReason.isEven(a)
+                                      };
                               };
-                              var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
-                                    4,
-                                    /* :: */[
-                                      5,
-                                      /* :: */[
-                                        6,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */[/* :: */[
-                                                4,
-                                                /* :: */[
-                                                  6,
-                                                  /* [] */0
-                                                ]
-                                              ]]), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
+                              var result = Curry._2(ApplicativeUtils.filtering, f, {
+                                    hd: 4,
+                                    tl: {
+                                      hd: 5,
+                                      tl: {
+                                        hd: 6,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual(ExactlyOne$FpCourseReason.toString(/* ExactlyOne */{
+                                              _0: {
+                                                hd: 4,
+                                                tl: {
+                                                  hd: 6,
+                                                  tl: /* [] */0
+                                                }
+                                              }
+                                            }), Jest.Expect.expect(ExactlyOne$FpCourseReason.toString(result)));
                             }));
               }));
         Jest.describe("filtering with Option", (function (param) {
@@ -741,26 +760,26 @@ Jest.describe("Applicative", (function (param) {
                             return a <= 7;
                           }
                         };
-                        var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
-                              4,
-                              /* :: */[
-                                5,
-                                /* :: */[
-                                  6,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
-                        return Jest.Expect.toEqual(/* :: */[
-                                    4,
-                                    /* :: */[
-                                      5,
-                                      /* :: */[
-                                        6,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ], Jest.Expect.expect(result));
+                        var result = Curry._2(ApplicativeUtils.filtering, f, {
+                              hd: 4,
+                              tl: {
+                                hd: 5,
+                                tl: {
+                                  hd: 6,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
+                        return Jest.Expect.toEqual({
+                                    hd: 4,
+                                    tl: {
+                                      hd: 5,
+                                      tl: {
+                                        hd: 6,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  }, Jest.Expect.expect(result));
                       }));
                 Jest.test("option is correct (2)", (function (param) {
                         var f = function (a) {
@@ -770,38 +789,38 @@ Jest.describe("Applicative", (function (param) {
                             return a <= 7;
                           }
                         };
-                        var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
-                              4,
-                              /* :: */[
-                                5,
-                                /* :: */[
-                                  6,
-                                  /* :: */[
-                                    7,
-                                    /* :: */[
-                                      8,
-                                      /* :: */[
-                                        9,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]
-                                ]
-                              ]
-                            ]);
-                        return Jest.Expect.toEqual(/* :: */[
-                                    4,
-                                    /* :: */[
-                                      5,
-                                      /* :: */[
-                                        6,
-                                        /* :: */[
-                                          7,
-                                          /* [] */0
-                                        ]
-                                      ]
-                                    ]
-                                  ], Jest.Expect.expect(result));
+                        var result = Curry._2(ApplicativeUtils.filtering, f, {
+                              hd: 4,
+                              tl: {
+                                hd: 5,
+                                tl: {
+                                  hd: 6,
+                                  tl: {
+                                    hd: 7,
+                                    tl: {
+                                      hd: 8,
+                                      tl: {
+                                        hd: 9,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            });
+                        return Jest.Expect.toEqual({
+                                    hd: 4,
+                                    tl: {
+                                      hd: 5,
+                                      tl: {
+                                        hd: 6,
+                                        tl: {
+                                          hd: 7,
+                                          tl: /* [] */0
+                                        }
+                                      }
+                                    }
+                                  }, Jest.Expect.expect(result));
                       }));
                 return Jest.test("option is correct (2)", (function (param) {
                               var f = function (a) {
@@ -811,22 +830,22 @@ Jest.describe("Applicative", (function (param) {
                                   return a <= 7;
                                 }
                               };
-                              var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
-                                    4,
-                                    /* :: */[
-                                      5,
-                                      /* :: */[
-                                        6,
-                                        /* :: */[
-                                          13,
-                                          /* :: */[
-                                            14,
-                                            /* [] */0
-                                          ]
-                                        ]
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Curry._2(ApplicativeUtils.filtering, f, {
+                                    hd: 4,
+                                    tl: {
+                                      hd: 5,
+                                      tl: {
+                                        hd: 6,
+                                        tl: {
+                                          hd: 13,
+                                          tl: {
+                                            hd: 14,
+                                            tl: /* [] */0
+                                          }
+                                        }
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toEqual(undefined, Jest.Expect.expect(result));
                             }));
               }));
@@ -834,121 +853,121 @@ Jest.describe("Applicative", (function (param) {
                       var ApplicativeUtils = Applicative$FpCourseReason.MakeApplicativeUtils(Applicative$FpCourseReason.ListzApplicative);
                       return Jest.test("ExactlyOne is correct", (function (param) {
                                     var f = function (param) {
-                                      return /* :: */[
-                                              true,
-                                              /* :: */[
-                                                true,
-                                                /* [] */0
-                                              ]
-                                            ];
+                                      return {
+                                              hd: true,
+                                              tl: {
+                                                hd: true,
+                                                tl: /* [] */0
+                                              }
+                                            };
                                     };
-                                    var result = Curry._2(ApplicativeUtils.filtering, f, /* :: */[
-                                          1,
-                                          /* :: */[
-                                            2,
-                                            /* :: */[
-                                              3,
-                                              /* [] */0
-                                            ]
-                                          ]
-                                        ]);
-                                    return Jest.Expect.toEqual(/* :: */[
-                                                /* :: */[
-                                                  1,
-                                                  /* :: */[
-                                                    2,
-                                                    /* :: */[
-                                                      3,
-                                                      /* [] */0
-                                                    ]
-                                                  ]
-                                                ],
-                                                /* :: */[
-                                                  /* :: */[
-                                                    1,
-                                                    /* :: */[
-                                                      2,
-                                                      /* :: */[
-                                                        3,
-                                                        /* [] */0
-                                                      ]
-                                                    ]
-                                                  ],
-                                                  /* :: */[
-                                                    /* :: */[
-                                                      1,
-                                                      /* :: */[
-                                                        2,
-                                                        /* :: */[
-                                                          3,
-                                                          /* [] */0
-                                                        ]
-                                                      ]
-                                                    ],
-                                                    /* :: */[
-                                                      /* :: */[
-                                                        1,
-                                                        /* :: */[
-                                                          2,
-                                                          /* :: */[
-                                                            3,
-                                                            /* [] */0
-                                                          ]
-                                                        ]
-                                                      ],
-                                                      /* :: */[
-                                                        /* :: */[
-                                                          1,
-                                                          /* :: */[
-                                                            2,
-                                                            /* :: */[
-                                                              3,
-                                                              /* [] */0
-                                                            ]
-                                                          ]
-                                                        ],
-                                                        /* :: */[
-                                                          /* :: */[
-                                                            1,
-                                                            /* :: */[
-                                                              2,
-                                                              /* :: */[
-                                                                3,
-                                                                /* [] */0
-                                                              ]
-                                                            ]
-                                                          ],
-                                                          /* :: */[
-                                                            /* :: */[
-                                                              1,
-                                                              /* :: */[
-                                                                2,
-                                                                /* :: */[
-                                                                  3,
-                                                                  /* [] */0
-                                                                ]
-                                                              ]
-                                                            ],
-                                                            /* :: */[
-                                                              /* :: */[
-                                                                1,
-                                                                /* :: */[
-                                                                  2,
-                                                                  /* :: */[
-                                                                    3,
-                                                                    /* [] */0
-                                                                  ]
-                                                                ]
-                                                              ],
-                                                              /* [] */0
-                                                            ]
-                                                          ]
-                                                        ]
-                                                      ]
-                                                    ]
-                                                  ]
-                                                ]
-                                              ], Jest.Expect.expect(result));
+                                    var result = Curry._2(ApplicativeUtils.filtering, f, {
+                                          hd: 1,
+                                          tl: {
+                                            hd: 2,
+                                            tl: {
+                                              hd: 3,
+                                              tl: /* [] */0
+                                            }
+                                          }
+                                        });
+                                    return Jest.Expect.toEqual({
+                                                hd: {
+                                                  hd: 1,
+                                                  tl: {
+                                                    hd: 2,
+                                                    tl: {
+                                                      hd: 3,
+                                                      tl: /* [] */0
+                                                    }
+                                                  }
+                                                },
+                                                tl: {
+                                                  hd: {
+                                                    hd: 1,
+                                                    tl: {
+                                                      hd: 2,
+                                                      tl: {
+                                                        hd: 3,
+                                                        tl: /* [] */0
+                                                      }
+                                                    }
+                                                  },
+                                                  tl: {
+                                                    hd: {
+                                                      hd: 1,
+                                                      tl: {
+                                                        hd: 2,
+                                                        tl: {
+                                                          hd: 3,
+                                                          tl: /* [] */0
+                                                        }
+                                                      }
+                                                    },
+                                                    tl: {
+                                                      hd: {
+                                                        hd: 1,
+                                                        tl: {
+                                                          hd: 2,
+                                                          tl: {
+                                                            hd: 3,
+                                                            tl: /* [] */0
+                                                          }
+                                                        }
+                                                      },
+                                                      tl: {
+                                                        hd: {
+                                                          hd: 1,
+                                                          tl: {
+                                                            hd: 2,
+                                                            tl: {
+                                                              hd: 3,
+                                                              tl: /* [] */0
+                                                            }
+                                                          }
+                                                        },
+                                                        tl: {
+                                                          hd: {
+                                                            hd: 1,
+                                                            tl: {
+                                                              hd: 2,
+                                                              tl: {
+                                                                hd: 3,
+                                                                tl: /* [] */0
+                                                              }
+                                                            }
+                                                          },
+                                                          tl: {
+                                                            hd: {
+                                                              hd: 1,
+                                                              tl: {
+                                                                hd: 2,
+                                                                tl: {
+                                                                  hd: 3,
+                                                                  tl: /* [] */0
+                                                                }
+                                                              }
+                                                            },
+                                                            tl: {
+                                                              hd: {
+                                                                hd: 1,
+                                                                tl: {
+                                                                  hd: 2,
+                                                                  tl: {
+                                                                    hd: 3,
+                                                                    tl: /* [] */0
+                                                                  }
+                                                                }
+                                                              },
+                                                              tl: /* [] */0
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }, Jest.Expect.expect(result));
                                   }));
                     }));
       }));

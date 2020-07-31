@@ -56,7 +56,7 @@ function MakeFunctorUtils(Functor) {
     return Curry._2(Functor.map, f, ta);
   };
   var $$void = function (f) {
-    return anonMap(/* () */0, f);
+    return anonMap(undefined, f);
   };
   return {
           anonMap: anonMap,
@@ -71,4 +71,4 @@ exports.OptionFunctor = OptionFunctor;
 exports.MakeReaderFunctor = MakeReaderFunctor;
 exports.MakeFunctionFunctor = MakeFunctionFunctor;
 exports.MakeFunctorUtils = MakeFunctorUtils;
-/* Util-FpCourseReason Not a pure module */
+/* No side effect */

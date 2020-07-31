@@ -11,11 +11,15 @@ var Functor$FpCourseReason = require("./Functor.bs.js");
 var map = Functor$FpCourseReason.ExactlyOneFunctor.map;
 
 function pure(a) {
-  return /* ExactlyOne */[a];
+  return /* ExactlyOne */{
+          _0: a
+        };
 }
 
 function apply(f, a) {
-  return /* ExactlyOne */[Curry._1(f[0], a[0])];
+  return /* ExactlyOne */{
+          _0: Curry._1(f._0, a._0)
+        };
 }
 
 var ExactlyOneApplicative = {
@@ -27,10 +31,10 @@ var ExactlyOneApplicative = {
 var map$1 = Functor$FpCourseReason.ListzFunctor.map;
 
 function pure$1(a) {
-  return /* :: */[
-          a,
-          /* [] */0
-        ];
+  return {
+          hd: a,
+          tl: /* [] */0
+        };
 }
 
 function apply$1(fz, az) {
@@ -122,10 +126,10 @@ function MakeApplicativeUtils(Applicative) {
   var sequence = function (lta) {
     return Belt_List.reduce(lta, Curry._1(Applicative.pure, /* [] */0), (function (tla, ta) {
                   return lift2((function (la, a) {
-                                return Belt_List.concat(la, /* :: */[
-                                            a,
-                                            /* [] */0
-                                          ]);
+                                return Belt_List.concat(la, {
+                                            hd: a,
+                                            tl: /* [] */0
+                                          });
                               }), tla, ta);
                 }));
   };
@@ -137,10 +141,10 @@ function MakeApplicativeUtils(Applicative) {
       var tb = Curry._1(f, x);
       return lift2((function (acc, b) {
                     if (b) {
-                      return Belt_List.concat(acc, /* :: */[
-                                  x,
-                                  /* [] */0
-                                ]);
+                      return Belt_List.concat(acc, {
+                                  hd: x,
+                                  tl: /* [] */0
+                                });
                     } else {
                       return acc;
                     }
@@ -172,4 +176,4 @@ exports.ListzApplicative = ListzApplicative;
 exports.OptionApplicative = OptionApplicative;
 exports.MakeFunctionApplicative = MakeFunctionApplicative;
 exports.MakeApplicativeUtils = MakeApplicativeUtils;
-/* Util-FpCourseReason Not a pure module */
+/* No side effect */

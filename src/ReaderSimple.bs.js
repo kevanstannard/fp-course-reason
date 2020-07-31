@@ -3,38 +3,48 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 
-function run(param, env) {
-  return Curry._1(param[0], env);
+function run(r, env) {
+  return Curry._1(r._0, env);
 }
 
 function $$return(a) {
-  return /* Reader */[(function (_env) {
+  return /* Reader */{
+          _0: (function (_env) {
               return a;
-            })];
+            })
+        };
 }
 
 function ask(param) {
-  return /* Reader */[(function (env) {
+  return /* Reader */{
+          _0: (function (env) {
               return env;
-            })];
+            })
+        };
 }
 
 function local(f, r) {
-  return /* Reader */[(function (env) {
+  return /* Reader */{
+          _0: (function (env) {
               return run(r, Curry._1(f, env));
-            })];
+            })
+        };
 }
 
 function map(f, r) {
-  return /* Reader */[(function (env) {
+  return /* Reader */{
+          _0: (function (env) {
               return Curry._1(f, run(r, env));
-            })];
+            })
+        };
 }
 
 function bind(f, r) {
-  return /* Reader */[(function (env) {
+  return /* Reader */{
+          _0: (function (env) {
               return run(Curry._1(f, run(r, env)), env);
-            })];
+            })
+        };
 }
 
 function $great$great$eq(r, f) {

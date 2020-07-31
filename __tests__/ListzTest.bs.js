@@ -8,16 +8,16 @@ var Listz$FpCourseReason = require("../src/Listz.bs.js");
 Jest.describe("Listz", (function (param) {
         Jest.describe("headOr", (function (param) {
                 Jest.test("it returns the head", (function (param) {
-                        var result = Listz$FpCourseReason.headOr(0, /* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.headOr(0, {
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
                         return Jest.Expect.toBe(1, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it returns the value", (function (param) {
@@ -27,16 +27,16 @@ Jest.describe("Listz", (function (param) {
               }));
         Jest.describe("headOr2", (function (param) {
                 Jest.test("it returns the head", (function (param) {
-                        var result = Listz$FpCourseReason.headOr2(0, /* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.headOr2(0, {
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
                         return Jest.Expect.toBe(1, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it returns the value", (function (param) {
@@ -50,32 +50,32 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(1, Jest.Expect.expect(result));
                       }));
                 Jest.test("it produces the product of 1, 2, 3", (function (param) {
-                        var result = Listz$FpCourseReason.product(/* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.product({
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
                         return Jest.Expect.toBe(6, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it produces the product of 1, 2, 3, 4", (function (param) {
-                              var result = Listz$FpCourseReason.product(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* [] */0
-                                        ]
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Listz$FpCourseReason.product({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: /* [] */0
+                                        }
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toBe(24, Jest.Expect.expect(result));
                             }));
               }));
@@ -85,32 +85,32 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(0, Jest.Expect.expect(result));
                       }));
                 Jest.test("it produces the sum of 1, 2, 3", (function (param) {
-                        var result = Listz$FpCourseReason.sum(/* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.sum({
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
                         return Jest.Expect.toBe(6, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it produces the sum of 1, 2, 3, 4", (function (param) {
-                              var result = Listz$FpCourseReason.sum(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* [] */0
-                                        ]
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Listz$FpCourseReason.sum({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: /* [] */0
+                                        }
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toBe(10, Jest.Expect.expect(result));
                             }));
               }));
@@ -120,16 +120,16 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toBe(0, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it handles a non-empty list", (function (param) {
-                              var result = Listz$FpCourseReason.length(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Listz$FpCourseReason.length({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toBe(3, Jest.Expect.expect(result));
                             }));
               }));
@@ -144,349 +144,349 @@ Jest.describe("Listz", (function (param) {
                               var f = function (x) {
                                 return (x << 1);
                               };
-                              var result = Listz$FpCourseReason.map(f, /* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          2,
-                                          /* :: */[
-                                            4,
-                                            /* :: */[
-                                              6,
-                                              /* [] */0
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.map(f, {
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 2,
+                                          tl: {
+                                            hd: 4,
+                                            tl: {
+                                              hd: 6,
+                                              tl: /* [] */0
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("filter", (function (param) {
                 return Jest.test("it correctly filters a list", (function (param) {
-                              var result = Listz$FpCourseReason.filter(Util$FpCourseReason.isEven, /* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* :: */[
-                                            5,
-                                            /* [] */0
-                                          ]
-                                        ]
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          2,
-                                          /* :: */[
-                                            4,
-                                            /* [] */0
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.filter(Util$FpCourseReason.isEven, {
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: {
+                                            hd: 5,
+                                            tl: /* [] */0
+                                          }
+                                        }
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 2,
+                                          tl: {
+                                            hd: 4,
+                                            tl: /* [] */0
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("+++", (function (param) {
                 return Jest.test("it correctly appends two lists", (function (param) {
-                              var result = Listz$FpCourseReason.$plus$plus$plus(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ], /* :: */[
-                                    4,
-                                    /* :: */[
-                                      5,
-                                      /* :: */[
-                                        6,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          1,
-                                          /* :: */[
-                                            2,
-                                            /* :: */[
-                                              3,
-                                              /* :: */[
-                                                4,
-                                                /* :: */[
-                                                  5,
-                                                  /* :: */[
-                                                    6,
-                                                    /* [] */0
-                                                  ]
-                                                ]
-                                              ]
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.$plus$plus$plus({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  }, {
+                                    hd: 4,
+                                    tl: {
+                                      hd: 5,
+                                      tl: {
+                                        hd: 6,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 1,
+                                          tl: {
+                                            hd: 2,
+                                            tl: {
+                                              hd: 3,
+                                              tl: {
+                                                hd: 4,
+                                                tl: {
+                                                  hd: 5,
+                                                  tl: {
+                                                    hd: 6,
+                                                    tl: /* [] */0
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("flatten", (function (param) {
                 return Jest.test("it correctly flattens an array of lists", (function (param) {
-                              var result = Listz$FpCourseReason.flatten(/* :: */[
-                                    /* :: */[
-                                      1,
-                                      /* :: */[
-                                        2,
-                                        /* [] */0
-                                      ]
-                                    ],
-                                    /* :: */[
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* [] */0
-                                        ]
-                                      ],
-                                      /* :: */[
-                                        /* :: */[
-                                          5,
-                                          /* :: */[
-                                            6,
-                                            /* [] */0
-                                          ]
-                                        ],
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          1,
-                                          /* :: */[
-                                            2,
-                                            /* :: */[
-                                              3,
-                                              /* :: */[
-                                                4,
-                                                /* :: */[
-                                                  5,
-                                                  /* :: */[
-                                                    6,
-                                                    /* [] */0
-                                                  ]
-                                                ]
-                                              ]
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.flatten({
+                                    hd: {
+                                      hd: 1,
+                                      tl: {
+                                        hd: 2,
+                                        tl: /* [] */0
+                                      }
+                                    },
+                                    tl: {
+                                      hd: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: /* [] */0
+                                        }
+                                      },
+                                      tl: {
+                                        hd: {
+                                          hd: 5,
+                                          tl: {
+                                            hd: 6,
+                                            tl: /* [] */0
+                                          }
+                                        },
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 1,
+                                          tl: {
+                                            hd: 2,
+                                            tl: {
+                                              hd: 3,
+                                              tl: {
+                                                hd: 4,
+                                                tl: {
+                                                  hd: 5,
+                                                  tl: {
+                                                    hd: 6,
+                                                    tl: /* [] */0
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("flatMap", (function (param) {
                 Jest.test("it correctly flatMaps a list", (function (param) {
                         var f = function (x) {
-                          return /* :: */[
-                                  x,
-                                  /* :: */[
-                                    x + 1 | 0,
-                                    /* :: */[
-                                      x + 2 | 0,
-                                      /* [] */0
-                                    ]
-                                  ]
-                                ];
+                          return {
+                                  hd: x,
+                                  tl: {
+                                    hd: x + 1 | 0,
+                                    tl: {
+                                      hd: x + 2 | 0,
+                                      tl: /* [] */0
+                                    }
+                                  }
+                                };
                         };
-                        var result = Listz$FpCourseReason.flatMap(f, /* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
-                        return Jest.Expect.toEqual(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          2,
-                                          /* :: */[
-                                            3,
-                                            /* :: */[
-                                              4,
-                                              /* :: */[
-                                                3,
-                                                /* :: */[
-                                                  4,
-                                                  /* :: */[
-                                                    5,
-                                                    /* [] */0
-                                                  ]
-                                                ]
-                                              ]
-                                            ]
-                                          ]
-                                        ]
-                                      ]
-                                    ]
-                                  ], Jest.Expect.expect(result));
+                        var result = Listz$FpCourseReason.flatMap(f, {
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
+                        return Jest.Expect.toEqual({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 2,
+                                          tl: {
+                                            hd: 3,
+                                            tl: {
+                                              hd: 4,
+                                              tl: {
+                                                hd: 3,
+                                                tl: {
+                                                  hd: 4,
+                                                  tl: {
+                                                    hd: 5,
+                                                    tl: /* [] */0
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it correctly flatMaps a list using compose", (function (param) {
                               var f = function (x) {
-                                return /* :: */[
-                                        x,
-                                        /* :: */[
-                                          x + 1 | 0,
-                                          /* :: */[
-                                            x + 2 | 0,
-                                            /* [] */0
-                                          ]
-                                        ]
-                                      ];
+                                return {
+                                        hd: x,
+                                        tl: {
+                                          hd: x + 1 | 0,
+                                          tl: {
+                                            hd: x + 2 | 0,
+                                            tl: /* [] */0
+                                          }
+                                        }
+                                      };
                               };
-                              var result = Listz$FpCourseReason.flatMapWithCompose(f)(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          1,
-                                          /* :: */[
-                                            2,
-                                            /* :: */[
-                                              3,
-                                              /* :: */[
-                                                2,
-                                                /* :: */[
-                                                  3,
-                                                  /* :: */[
-                                                    4,
-                                                    /* :: */[
-                                                      3,
-                                                      /* :: */[
-                                                        4,
-                                                        /* :: */[
-                                                          5,
-                                                          /* [] */0
-                                                        ]
-                                                      ]
-                                                    ]
-                                                  ]
-                                                ]
-                                              ]
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.flatMapWithCompose(f)({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 1,
+                                          tl: {
+                                            hd: 2,
+                                            tl: {
+                                              hd: 3,
+                                              tl: {
+                                                hd: 2,
+                                                tl: {
+                                                  hd: 3,
+                                                  tl: {
+                                                    hd: 4,
+                                                    tl: {
+                                                      hd: 3,
+                                                      tl: {
+                                                        hd: 4,
+                                                        tl: {
+                                                          hd: 5,
+                                                          tl: /* [] */0
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("flattenAgain", (function (param) {
                 return Jest.test("it correctly flattens an array of lists", (function (param) {
-                              var result = Listz$FpCourseReason.flattenAgain(/* :: */[
-                                    /* :: */[
-                                      1,
-                                      /* :: */[
-                                        2,
-                                        /* [] */0
-                                      ]
-                                    ],
-                                    /* :: */[
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* [] */0
-                                        ]
-                                      ],
-                                      /* :: */[
-                                        /* :: */[
-                                          5,
-                                          /* :: */[
-                                            6,
-                                            /* [] */0
-                                          ]
-                                        ],
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          1,
-                                          /* :: */[
-                                            2,
-                                            /* :: */[
-                                              3,
-                                              /* :: */[
-                                                4,
-                                                /* :: */[
-                                                  5,
-                                                  /* :: */[
-                                                    6,
-                                                    /* [] */0
-                                                  ]
-                                                ]
-                                              ]
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.flattenAgain({
+                                    hd: {
+                                      hd: 1,
+                                      tl: {
+                                        hd: 2,
+                                        tl: /* [] */0
+                                      }
+                                    },
+                                    tl: {
+                                      hd: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: /* [] */0
+                                        }
+                                      },
+                                      tl: {
+                                        hd: {
+                                          hd: 5,
+                                          tl: {
+                                            hd: 6,
+                                            tl: /* [] */0
+                                          }
+                                        },
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 1,
+                                          tl: {
+                                            hd: 2,
+                                            tl: {
+                                              hd: 3,
+                                              tl: {
+                                                hd: 4,
+                                                tl: {
+                                                  hd: 5,
+                                                  tl: {
+                                                    hd: 6,
+                                                    tl: /* [] */0
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
               }));
         Jest.describe("seqOptional", (function (param) {
                 Jest.test("it correctly handles a list of values", (function (param) {
-                        var result = Listz$FpCourseReason.seqOptional(/* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
-                        return Jest.Expect.toEqual("Some(1,2,3,0)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
+                        var result = Listz$FpCourseReason.seqOptional({
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
+                        return Jest.Expect.toEqual("Some({\"hd\":1,\"tl\":{\"hd\":2,\"tl\":{\"hd\":3,\"tl\":0}}})", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 Jest.test("it correctly handles an empty list", (function (param) {
                         var result = Listz$FpCourseReason.seqOptional(/* [] */0);
                         return Jest.Expect.toEqual("Some(0)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 return Jest.test("it correctly handles a None value", (function (param) {
-                              var result = Listz$FpCourseReason.seqOptional(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      undefined,
-                                      /* :: */[
-                                        10,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Listz$FpCourseReason.seqOptional({
+                                    hd: 1,
+                                    tl: {
+                                      hd: undefined,
+                                      tl: {
+                                        hd: 10,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                             }));
               }));
         Jest.describe("find", (function (param) {
                 Jest.test("it returns None when no elements found", (function (param) {
-                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* :: */[
-                              1,
-                              /* :: */[
-                                3,
-                                /* :: */[
-                                  5,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, {
+                              hd: 1,
+                              tl: {
+                                hd: 3,
+                                tl: {
+                                  hd: 5,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
                         return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 Jest.test("it returns None for an empty list", (function (param) {
@@ -494,53 +494,53 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toEqual("None", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 Jest.test("it finds a matching element", (function (param) {
-                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* :: */[
-                                    5,
-                                    /* [] */0
-                                  ]
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, {
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: {
+                                    hd: 5,
+                                    tl: /* [] */0
+                                  }
+                                }
+                              }
+                            });
                         return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                       }));
                 return Jest.test("it finds the first matching element", (function (param) {
-                              var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, /* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* :: */[
-                                            5,
-                                            /* [] */0
-                                          ]
-                                        ]
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Listz$FpCourseReason.find(Util$FpCourseReason.isEven, {
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: {
+                                            hd: 5,
+                                            tl: /* [] */0
+                                          }
+                                        }
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toEqual("Some(2)", Jest.Expect.expect(Util$FpCourseReason.optionToString(result)));
                             }));
               }));
         Jest.describe("lengthGT4", (function (param) {
                 Jest.test("it correctly handles a list of length 3", (function (param) {
-                        var result = Listz$FpCourseReason.lengthGT4(/* :: */[
-                              1,
-                              /* :: */[
-                                2,
-                                /* :: */[
-                                  3,
-                                  /* [] */0
-                                ]
-                              ]
-                            ]);
+                        var result = Listz$FpCourseReason.lengthGT4({
+                              hd: 1,
+                              tl: {
+                                hd: 2,
+                                tl: {
+                                  hd: 3,
+                                  tl: /* [] */0
+                                }
+                              }
+                            });
                         return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
                       }));
                 Jest.test("it correctly handles an empty list", (function (param) {
@@ -548,47 +548,47 @@ Jest.describe("Listz", (function (param) {
                         return Jest.Expect.toEqual(false, Jest.Expect.expect(result));
                       }));
                 return Jest.test("it correctly handles a list of length 5", (function (param) {
-                              var result = Listz$FpCourseReason.lengthGT4(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* :: */[
-                                          4,
-                                          /* :: */[
-                                            5,
-                                            /* [] */0
-                                          ]
-                                        ]
-                                      ]
-                                    ]
-                                  ]);
+                              var result = Listz$FpCourseReason.lengthGT4({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: {
+                                          hd: 4,
+                                          tl: {
+                                            hd: 5,
+                                            tl: /* [] */0
+                                          }
+                                        }
+                                      }
+                                    }
+                                  });
                               return Jest.Expect.toEqual(true, Jest.Expect.expect(result));
                             }));
               }));
         return Jest.describe("reverse", (function (param) {
                       Jest.test("it correctly handles a list", (function (param) {
-                              var result = Listz$FpCourseReason.reverse(/* :: */[
-                                    1,
-                                    /* :: */[
-                                      2,
-                                      /* :: */[
-                                        3,
-                                        /* [] */0
-                                      ]
-                                    ]
-                                  ]);
-                              return Jest.Expect.toEqual(/* :: */[
-                                          3,
-                                          /* :: */[
-                                            2,
-                                            /* :: */[
-                                              1,
-                                              /* [] */0
-                                            ]
-                                          ]
-                                        ], Jest.Expect.expect(result));
+                              var result = Listz$FpCourseReason.reverse({
+                                    hd: 1,
+                                    tl: {
+                                      hd: 2,
+                                      tl: {
+                                        hd: 3,
+                                        tl: /* [] */0
+                                      }
+                                    }
+                                  });
+                              return Jest.Expect.toEqual({
+                                          hd: 3,
+                                          tl: {
+                                            hd: 2,
+                                            tl: {
+                                              hd: 1,
+                                              tl: /* [] */0
+                                            }
+                                          }
+                                        }, Jest.Expect.expect(result));
                             }));
                       return Jest.test("it correctly handles an empty list", (function (param) {
                                     var result = Listz$FpCourseReason.reverse(/* [] */0);

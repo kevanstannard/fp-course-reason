@@ -3,17 +3,17 @@
 
 var Reader$FpCourseReason = require("./Reader.bs.js");
 
-var hi = Reader$FpCourseReason.$great$great$eq(Reader$FpCourseReason.ask(/* () */0), (function (name) {
+var hi = Reader$FpCourseReason.$great$great$eq(Reader$FpCourseReason.ask(undefined), (function (name) {
         return Reader$FpCourseReason.$$return("Hi " + name);
       }));
 
-var bye = Reader$FpCourseReason.$great$great$eq(Reader$FpCourseReason.ask(/* () */0), (function (name) {
+var bye = Reader$FpCourseReason.$great$great$eq(Reader$FpCourseReason.ask(undefined), (function (name) {
         return Reader$FpCourseReason.$$return("Bye " + name);
       }));
 
 var hiBye = Reader$FpCourseReason.$great$great$eq(hi, (function (h) {
         return Reader$FpCourseReason.$great$great$eq(bye, (function (b) {
-                      return Reader$FpCourseReason.$$return(/* tuple */[
+                      return Reader$FpCourseReason.$$return([
                                   h,
                                   b
                                 ]);
@@ -37,7 +37,7 @@ var r = makeSuper(format(hiBye));
 function start(param) {
   var result = Reader$FpCourseReason.run(r, "Joe");
   console.log(result);
-  return /* () */0;
+  
 }
 
 var WithReader = {
@@ -61,7 +61,7 @@ function bye$1(name) {
 function hiBye$1(name) {
   var h = "Hi " + name;
   var b = "Bye " + name;
-  return /* tuple */[
+  return [
           h,
           b
         ];
@@ -82,7 +82,7 @@ function r$1(env) {
 function start$1(param) {
   var result = format$1(hiBye$1("Super Joe"));
   console.log(result);
-  return /* () */0;
+  
 }
 
 var WithoutReader = {
@@ -95,9 +95,9 @@ var WithoutReader = {
   start: start$1
 };
 
-start(/* () */0);
+start(undefined);
 
-start$1(/* () */0);
+start$1(undefined);
 
 exports.WithReader = WithReader;
 exports.WithoutReader = WithoutReader;

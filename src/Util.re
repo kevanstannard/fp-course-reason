@@ -18,7 +18,9 @@ type optionToString('a) = option('a) => string;
 let optionToString = opt => {
   switch (opt) {
   | None => "None"
-  | Some(a) => {j|Some($a)|j}
+  | Some(a) =>
+    let json = Js.Json.stringifyAny(a);
+    {j|Some($json)|j};
   };
 };
 
